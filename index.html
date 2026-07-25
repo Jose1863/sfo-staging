@@ -36,7 +36,7 @@
        source preload exactly what the <picture> resolves to; the rare non-AVIF browser
        skips the preload and still gets the JPEG fallback from the markup. -->
   <link rel="preload" as="image" type="image/avif" href="assets/img/hero-1280.avif?v=1"
-        imagesrcset="assets/img/hero-768.avif?v=1 768w, assets/img/hero-1280.avif?v=1 1280w, assets/img/hero.avif?v=1 2000w"
+        imagesrcset="assets/img/hero-768.avif?v=1 768w, assets/img/hero-1280.avif?v=1 1280w, assets/img/hero.avif?v=1 2000w, assets/img/hero-2600.avif?v=1 2600w, assets/img/hero-3200.avif?v=1 3200w"
         imagesizes="100vw" fetchpriority="high">
   <!-- Only the display font is preloaded. Raleway's preload was deleted (master 1.6.2):
        its metric-matched fallback makes the swap invisible, and the 43KB fetch was
@@ -144,10 +144,10 @@
       <div class="hero-media" aria-hidden="true">
         <picture>
           <source type="image/avif"
-                  srcset="assets/img/hero-768.avif?v=1 768w, assets/img/hero-1280.avif?v=1 1280w, assets/img/hero.avif?v=1 2000w"
+                  srcset="assets/img/hero-768.avif?v=1 768w, assets/img/hero-1280.avif?v=1 1280w, assets/img/hero.avif?v=1 2000w, assets/img/hero-2600.avif?v=1 2600w, assets/img/hero-3200.avif?v=1 3200w"
                   sizes="100vw">
           <img src="assets/img/hero-1280.jpg?v=1"
-               srcset="assets/img/hero-768.jpg?v=1 768w, assets/img/hero-1280.jpg?v=1 1280w, assets/img/hero.jpg?v=1 2000w"
+               srcset="assets/img/hero-768.jpg?v=1 768w, assets/img/hero-1280.jpg?v=1 1280w, assets/img/hero.jpg?v=1 2000w, assets/img/hero-2600.jpg?v=1 2600w"
                sizes="100vw" alt="" width="1280" height="853" fetchpriority="high" decoding="async">
         </picture>
       </div>
@@ -596,10 +596,10 @@
       <div class="cta-media" aria-hidden="true">
         <picture>
           <source type="image/avif"
-                  srcset="assets/img/cta-768.avif?v=1 768w, assets/img/cta-1280.avif?v=1 1280w, assets/img/cta.avif?v=1 2000w"
+                  srcset="assets/img/cta-768.avif?v=1 768w, assets/img/cta-1280.avif?v=1 1280w, assets/img/cta.avif?v=1 2000w, assets/img/cta-2600.avif?v=1 2600w, assets/img/cta-3200.avif?v=1 3200w"
                   sizes="100vw">
           <img src="assets/img/cta-1280.jpg?v=1"
-               srcset="assets/img/cta-768.jpg?v=1 768w, assets/img/cta-1280.jpg?v=1 1280w, assets/img/cta.jpg?v=1 2000w"
+               srcset="assets/img/cta-768.jpg?v=1 768w, assets/img/cta-1280.jpg?v=1 1280w, assets/img/cta.jpg?v=1 2000w, assets/img/cta-2600.jpg?v=1 2600w"
                sizes="100vw" alt="" width="1280" height="853" loading="lazy" decoding="async">
         </picture>
       </div>
