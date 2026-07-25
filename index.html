@@ -38,8 +38,10 @@
   <link rel="preload" as="image" type="image/avif" href="assets/img/hero-1280.avif?v=1"
         imagesrcset="assets/img/hero-768.avif?v=1 768w, assets/img/hero-1280.avif?v=1 1280w, assets/img/hero.avif?v=1 2000w"
         imagesizes="100vw" fetchpriority="high">
+  <!-- Only the display font is preloaded. Raleway's preload was deleted (master 1.6.2):
+       its metric-matched fallback makes the swap invisible, and the 43KB fetch was
+       competing with the hero image in the LCP window. -->
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorant-garamond-var.woff2" crossorigin>
-  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/raleway-var.woff2" crossorigin>
 
   <link rel="stylesheet" href="assets/fonts/fonts.css?v=1">
   <link rel="stylesheet" href="assets/css/tokens.css?v=1">
