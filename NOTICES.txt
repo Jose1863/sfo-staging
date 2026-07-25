@@ -1,0 +1,16 @@
+Third-party notices for this site
+=================================
+
+Typefaces
+---------
+Cormorant Garamond and Raleway are self-hosted under the SIL Open Font
+License 1.1. See assets/fonts/OFL.txt for the copyright notices and the
+full license text.
+
+Animation
+---------
+GSAP 3.15 (gsap.min.js, ScrollTrigger.min.js in assets/js/vendor/) is
+Copyright GreenSock / Webflow, used under the Standard "No Charge" GSAP
+License, https://gsap.com/standard-license. The @license banner comments
+inside those files are required by that license and must not be removed
+or minified away.

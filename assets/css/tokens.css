@@ -1,0 +1,102 @@
+/* ============================================================================
+   The Stakeholder's Family Office — design tokens
+   Extracted verbatim from the Unified Brand & Marketing Kit (2026).
+   Two typefaces only. Deep Green is always dominant. Gold is an accent,
+   never a background, never small gold text on green (use champagne).
+   ========================================================================== */
+
+:root {
+  /* ---- Brand color, exact kit hexes ---- */
+  --green:            #1B4D35; /* Deep Green, primary, always dominant */
+  --gold:             #B8963E; /* Brand Gold, accent only: rules, large figures, one CTA. Never a background; never small text on green (use --champagne / --gilt). */
+  --ivory:            #FFFFFF;
+  --near-black:       #1A1A1A;
+  --mid-gray:         #555555;
+  --tint-green:       #E8F0EC;
+  --tint-gold:        #F7F1E3;
+
+  /* ---- Dark-mode ground stops (kit: dark mode = Deep Green ground, ivory text).
+          Darker greens are tints of the brand green for layered depth. ---- */
+  --green-950:        #0C2117; /* deepest ground */
+  --green-900:        #102C1E; /* page ground */
+  --green-850:        #123325;
+  --green-800:        #16412C;
+  --green-700:        #1B4D35; /* brand surface */
+  --green-600:        #245C41; /* raised surface / hover */
+  --green-500:        #2E6E4F; /* hairline-on-green lift */
+
+  /* ---- Text on the green ground ---- */
+  --text:             #F7F4EA; /* ivory body */
+  --text-dim:         #E4E0D2; /* secondary */
+  --sage:             #B6C4BA; /* muted captions, meets AA on the ground */
+  --sage-dim:         #8FA596;
+
+  /* ---- Gold family. champagne is the ONLY gold tone allowed as small text on green ---- */
+  --champagne:        #E8D4A6;
+  --gilt:             #CCAA55;
+  --bullion:          #8E7330;
+  --ink:              #0C2117; /* dark text for use on gold fills */
+
+  /* ---- Hairlines and accents ---- */
+  --line:             rgba(232, 212, 166, 0.14);
+  --line-strong:      rgba(232, 212, 166, 0.26);
+  --line-gold:        rgba(184, 150, 62, 0.42);
+  --glow-gold:        rgba(184, 150, 62, 0.16);
+
+  /* ---- Surfaces ---- */
+  --card:             rgba(255, 255, 255, 0.030);
+  --card-raised:      rgba(255, 255, 255, 0.045);
+  --card-border:      rgba(232, 212, 166, 0.16);
+  --overlay-green:    rgba(12, 33, 23, 0.78); /* photo wash, keeps the green world */
+
+  /* ---- Typography. Cormorant display (never below 18px). Raleway body/UI ---- */
+  --font-display: "Cormorant Garamond", "Cormorant Garamond Fallback", Georgia, "Times New Roman", serif;
+  --font-sans:    "Raleway", "Raleway Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  /* fluid scale, clamped */
+  --fs-display:   clamp(2.85rem, 1.65rem + 5.6vw, 5.25rem); /* hero */
+  --fs-h1:        clamp(2.1rem, 1.45rem + 3.0vw, 3.4rem);
+  --fs-h2:        clamp(1.7rem, 1.25rem + 2.1vw, 2.6rem);
+  --fs-h3:        clamp(1.375rem, 1.2rem + 0.5vw, 1.6rem);   /* 22-25.6px, clears the --fs-lead ceiling */
+  --fs-lead:      clamp(1.1rem, 1.0rem + 0.65vw, 1.4rem);
+  --fs-body:      1.0625rem;                                 /* 17px */
+  --fs-label:     0.78rem;                                   /* uppercase tracked label */
+  --fs-figure:    clamp(2.6rem, 1.6rem + 4.4vw, 4.25rem);    /* gold stat figures */
+  --fs-figure-sm: clamp(1.45rem, 1.2rem + 0.8vw, 1.7rem);    /* secondary figures */
+
+  --lh-tight:     1.04;
+  --lh-snug:      1.22;
+  --lh-body:      1.62;
+  --tracking-label: 0.18em;   /* hero / section labels */
+  --tracking-tight: 0.12em;   /* micro labels: chips, sources, form */
+  --tracking-cta:   0.12em;
+
+  /* ---- Spacing scale: 4px base for UI rhythm, generous steps for macro air ---- */
+  --sp-1: 0.25rem; --sp-2: 0.5rem; --sp-3: 0.75rem; --sp-4: 1rem;
+  --sp-5: 1.5rem;  --sp-6: 2rem;   --sp-7: 2.5rem;  --sp-8: 3rem;
+  --sp-10: 4rem;   --sp-12: 5rem;
+
+  /* ---- Section rhythm and widths ---- */
+  --section-y: clamp(5rem, 3.5rem + 7vw, 9rem);
+  --header-h:  76px;        /* sticky header height; single source of truth */
+  --maxw:        1200px;
+  --maxw-text:   760px;
+  --maxw-read:   64ch;        /* comfortable reading measure for lead/body */
+  --gutter:      clamp(1.25rem, 0.6rem + 3vw, 3rem);
+
+  /* ---- Form ---- */
+  --radius-sm: 4px;
+  --radius:    8px;
+  --radius-lg: 14px;
+
+  --shadow-card: 0 1px 0 rgba(232,212,166,0.05) inset, 0 18px 40px -28px rgba(0,0,0,0.7);
+  --shadow-pop:  0 30px 70px -36px rgba(0,0,0,0.85);
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.6s;
+  --dur-fast: 0.28s;
+
+  --tap: 44px; /* minimum touch target */
+}
