@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>document.documentElement.classList.add('js')</script>
   <title>The Stakeholder's Family Office | Fractional Family Office for Founders</title>
-  <meta name="description" content="A fractional family office for founders running $2M to $50M businesses. One coordinated team for tax, entity structure, capital, and exit planning, on one flat monthly retainer. Optimize. Empower. Scale.">
+  <meta name="description" content="A fractional family office for founders running $2M to $50M businesses. Tax, entity structure, capital, and exit planning on one flat monthly retainer.">
   <meta name="robots" content="noindex, nofollow">
   <meta name="author" content="The Stakeholder's Family Office, a division of EG Capital Holdings LLC">
   <meta name="theme-color" content="#0C2117">
@@ -29,19 +29,21 @@
   <meta name="twitter:image" content="https://www.eg-capital.co/assets/img/og-image.png">
   <meta name="twitter:image:alt" content="The Stakeholder's Family Office, a fractional family office for founders running $2M to $50M businesses.">
 
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/img/logo-favicon.svg">
+  <link rel="icon" href="assets/img/favicon.svg?v=1" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/logo-favicon.svg?v=1">
 
-  <!-- Preload LCP image + the two faces used in the hero -->
-  <link rel="preload" as="image" href="assets/img/hero-1280.jpg"
-        imagesrcset="assets/img/hero-768.jpg 768w, assets/img/hero-1280.jpg 1280w, assets/img/hero.jpg 2000w"
+  <!-- Preload the LCP hero image. AVIF-typed so browsers that would pick the AVIF
+       source preload exactly what the <picture> resolves to; the rare non-AVIF browser
+       skips the preload and still gets the JPEG fallback from the markup. -->
+  <link rel="preload" as="image" type="image/avif" href="assets/img/hero-1280.avif?v=1"
+        imagesrcset="assets/img/hero-768.avif?v=1 768w, assets/img/hero-1280.avif?v=1 1280w, assets/img/hero.avif?v=1 2000w"
         imagesizes="100vw" fetchpriority="high">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorant-garamond-var.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/raleway-var.woff2" crossorigin>
 
-  <link rel="stylesheet" href="assets/fonts/fonts.css">
-  <link rel="stylesheet" href="assets/css/tokens.css">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/fonts/fonts.css?v=1">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="assets/css/styles.css?v=1">
 
   <script type="application/ld+json">
   {
@@ -52,7 +54,7 @@
     "alternateName": "SFO",
     "url": "https://www.eg-capital.co/",
     "email": "info@eg-capital.co",
-    "logo": "https://www.eg-capital.co/assets/img/og-image.png",
+    "logo": "https://www.eg-capital.co/assets/img/logo-512.png",
     "image": "https://www.eg-capital.co/assets/img/og-image.png",
     "slogan": "Optimize. Empower. Scale.",
     "description": "A fractional family office for founders running $2M to $50M businesses. One coordinated team for tax, entity structure, capital, and exit planning on one flat monthly retainer. A division of EG Capital Holdings LLC, with investment advisory services provided through Solyco Wealth LLC, an SEC-registered investment adviser.",
@@ -64,6 +66,20 @@
       { "@type": "Person", "name": "Evan Gruchot", "jobTitle": "Co-Founder & Chief Architect", "image": "https://www.eg-capital.co/assets/img/team-evan.jpg" },
       { "@type": "Person", "name": "Tinja Anderson", "jobTitle": "Co-Founder, CRO & CEPA", "image": "https://www.eg-capital.co/assets/img/team-tinja.jpg" }
     ]
+  }
+  </script>
+  <!-- WebSite entity: Google's site-name signal, so brand SERPs say the firm's name
+       instead of the legal parent's. sameAs arrays land here once gate 0.9 supplies
+       the LinkedIn URLs. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.eg-capital.co/#website",
+    "url": "https://www.eg-capital.co/",
+    "name": "The Stakeholder's Family Office",
+    "alternateName": ["Stakeholder's Family Office", "SFO"],
+    "publisher": { "@id": "https://www.eg-capital.co/#organization" }
   }
   </script>
   <script type="application/ld+json">
@@ -83,9 +99,9 @@
 
   <!-- GSAP is an enhancement layer only. If either file fails to load, main.js falls back
        to the IntersectionObserver reveal path and the page behaves exactly as before. -->
-  <script src="assets/js/vendor/gsap.min.js" defer></script>
-  <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/vendor/gsap.min.js?v=1" defer></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js?v=1" defer></script>
+  <script src="assets/js/main.js?v=1" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -95,7 +111,7 @@
   <header class="site-header" id="top">
     <div class="wrap nav">
       <a class="brand" href="#top" aria-label="The Stakeholder's Family Office, home">
-        <img src="assets/img/mark.svg" alt="" width="30" height="30">
+        <img src="assets/img/mark.svg?v=1" alt="" width="30" height="30">
         <span class="brand-name">Stakeholder<span class="b">'</span>s Family Office</span>
       </a>
       <!-- Header says 'Engagement' where the footer says 'The Engagement': a deliberate
@@ -124,9 +140,14 @@
     <!-- ===================== HERO ===================== -->
     <section class="hero" aria-labelledby="hero-h">
       <div class="hero-media" aria-hidden="true">
-        <img src="assets/img/hero-1280.jpg"
-             srcset="assets/img/hero-768.jpg 768w, assets/img/hero-1280.jpg 1280w, assets/img/hero.jpg 2000w"
-             sizes="100vw" alt="" width="1280" height="853" fetchpriority="high" decoding="async">
+        <picture>
+          <source type="image/avif"
+                  srcset="assets/img/hero-768.avif?v=1 768w, assets/img/hero-1280.avif?v=1 1280w, assets/img/hero.avif?v=1 2000w"
+                  sizes="100vw">
+          <img src="assets/img/hero-1280.jpg?v=1"
+               srcset="assets/img/hero-768.jpg?v=1 768w, assets/img/hero-1280.jpg?v=1 1280w, assets/img/hero.jpg?v=1 2000w"
+               sizes="100vw" alt="" width="1280" height="853" fetchpriority="high" decoding="async">
+        </picture>
       </div>
       <div class="hero-grain" aria-hidden="true"></div>
       <div class="wrap">
@@ -470,7 +491,10 @@
 
         <div class="team">
           <article class="member reveal" data-d="1">
-            <img class="member-photo" src="assets/img/team-evan.jpg" alt="" width="640" height="800" loading="lazy" decoding="async">
+            <picture>
+              <source type="image/avif" srcset="assets/img/team-evan.avif?v=1">
+              <img class="member-photo" src="assets/img/team-evan.jpg?v=1" alt="" width="640" height="800" loading="lazy" decoding="async">
+            </picture>
             <h3>Evan Gruchot</h3>
             <p class="role">Co-Founder &amp; Chief Architect</p>
             <p>Outsourced chief investment officer for seven registered investment advisers managing nearly $500M, and advisor to private equity and venture capital firms with over $10B in assets. Architect of the Growth Architecture Framework across all four pillars.</p>
@@ -483,7 +507,10 @@
           </article>
 
           <article class="member reveal" data-d="2">
-            <img class="member-photo" src="assets/img/team-tinja.jpg" alt="" width="640" height="800" loading="lazy" decoding="async">
+            <picture>
+              <source type="image/avif" srcset="assets/img/team-tinja.avif?v=1">
+              <img class="member-photo" src="assets/img/team-tinja.jpg?v=1" alt="" width="640" height="800" loading="lazy" decoding="async">
+            </picture>
             <h3>Tinja Anderson</h3>
             <p class="role">Co-Founder, CRO &amp; CEPA</p>
             <p>Eighteen years as a strategic sales and business optimization consultant. She sets the client experience standard across the firm.</p>
@@ -565,9 +592,14 @@
     <!-- ===================== CTA ===================== -->
     <section class="section cta" id="contact" aria-labelledby="cta-h">
       <div class="cta-media" aria-hidden="true">
-        <img src="assets/img/cta-1280.jpg"
-             srcset="assets/img/cta-768.jpg 768w, assets/img/cta-1280.jpg 1280w, assets/img/cta.jpg 2000w"
-             sizes="100vw" alt="" width="1280" height="853" loading="lazy" decoding="async">
+        <picture>
+          <source type="image/avif"
+                  srcset="assets/img/cta-768.avif?v=1 768w, assets/img/cta-1280.avif?v=1 1280w, assets/img/cta.avif?v=1 2000w"
+                  sizes="100vw">
+          <img src="assets/img/cta-1280.jpg?v=1"
+               srcset="assets/img/cta-768.jpg?v=1 768w, assets/img/cta-1280.jpg?v=1 1280w, assets/img/cta.jpg?v=1 2000w"
+               sizes="100vw" alt="" width="1280" height="853" loading="lazy" decoding="async">
+        </picture>
       </div>
       <div class="wrap cta-grid">
         <div class="cta-copy">
@@ -633,7 +665,7 @@
       <div class="foot-top">
         <div class="foot-brand">
           <a class="brand" href="#top" aria-label="The Stakeholder's Family Office, home">
-            <img src="assets/img/mark.svg" alt="" width="28" height="28">
+            <img src="assets/img/mark.svg?v=1" alt="" width="28" height="28">
             <span class="brand-name">Stakeholder<span class="b">'</span>s Family Office</span>
           </a>
           <p class="tagline">Optimize. Empower. Scale.</p>

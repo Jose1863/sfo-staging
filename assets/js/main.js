@@ -60,14 +60,23 @@
          below  - the normal case, revealed on scroll by the batch
        The 0.88 boundary is the same one the batch uses for its "top 88%" start. */
     var fold = window.innerHeight * 0.88;
-    var above = [], inView = [], below = [];
+    var above = [], inView = [], below = [], heroEls = [];
 
     revealEls.forEach(function (el) {
+      if (el.closest(".hero")) { heroEls.push(el); return; }
       var top = el.getBoundingClientRect().top;
       if (top < 0) { above.push(el); }
       else if (top < fold) { inView.push(el); }
       else { below.push(el); }
     });
+
+    /* Hero entrance: the hero reveals are CSS-visible before JS (LCP guarantee), so the
+       entrance runs FROM hidden TO the natural visible state. The from() tween's end
+       state is the stylesheet's, which removes the stranded-content class of bug by
+       construction. */
+    if (heroEls.length) {
+      gsap.from(heroEls, { opacity: 0, y: 20, duration: 0.7, ease: "power3.out", stagger: 0.08, overwrite: true });
+    }
 
     if (above.length) { gsap.set(above, { opacity: 1, y: 0 }); }
 
