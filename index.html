@@ -98,6 +98,8 @@
         <img src="assets/img/mark.svg" alt="" width="30" height="30">
         <span class="brand-name">Stakeholder<span class="b">'</span>s Family Office</span>
       </a>
+      <!-- Header says 'Engagement' where the footer says 'The Engagement': a deliberate
+           width trim so brand + 7 links + CTA never wrap in the 1100-1360px window. -->
       <nav class="nav-links" id="nav" aria-label="Primary">
         <a href="#problem">The Problem</a>
         <a href="#pillars">What We Do</a>
@@ -105,6 +107,7 @@
         <a href="#framework">Framework</a>
         <a href="#engagement">Engagement</a>
         <a href="#team">Team</a>
+        <a href="#faq">FAQ</a>
         <span class="nav-cta"><a class="btn btn-primary" href="#contact">Book a Strategy Call</a></span>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
@@ -265,6 +268,7 @@
           </ul>
           <p class="triggers-notfit">Where we are not the right fit: pre-revenue companies, and households looking for investment management alone. If that is you, we will say so on the first call and point you to a better option.</p>
           <p class="triggers-close">If one of these is on your desk, it is the right time to talk.</p>
+          <p class="triggers-cta"><a href="#contact">Book a Strategy Call <span aria-hidden="true">→</span></a></p>
         </div>
       </div>
     </section>
@@ -335,12 +339,14 @@
         <div class="section-head">
           <h2 class="title reveal" id="beliefs-h" data-d="1">Five beliefs we build from.</h2>
         </div>
+        <!-- Row order completes settled R13: the list ends on the misaligned-incentives belief so
+             'We earn on the relationship' sits directly above the Engagement h2 and fee strip. -->
         <ol class="beliefs reveal" data-d="1">
           <li class="belief"><span class="b-mark" aria-hidden="true"></span><h3>Fragmentation is expensive.</h3><p>The cost is not the sum of the bills. It is the gaps between them.</p></li>
-          <li class="belief"><span class="b-mark" aria-hidden="true"></span><h3>Misaligned incentives cost more than fees.</h3><p>The wealth advisor earns on assets. The attorney earns on hours. <span class="accent">We earn on the relationship.</span></p></li>
-          <li class="belief"><span class="b-mark" aria-hidden="true"></span><h3>Hourly billing is broken.</h3><p>It rewards slow work and charges you for asking a question.</p></li>
           <li class="belief"><span class="b-mark" aria-hidden="true"></span><h3>Pre-exit planning is a five-year problem.</h3><p>Not a six-month one. The structures that protect an exit take years to put in place.</p></li>
           <li class="belief"><span class="b-mark" aria-hidden="true"></span><h3>Family office architecture is not a net-worth gate.</h3><p>We bring it to founders running $2M to $50M businesses, not just households above $100M.</p></li>
+          <li class="belief"><span class="b-mark" aria-hidden="true"></span><h3>Hourly billing is broken.</h3><p>It rewards slow work and charges you for asking a question.</p></li>
+          <li class="belief"><span class="b-mark" aria-hidden="true"></span><h3>Misaligned incentives cost more than fees.</h3><p>The wealth advisor earns on assets. The attorney earns on hours. <span class="accent">We earn on the relationship.</span></p></li>
         </ol>
       </div>
     </section>
@@ -359,8 +365,20 @@
           <p>One flat monthly retainer. That is the whole model. No commissions on products. No percentage of your assets. No charge for picking up the phone. We earn on the relationship. The conflicts that remain are described in Solyco Wealth's Form ADV.</p>
         </div>
 
+        <!-- Three grid children in source order savings -> price-card -> modules: on phones the
+             modeled value precedes the Book CTA (value-before-ask), while grid-template-areas
+             at >=940px reproduces the desktop layout with the card spanning both rows. -->
         <div class="pricing">
-          <div class="price-card reveal" data-d="1">
+          <div class="savings reveal" data-d="1">
+            <h3>Modeled Year-1 value</h3>
+            <p class="s-amt">$25,000 to several million</p>
+            <p class="s-cap">in modeled Year-1 tax savings, depending on your situation, entity structure, and exit timing.</p>
+            <p class="s-guarantee">It is not a guarantee.
+              <small>We model conservatively. Modeled savings are estimates, not promises.</small>
+            </p>
+          </div>
+
+          <div class="price-card reveal" data-d="2">
             <h3 class="price-title">Inside the core engagement</h3>
             <p class="price-sub">One retainer covers everything on this list. No surprise invoices.</p>
             <ul class="includes">
@@ -385,26 +403,15 @@
             </div>
           </div>
 
-          <div class="aside-stack">
-            <div class="savings reveal" data-d="2">
-              <h3>Modeled Year-1 value</h3>
-              <p class="s-amt">$25,000 to several million</p>
-              <p class="s-cap">in modeled Year-1 tax savings, depending on your situation, entity structure, and exit timing.</p>
-              <p class="s-guarantee">It is not a guarantee.
-                <small>We model conservatively. Modeled savings are estimates, not promises.</small>
-              </p>
-            </div>
-
-            <div class="modules reveal" data-d="3">
-              <h3>Add-on modules</h3>
-              <ul>
-                <li><span class="m-name">Bookkeeping</span><span class="m-price">Per entity</span></li>
-                <li><span class="m-name">Multi-entity tax filings</span><span class="m-price">Custom retainer</span></li>
-                <li><span class="m-name">Complex trust structuring</span><span class="m-price">Per engagement</span></li>
-                <li><span class="m-name">Capital raising</span><span class="m-price">Capacity-gated</span></li>
-                <li><span class="m-name">Turnaround and restructuring</span><span class="m-price">Per engagement</span></li>
-              </ul>
-            </div>
+          <div class="modules reveal" data-d="3">
+            <h3>Add-on modules</h3>
+            <ul>
+              <li><span class="m-name">Bookkeeping</span><span class="m-price">Per entity</span></li>
+              <li><span class="m-name">Multi-entity tax filings</span><span class="m-price">Custom retainer</span></li>
+              <li><span class="m-name">Complex trust structuring</span><span class="m-price">Per engagement</span></li>
+              <li><span class="m-name">Capital raising</span><span class="m-price">Capacity-gated</span></li>
+              <li><span class="m-name">Turnaround and restructuring</span><span class="m-price">Per engagement</span></li>
+            </ul>
           </div>
         </div>
 
@@ -468,9 +475,11 @@
             <p class="role">Co-Founder &amp; Chief Architect</p>
             <p>Outsourced chief investment officer for seven registered investment advisers managing nearly $500M, and advisor to private equity and venture capital firms with over $10B in assets. Architect of the Growth Architecture Framework across all four pillars.</p>
             <ul class="creds">
+              <li>Outsourced CIO to seven registered investment advisers</li>
               <li>Founder, EG Capital Holdings</li>
               <li>Four advisory boards in PE and private credit</li>
             </ul>
+            <!-- Gate 0.8: the .member .s-src 'Figures as of [date]' stamp lands here once the owner confirms the date. -->
           </article>
 
           <article class="member reveal" data-d="2">
@@ -508,8 +517,11 @@
     <!-- ===================== DEFINITION ===================== -->
     <section class="section" id="definition" aria-labelledby="def-h">
       <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow reveal">The term, defined</p>
+          <h2 class="title reveal" id="def-h" data-d="1">What a fractional family office is.</h2>
+        </div>
         <div class="definition reveal" data-d="1">
-          <h2 class="title" id="def-h">What a fractional family office is.</h2>
           <p>A family office is a private team that runs every part of a family's financial life: tax, entity structure, capital, and succession. Staffing one is its own payroll, which is why the model has stayed reserved for households above $100M. A fractional family office delivers the same coordination without the standing payroll. One team, across all four disciplines at once, scoped to a founder still running the business. That is the firm we built.</p>
         </div>
       </div>
@@ -564,6 +576,15 @@
           <div class="cta-alt reveal" data-d="2">
             <span>By email: <a href="mailto:info@eg-capital.co">info@eg-capital.co</a></span>
             <span>We reply within one business day.</span>
+          </div>
+          <!-- Step titles reused verbatim from #how: reassurance at the decision point. -->
+          <div class="cta-after reveal" data-d="3">
+            <p class="cta-after-lead">After you book</p>
+            <ol>
+              <li>Strategy call</li>
+              <li>Modeled plan</li>
+              <li>Onboarding</li>
+            </ol>
           </div>
         </div>
 

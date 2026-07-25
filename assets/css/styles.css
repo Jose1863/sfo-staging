@@ -152,6 +152,16 @@ em { font-style: italic; color: var(--champagne); }
 }
 .nav-cta { margin-left: 0.5rem; }
 .nav-toggle { display: none; }
+/* Just above the 1100px collapse point the full row (brand + 7 links + CTA) is wider than
+   the viewport: the CTA clipped 78px off-screen even before the FAQ link landed. Tighter
+   air in the 1100-1360px band keeps the row on one line; full spacing returns at 1360. */
+@media (min-width: 1100.02px) and (max-width: 1359.98px) {
+  .nav { gap: 1rem; }
+  .nav-links { gap: 0.1rem; }
+  .nav-links a:not(.btn) { padding: 0.4rem 0.35rem; }
+  .nav-cta { margin-left: 0.25rem; }
+  .nav-cta .btn { padding-inline: 1.1rem; }
+}
 
 /* scroll progress */
 .scroll-progress {
@@ -201,21 +211,23 @@ em { font-style: italic; color: var(--champagne); }
 .compare-before h3 { color: var(--sage-dim); }
 .compare-after { background: var(--card-raised); border-color: var(--line-gold); box-shadow: var(--shadow-card); }
 .compare-after h3 { color: var(--champagne); }
-.compare-mid { display: none; }
+/* The gold connector is the section's argument glyph ('this stack becomes this'), so it
+   renders on every breakpoint: same 46px circle, arrow rotated to point down the stack
+   below 880px, horizontal between the panels above it. */
+.compare-mid { display: flex; align-items: center; justify-content: center; position: relative; z-index: 2; }
+.compare-mid span {
+  width: 46px; height: 46px; border-radius: 50%; background: var(--green-900);
+  border: 1px solid var(--line-gold); color: var(--gold);
+  display: grid; place-items: center; font-size: 1.1rem;
+  box-shadow: var(--shadow-pop);
+}
+@media (max-width: 879.98px) { .compare-mid svg { transform: rotate(90deg); } }
 @media (min-width: 880px) {
   /* Both panels keep all four borders closed: with the 64px .compare-mid track between
      them, stripped facing borders read as hairlines terminating in mid-air. */
   .compare-before { border-radius: var(--radius-lg); }
   .compare-after  { border-radius: var(--radius-lg); }
-  .compare-mid {
-    display: flex; align-items: center; justify-content: center; width: 64px; position: relative; z-index: 2;
-  }
-  .compare-mid span {
-    width: 46px; height: 46px; border-radius: 50%; background: var(--green-900);
-    border: 1px solid var(--line-gold); color: var(--gold);
-    display: grid; place-items: center; font-size: 1.1rem;
-    box-shadow: var(--shadow-pop);
-  }
+  .compare-mid { width: 64px; }
 }
 .stack-list li, .gain-list li {
   display: grid; grid-template-columns: 1.4rem 1fr; gap: var(--sp-3);
@@ -261,7 +273,10 @@ em { font-style: italic; color: var(--champagne); }
 .framework { position: relative; }
 
 .flow { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); margin-top: var(--sp-4); }
-@media (min-width: 720px) { .flow { grid-template-columns: repeat(4, 1fr); gap: 0; } }
+/* minmax(0,1fr) keeps the four tracks equal at tablet widths (plain 1fr respects
+   min-content, so 'Diversification' inflated its track to 193px against 159px
+   neighbours); the h3 wrap permission below absorbs the long words instead. */
+@media (min-width: 720px) { .flow { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; } }
 .phase { position: relative; padding: var(--sp-5); }
 @media (min-width: 720px) {
   .phase { padding: var(--sp-6) var(--sp-5); border-top: 1px solid var(--line-gold); }
@@ -271,7 +286,31 @@ em { font-style: italic; color: var(--champagne); }
   }
   .phase:not(:last-child) { border-right: 1px solid var(--line); }
 }
-.phase h3 { font-family: var(--font-display); font-size: 1.55rem; font-weight: 600; margin: 0.4rem 0 0.6rem; }
+/* Below 720px every desktop sequence device (arrows, dots, top rails) is gated off, so the
+   stacked column keeps its own spine: a gold hairline rail with counter numerals 01-04 sitting
+   on it. Numerals live on ::after because html.gsap .phase::before belongs to the desktop
+   dot tween (scale var --dot-scale) and reusing it would inherit that hidden-at-0 state. */
+@media (max-width: 719.98px) {
+  .flow { border-left: 1px solid var(--line-gold); counter-reset: phase; }
+  .phase { counter-increment: phase; padding: var(--sp-4) 0 var(--sp-4) var(--sp-6); }
+  .phase::after {
+    content: counter(phase, decimal-leading-zero);
+    position: absolute; left: 0; top: 1.45rem;
+    transform: translateX(-50%);
+    font-family: var(--font-sans); font-size: var(--fs-label); font-weight: 700;
+    letter-spacing: var(--tracking-tight); color: var(--champagne);
+    background: var(--green-900); padding-block: 0.3rem;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+}
+.phase h3 { font-family: var(--font-display); font-size: 1.55rem; font-weight: 600; margin: 0.4rem 0 0.6rem; overflow-wrap: break-word; hyphens: auto; }
+/* In the 720-900px band the equal tracks leave ~116-158px of content width and
+   'Diversification' at 1.55rem measures wider, which forced an unhyphenated mid-word
+   break. A fluid step-down (20px at 720 scaling back toward full size, never under the
+   18px Cormorant floor) keeps every phase name on one line; full size returns at 900px. */
+@media (min-width: 720px) and (max-width: 899.98px) {
+  .phase h3 { font-size: clamp(1.125rem, -0.1375rem + 3vw, 1.55rem); }
+}
 .phase p { color: var(--sage); font-size: 0.95rem; line-height: 1.55; }
 .phase .p-arrow { display: none; }
 @media (min-width: 720px) {
@@ -296,8 +335,21 @@ em { font-style: italic; color: var(--champagne); }
 .stats-note { text-align: center; margin-top: var(--sp-7); color: var(--sage); max-width: 64ch; margin-inline: auto; font-size: 1rem; }
 
 /* ---------- engagement / pricing ---------- */
+/* Source order is savings -> price-card -> modules so the single-column stack reads
+   value-before-ask with DOM, visual, and focus order aligned (no `order` property).
+   The named areas rebuild the desktop layout: card spans both rows on the left. */
 .pricing { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); align-items: start; }
-@media (min-width: 940px) { .pricing { grid-template-columns: 1.15fr 0.85fr; gap: 1.5rem; } }
+@media (min-width: 940px) {
+  .pricing {
+    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "card savings" "card modules";
+    gap: 1.5rem;
+  }
+  .price-card { grid-area: card; }
+  .savings { grid-area: savings; }
+  .modules { grid-area: modules; }
+}
 .price-card {
   border: 1px solid var(--line-gold); border-radius: var(--radius-lg);
   background: linear-gradient(180deg, var(--card-raised), var(--card));
@@ -311,7 +363,6 @@ em { font-style: italic; color: var(--champagne); }
 .includes .tick { color: var(--gilt); }
 .price-cta { margin-top: var(--sp-6); display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
 
-.aside-stack { display: flex; flex-direction: column; gap: var(--sp-5); }
 .modules { border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card); padding: var(--sp-6) var(--sp-5); }
 .modules h3, .savings h3 {
   font-family: var(--font-sans); text-transform: uppercase; letter-spacing: var(--tracking-label);
@@ -383,6 +434,12 @@ em { font-style: italic; color: var(--champagne); }
 .cta-copy p { margin-top: var(--sp-4); color: var(--text-dim); font-size: var(--fs-lead); line-height: 1.55; max-width: 44ch; }
 .cta-alt { margin-top: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-2); color: var(--sage); font-size: 0.95rem; }
 .cta-alt a { color: var(--champagne); text-decoration: underline; text-underline-offset: 3px; }
+/* Compact post-book sequence beside the form (C16): triggers-lead label idiom + hairline rows. */
+.cta-after { margin-top: var(--sp-6); max-width: 30ch; }
+.cta-copy .cta-after-lead { margin-top: 0; font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; }
+.cta-after ol { counter-reset: booked; margin-top: var(--sp-3); }
+.cta-after li { counter-increment: booked; display: grid; grid-template-columns: 1.6rem 1fr; gap: var(--sp-3); align-items: baseline; padding: var(--sp-3) 0; border-top: 1px solid var(--line); color: var(--text-dim); font-size: 0.95rem; }
+.cta-after li::before { content: counter(booked, decimal-leading-zero); font-size: var(--fs-label); letter-spacing: var(--tracking-tight); color: var(--gilt); font-weight: 700; font-variant-numeric: lining-nums tabular-nums; }
 
 .form { border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--green-850) 86%, transparent); padding: clamp(1.5rem, 1rem + 2vw, 2.2rem); }
 .field { margin-bottom: var(--sp-4); }
@@ -538,6 +595,11 @@ main > section { scroll-margin-top: calc(var(--header-h) + var(--sp-3)); }
 .trigger-list .tg-mark { color: var(--gilt); }
 .triggers-close { margin-top: var(--sp-5); font-family: var(--font-display); font-style: italic; font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem); color: var(--champagne); }
 .triggers-notfit { margin-top: var(--sp-5); color: var(--sage); font-size: 0.95rem; line-height: 1.6; max-width: 66ch; }
+/* The conviction-peak exit ramp (C1): a quiet text link on the champagne underline idiom,
+   its own element after the italic close line. Padding reaches the 44px tap floor. */
+.triggers-cta { margin-top: var(--sp-2); }
+.triggers-cta a { display: inline-block; padding-block: 0.8rem; color: var(--champagne); font-weight: 600; font-size: 0.95rem; text-decoration: underline; text-underline-offset: 3px; }
+.triggers-cta a:hover { color: var(--text); }
 
 /* ---------- fee model strip ---------- */
 .fee-model { border: 1px solid var(--line-gold); border-radius: var(--radius-lg); background: var(--card); padding: var(--sp-6); margin-bottom: var(--sp-7); max-width: var(--maxw-text); }
