@@ -7,6 +7,9 @@
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+/* 2.4.11 focus not obscured: keyboard-driven scrolls keep the focused element clear of
+   the sticky header (top) and the fixed mobile CTA bar (bottom, 52px where it exists). */
+html { scroll-padding-top: calc(var(--header-h) + var(--sp-3)); scroll-padding-bottom: calc(52px + var(--sp-3)); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -110,6 +113,11 @@ em { font-style: italic; color: var(--champagne); }
 .btn-ghost:hover { border-color: var(--champagne); background: var(--card-raised); }
 .btn .arrow { transition: transform var(--dur-fast) var(--ease); }
 .btn:hover .arrow { transform: translateX(3px); }
+/* 1.4.10 reflow: at narrow widths the nowrap CTA label sets the min-content width of the
+   whole pricing grid (measured 371px page width at a 320px viewport). Let labels wrap. */
+@media (max-width: 420px) {
+  .btn { white-space: normal; }
+}
 
 /* ---------- header ---------- */
 /* The header row carries brand + six links + CTA. A wider wrap than the content
@@ -126,7 +134,10 @@ em { font-style: italic; color: var(--champagne); }
   background: color-mix(in srgb, var(--green-950) 90%, transparent);
   border-bottom-color: var(--line);
 }
-.nav { display: flex; align-items: center; justify-content: space-between; min-height: var(--header-h); gap: 1.5rem; }
+/* flex-wrap is the 1.4.12 escape valve: under user-injected text spacing the inflated
+   link row wraps under the brand instead of pushing the CTA off-screen. In the normal
+   state everything fits on one row, so wrap never engages. */
+.nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; min-height: var(--header-h); gap: 0 1.5rem; }
 .brand { display: inline-flex; align-items: center; gap: 0.7rem; min-height: var(--tap); }
 .brand img { width: 30px; height: 30px; }
 .brand-name {
@@ -152,15 +163,19 @@ em { font-style: italic; color: var(--champagne); }
 }
 .nav-cta { margin-left: 0.5rem; }
 .nav-toggle { display: none; }
-/* Just above the 1100px collapse point the full row (brand + 7 links + CTA) is wider than
-   the viewport: the CTA clipped 78px off-screen even before the FAQ link landed. Tighter
-   air in the 1100-1360px band keeps the row on one line; full spacing returns at 1360. */
+/* Just above the 1100px collapse point the full row's PREFERRED width (brand + 7 links
+   + CTA, ~1062px) exceeded the viewport: flex shrink squeezed the brand box under its
+   rigid glyphs, colliding the wordmark with the first link (pre-existing, worse once FAQ
+   landed). The band steps the wordmark down (same mechanism as the <=600px steps, still
+   >=18px) and trims link air so the preferred row genuinely fits from 1101 up; full
+   spacing returns at 1360. */
 @media (min-width: 1100.02px) and (max-width: 1359.98px) {
-  .nav { gap: 1rem; }
-  .nav-links { gap: 0.1rem; }
-  .nav-links a:not(.btn) { padding: 0.4rem 0.35rem; }
-  .nav-cta { margin-left: 0.25rem; }
-  .nav-cta .btn { padding-inline: 1.1rem; }
+  .nav { gap: 0 0.75rem; }
+  .brand-name { font-size: 1.15rem; }
+  .nav-links { gap: 0.05rem; }
+  .nav-links a:not(.btn) { padding: 0.4rem 0.25rem; }
+  .nav-cta { margin-left: 0.2rem; }
+  .nav-cta .btn { padding-inline: 0.9rem; }
 }
 
 /* scroll progress */

@@ -287,6 +287,9 @@
   var toggle = document.getElementById("navToggle");
   var nav = document.getElementById("nav");
   if (toggle && nav) {
+    /* While the dropdown is open the page beneath stays visible but must be out of the
+       tab order and the accessibility tree: inert on everything except the header. */
+    var inertTargets = [document.getElementById("main"), document.querySelector(".site-footer"), document.querySelector(".mobile-cta")].filter(Boolean);
     function isOpen() { return toggle.getAttribute("aria-expanded") === "true"; }
     function setOpen(open) {
       nav.classList.toggle("open", open);
@@ -294,14 +297,29 @@
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       document.body.style.overflow = open ? "hidden" : "";   // lock background scroll while open
+      inertTargets.forEach(function (el) {
+        if (open) { el.setAttribute("inert", ""); } else { el.removeAttribute("inert"); }
+      });
       if (open) {
         var first = nav.querySelector("a");
-        if (first) { first.focus(); }   // move focus into the panel
+        /* The panel becomes focusable only once the .open styles apply, so a synchronous
+           focus can silently fail; retry on the next frame and on a short timer (rAF can
+           starve in background tabs, so neither channel alone is reliable). */
+        if (first) {
+          var tryFocus = function () {
+            if (isOpen() && document.activeElement !== first) { first.focus(); }
+          };
+          tryFocus();
+          requestAnimationFrame(tryFocus);
+          window.setTimeout(tryFocus, 80);
+        }
       }
     }
     toggle.addEventListener("click", function () { setOpen(!isOpen()); });
     nav.addEventListener("click", function (e) {
-      if (e.target.closest("a")) { setOpen(false); toggle.focus(); }
+      /* Close on link-click without yanking focus back to the toggle: the click is a
+         navigation, and returning focus would drag the reader away from the target. */
+      if (e.target.closest("a")) { setOpen(false); }
     });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && isOpen()) { setOpen(false); toggle.focus(); }
