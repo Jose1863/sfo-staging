@@ -6,7 +6,9 @@
 /* ---------- reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; color-scheme: dark; }
+/* Taps flash the brand, not the UA's gray. */
+html { -webkit-tap-highlight-color: rgba(184, 150, 62, 0.10); }
 /* 2.4.11 focus not obscured: keyboard-driven scrolls keep the focused element clear of
    the sticky header (top) and the fixed mobile CTA bar (bottom, 52px where it exists). */
 html { scroll-padding-top: calc(var(--header-h) + var(--sp-3)); scroll-padding-bottom: calc(var(--cta-bar-h) + var(--sp-3)); }
@@ -203,7 +205,12 @@ body.cta-near .site-header .btn-primary:hover { background: var(--card-raised); 
 }
 
 /* ---------- hero ---------- */
-.hero { position: relative; isolation: isolate; padding-block: clamp(6rem, 4.5rem + 9vw, 11rem); overflow: hidden; }
+.hero { position: relative; isolation: isolate; padding-top: clamp(6rem, 4.5rem + 9vw, 11rem);
+  /* Bottom air trimmed independently: the top clamp frames the headline against the
+     photograph, but the same 176px below the proof chip made hero->problem measure
+     322px against a 224-260px default band — the page's second-largest gap with no
+     act-break meaning. This lands it back inside the band. */
+  padding-bottom: clamp(4rem, 3rem + 4.5vw, 6.5rem); overflow: hidden; }
 .hero-media { position: absolute; inset: 0; z-index: -2; }
 /* The hero source is the full sofa trio with wall above. 58% from the top lands the visible
    band on all three faces plus the sofa at desktop aspect ratios; below 900px the window
@@ -645,7 +652,7 @@ html.gsap .phase::before { transform: scale(var(--dot-scale, 1)); }
        goes with it, since nothing translucent is left to blur. */
     background: var(--green-950);
     border-bottom: 1px solid var(--line); padding: 0.5rem var(--gutter) 1.5rem;
-    max-height: calc(100dvh - var(--header-h)); overflow-y: auto;
+    max-height: calc(100dvh - var(--header-h)); overflow-y: auto; overscroll-behavior: contain;
     transform: translateY(-8px); opacity: 0; visibility: hidden; pointer-events: none;
     transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), visibility var(--dur-fast) var(--ease);
   }
@@ -847,8 +854,8 @@ address.foot-contact { font-style: normal; }
     letter-spacing: var(--tracking-cta); text-transform: uppercase; border-top: 1px solid var(--bullion);
     box-shadow: 0 -12px 30px -16px rgba(0,0,0,0.85);
     transition: transform var(--dur-fast) var(--ease), visibility 0s linear 0s;
-  }
-  html.js body { padding-bottom: var(--cta-bar-h); }
+   padding-bottom: calc(0.85rem + env(safe-area-inset-bottom, 0px)); }
+  html.js body { padding-bottom: calc(var(--cta-bar-h) + env(safe-area-inset-bottom, 0px)); }
   /* Hidden means hidden: visibility + pointer-events off so a keyboard user cannot
      tab to a fixed bar that is translated off screen. The visibility flip waits for
      the slide-out; showing again is instant. */
@@ -893,7 +900,7 @@ html.js .to-top {
 }
 /* Wherever .mobile-cta is on screen, sit 12px above its 52px bar instead. */
 @media (max-width: 1100px) {
-  html.js .to-top { bottom: calc(var(--cta-bar-h) + var(--sp-3)); }
+  html.js .to-top { bottom: calc(var(--cta-bar-h) + var(--sp-3) + env(safe-area-inset-bottom, 0px)); }
 }
 html.js body.show-top:not(.cta-near):not(.nav-open) .to-top {
   opacity: 1; visibility: visible; pointer-events: auto; transform: none;
