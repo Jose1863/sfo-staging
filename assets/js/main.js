@@ -605,7 +605,10 @@
   /* ---- hide the sticky mobile CTA where a CTA is already on screen
           (the hero and the contact form both carry one) ---- */
   var mcta = document.querySelector(".mobile-cta");
-  var ctaZones = [document.querySelector(".hero"), document.getElementById("contact")].filter(Boolean);
+  /* Every zone that carries its own Book control suppresses the bar: the page's rule
+     is one filled gold control on screen, and the bar over the price card broke it. */
+  var ctaZones = [document.querySelector(".hero"), document.getElementById("contact"),
+    document.querySelector(".price-cta"), document.querySelector(".triggers-cta")].filter(Boolean);
   if (mcta && ctaZones.length && "IntersectionObserver" in window) {
     var inView = new Set();
     var cio = new IntersectionObserver(function (entries) {
