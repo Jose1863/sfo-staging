@@ -35,8 +35,8 @@
   <!-- Preload the LCP hero image. AVIF-typed so browsers that would pick the AVIF
        source preload exactly what the <picture> resolves to; the rare non-AVIF browser
        skips the preload and still gets the JPEG fallback from the markup. -->
-  <link rel="preload" as="image" type="image/avif" href="assets/img/hero-1280.avif?v=9"
-        imagesrcset="assets/img/hero-768.avif?v=9 768w, assets/img/hero-1280.avif?v=9 1280w, assets/img/hero.avif?v=9 2000w, assets/img/hero-2600.avif?v=9 2600w, assets/img/hero-3000.avif?v=9 3000w"
+  <link rel="preload" as="image" type="image/avif" href="assets/img/hero-1280.avif?v=10"
+        imagesrcset="assets/img/hero-768.avif?v=10 768w, assets/img/hero-1280.avif?v=10 1280w, assets/img/hero.avif?v=10 2000w, assets/img/hero-2600.avif?v=10 2600w, assets/img/hero-3200.avif?v=10 3200w"
         imagesizes="100vw" fetchpriority="high">
   <!-- Only the display font is preloaded. Raleway's preload was deleted (master 1.6.2):
        its metric-matched fallback makes the swap invisible, and the 43KB fetch was
@@ -144,11 +144,11 @@
       <div class="hero-media" aria-hidden="true">
         <picture>
           <source type="image/avif"
-                  srcset="assets/img/hero-768.avif?v=9 768w, assets/img/hero-1280.avif?v=9 1280w, assets/img/hero.avif?v=9 2000w, assets/img/hero-2600.avif?v=9 2600w, assets/img/hero-3000.avif?v=9 3000w"
+                  srcset="assets/img/hero-768.avif?v=10 768w, assets/img/hero-1280.avif?v=10 1280w, assets/img/hero.avif?v=10 2000w, assets/img/hero-2600.avif?v=10 2600w, assets/img/hero-3200.avif?v=10 3200w"
                   sizes="100vw">
-          <img src="assets/img/hero-1280.jpg?v=9"
-               srcset="assets/img/hero-768.jpg?v=9 768w, assets/img/hero-1280.jpg?v=9 1280w, assets/img/hero.jpg?v=9 2000w, assets/img/hero-2600.jpg?v=9 2600w"
-               sizes="100vw" alt="" width="1280" height="709" fetchpriority="high" decoding="async">
+          <img src="assets/img/hero-1280.jpg?v=10"
+               srcset="assets/img/hero-768.jpg?v=10 768w, assets/img/hero-1280.jpg?v=10 1280w, assets/img/hero.jpg?v=10 2000w, assets/img/hero-2600.jpg?v=10 2600w"
+               sizes="100vw" alt="" width="1280" height="893" fetchpriority="high" decoding="async">
         </picture>
       </div>
       <div class="hero-grain" aria-hidden="true"></div>
@@ -533,8 +533,8 @@
           <!-- Decorative, like the other photography on the page: the letter beside it
                carries the meaning, so the image takes an empty alt rather than repeating it. -->
           <picture class="story-photo reveal" data-d="2">
-            <source type="image/avif" srcset="assets/img/story-a-480.avif?v=2 480w, assets/img/story-a.avif?v=2 960w, assets/img/story-a-1400.avif?v=2 1400w" sizes="(min-width: 880px) 33vw, 90vw">
-            <img src="assets/img/story-a.jpg?v=2" srcset="assets/img/story-a-480.jpg?v=2 480w, assets/img/story-a.jpg?v=2 960w, assets/img/story-a-1400.jpg?v=2 1400w" sizes="(min-width: 880px) 33vw, 90vw" alt="" width="960" height="1200" loading="lazy" decoding="async">
+            <source type="image/avif" srcset="assets/img/story-a-480.avif?v=3 480w, assets/img/story-a.avif?v=3 960w, assets/img/story-a-1400.avif?v=3 1400w" sizes="(min-width: 880px) 33vw, 90vw">
+            <img src="assets/img/story-a.jpg?v=3" srcset="assets/img/story-a-480.jpg?v=3 480w, assets/img/story-a.jpg?v=3 960w, assets/img/story-a-1400.jpg?v=3 1400w" sizes="(min-width: 880px) 33vw, 90vw" alt="" width="960" height="1200" loading="lazy" decoding="async">
           </picture>
         </div>
         <div class="story-body reveal" data-d="1">
