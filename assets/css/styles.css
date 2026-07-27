@@ -298,32 +298,29 @@ em { font-style: italic; color: var(--champagne); }
 .col-foot .meta { display: block; color: var(--sage-dim); font-size: var(--fs-ui); margin-top: var(--sp-1); }
 
 
-/* ---------- pillars ---------- */
-.pillars { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); }
-@media (min-width: 620px) { .pillars { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1000px) { .pillars { grid-template-columns: repeat(4, 1fr); } }
-.pillar {
-  border: 1px solid var(--card-border); border-radius: var(--radius-lg);
-  background: var(--card); padding: var(--sp-6) var(--sp-5);
-  position: relative; overflow: hidden;
-  transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+/* ---------- pillars, de-carded ----------
+   The four disciplines as editorial rows on hairlines: the row grammar that proved
+   itself in the beliefs section, now carrying content that earns it. This retires
+   the page's one icon-card grid, which PRODUCT.md's anti-references name. */
+.pillar-list { margin-top: var(--sp-2); }
+.pillar-row { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-3) var(--sp-5);
+  padding: var(--sp-5) 0; border-top: 1px solid var(--line); }
+.pillar-row:last-child { border-bottom: 1px solid var(--line); }
+.pillar-row .b-mark { grid-row: span 2; align-self: start; width: 9px; height: 9px; margin-top: 0.55em;
+  background: var(--gold); transform: rotate(45deg); }
+.pillar-row h3 { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3); line-height: var(--lh-heading); }
+.pillar-row p { color: var(--sage); font-size: var(--fs-body); line-height: var(--lh-prose); max-width: 50ch; }
+@media (min-width: 820px) {
+  .pillar-row { grid-template-columns: 1.25rem minmax(0, 1fr) minmax(0, 1.15fr); align-items: baseline; gap: var(--sp-6); }
+  .pillar-row .b-mark { grid-row: auto; }
 }
-.pillar::before {
-  content: ""; position: absolute; left: 0; top: 0; height: 3px; width: 100%;
-  background: linear-gradient(90deg, var(--gold), transparent);
-  opacity: 0; transition: opacity var(--dur-fast) var(--ease);
-}
-/* Pillars are read-only content: no lift, no clickability illusion. The gold
-   hairline reveal stays as a quiet reading-position cue. */
-.pillar:hover { border-color: var(--line-gold); }
-.pillar:hover::before { opacity: 1; }
-.pillar .p-icon { width: 38px; height: 38px; margin: 0 0 var(--sp-4); color: var(--gold); }
-.pillar h3 { font-size: var(--fs-h3); font-weight: 600; line-height: var(--lh-heading); margin-bottom: var(--sp-3); min-height: 2.36em; }
-.pillar p { color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
+
+/* The framework block inside the merged section: scope above, sequence below. */
+.flow-block { margin-top: var(--sp-10); }
+.flow-head { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2-sm); line-height: var(--lh-heading); }
+.flow-block .subtitle { margin-top: var(--sp-3); }
 
 /* ---------- framework flow ---------- */
-.framework { position: relative; }
-
 .flow { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); margin-top: var(--sp-4); }
 /* minmax(0,1fr) keeps the four tracks equal at tablet widths (plain 1fr respects
    min-content, so 'Diversification' inflated its track to 193px against 159px
@@ -355,13 +352,13 @@ em { font-style: italic; color: var(--champagne); }
     font-variant-numeric: lining-nums tabular-nums;
   }
 }
-.phase h3 { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 600; margin: 0.4rem 0 0.6rem; overflow-wrap: break-word; hyphens: auto; }
+.phase h4 { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 600; margin: 0.4rem 0 0.6rem; overflow-wrap: break-word; hyphens: auto; }
 /* In the 720-900px band the equal tracks leave ~116-158px of content width and
    'Diversification' at 1.55rem measures wider, which forced an unhyphenated mid-word
    break. A fluid step-down (20px at 720 scaling back toward full size, never under the
    18px Cormorant floor) keeps every phase name on one line; full size returns at 900px. */
 @media (min-width: 720px) and (max-width: 899.98px) {
-  .phase h3 { font-size: clamp(1.125rem, -0.1375rem + 3vw, 1.55rem); }
+  .phase h4 { font-size: clamp(1.125rem, -0.1375rem + 3vw, 1.55rem); }
 }
 .phase p { color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
 .phase .p-arrow { display: none; }
@@ -370,27 +367,20 @@ em { font-style: italic; color: var(--champagne); }
   .phase:last-child .p-arrow { display: none; }
 }
 
-/* ---------- proof stat band ---------- */
-.stats { display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); }
-@media (min-width: 760px) { .stats { grid-template-columns: repeat(3, 1fr); } }
-.stat { padding: var(--sp-7) var(--sp-5); border-bottom: 1px solid var(--line); text-align: center; display: flex; flex-direction: column; align-items: center; }
-@media (min-width: 760px) {
-  .stat { border-bottom: none; border-right: 1px solid var(--line); }
-  .stat:last-child { border-right: none; }
-}
-/* Were the only numerals set in the body sans with default figures, against DESIGN.md's
-   rule that every figure carries lining-nums tabular-nums. */
-.stat .s-fig { font-family: var(--font-display); font-weight: 600; color: var(--champagne); font-size: clamp(1.8rem, 1.5rem + 1vw, 2.1rem); display: inline-block; padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-gold); margin-bottom: var(--sp-1); }
-.stat .s-text { margin-top: var(--sp-3); color: var(--text-dim); font-size: var(--fs-body); line-height: var(--lh-prose); max-width: 26ch; margin-inline: auto; }
+/* ---------- the relocated proof figure (in #serve) ----------
+   The 75% figure survives the proof-section cut as a single pull-figure with its
+   source, placed directly above the conviction line it argues for. */
+.stat { display: block; margin-top: var(--sp-5); }
+.stat .s-fig { font-family: var(--font-display); font-weight: 600; color: var(--champagne); font-size: clamp(1.8rem, 1.5rem + 1vw, 2.1rem); display: inline-block; padding-bottom: var(--sp-2); border-bottom: 1px solid var(--line-gold); }
+.stat .s-text { margin-top: var(--sp-2); color: var(--text-dim); font-size: var(--fs-body); line-height: var(--lh-prose); max-width: 30ch; }
 /* Generic dated-source line, usable under any figure on the page. */
 /* Label ranks. One treatment was doing nine jobs at the same 12.48px/champagne/0.18em,
    so rank could not be read from form (PRODUCT.md names this an anti-reference).
    Rank 1: champagne, --tracking-label, gold rule, for section kickers. Rank 2: sage,
    --tracking-sub, no rule, for labels naming a block rather than opening a section. */
 .s-src { display: block; font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
-.stat .s-src { margin-top: auto; padding-top: var(--sp-4); }
+.stat .s-src { margin-top: var(--sp-2); }
 .col-foot .s-src { margin-top: var(--sp-1); }
-.stats-note { text-align: center; margin-top: var(--sp-7); color: var(--sage); max-width: 50ch; margin-inline: auto; font-size: var(--fs-body); }
 
 /* ---------- engagement / pricing ---------- */
 /* Source order is savings -> price-card -> modules so the single-column stack reads
@@ -704,23 +694,6 @@ main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62);
 main > section.section--continues { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.14); }
 main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 1.62); }
 
-/* ---------- five beliefs ---------- */
-.beliefs { margin-top: var(--sp-2); }
-.belief { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-3) var(--sp-5);
-  padding: var(--sp-5) 0; border-top: 1px solid var(--line); }
-.belief:last-child { border-bottom: 1px solid var(--line); }
-.belief .b-mark { grid-row: span 2; align-self: start; width: 9px; height: 9px; margin-top: 0.55em;
-  background: var(--gold); transform: rotate(45deg); }
-.belief h3 { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3); line-height: var(--lh-heading); }
-.belief p { color: var(--sage); font-size: var(--fs-body); line-height: var(--lh-prose); max-width: 50ch; }
-.belief .accent { color: var(--champagne); }
-@media (min-width: 820px) {
-  /* A 3.5rem track plus 2rem gap put ~75px between the diamond and its heading, so it
-     read as a stray dot. Tightened to the mark's optical need. */
-  .belief { grid-template-columns: 1.25rem minmax(0, 1fr) minmax(0, 1.15fr); align-items: baseline; gap: var(--sp-6); }
-  .belief .b-mark { grid-row: auto; }
-}
-
 /* ---------- fractional executive layer (inside engagement) ---------- */
 .fx { margin-top: var(--sp-8); border-top: 1px solid var(--line); padding-top: var(--sp-7); }
 .fx-eyebrow { font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; }
@@ -747,9 +720,10 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
   .triggers-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--sp-6); align-items: start; }
   /* Explicit placement: auto-flow put the link under the disqualifier, separating the
      ask from the sentence that earns it. */
-  .triggers-foot .triggers-notfit { grid-column: 1; grid-row: 1 / span 2; margin-top: var(--sp-5); max-width: none; }
-  .triggers-foot .triggers-close { grid-column: 2; grid-row: 1; margin-top: var(--sp-5); }
-  .triggers-foot .triggers-cta { grid-column: 2; grid-row: 2; }
+  .triggers-foot .triggers-notfit { grid-column: 1; grid-row: 1 / span 3; margin-top: var(--sp-5); max-width: none; }
+  .triggers-foot .stat { grid-column: 2; grid-row: 1; margin-top: var(--sp-5); }
+  .triggers-foot .triggers-close { grid-column: 2; grid-row: 2; margin-top: var(--sp-5); }
+  .triggers-foot .triggers-cta { grid-column: 2; grid-row: 3; }
 }
 /* The conviction-peak exit ramp (C1): a quiet text link on the champagne underline idiom,
    its own element after the italic close line. Padding reaches the 44px tap floor. */
