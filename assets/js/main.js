@@ -612,8 +612,63 @@
         if (en.isIntersecting) { inView.add(en.target); } else { inView.delete(en.target); }
       });
       document.body.classList.toggle("cta-near", inView.size > 0);
+      syncTop();   // the back-to-top control hides wherever a CTA is already on screen
     }, { rootMargin: "0px 0px -35% 0px" });
     ctaZones.forEach(function (z) { cio.observe(z); });
+  }
+
+  /* ---- back to top ----
+     One fixed control on phones and tablets, for a page that runs to roughly 22,000px at
+     375px wide. Two conditions gate it, and both matter: past two viewports, and only
+     while the reader is moving UP. Direction is the whole mitigation. A control that
+     appeared on the way down would arrive beside the sticky gold CTA and split the one
+     action the page asks for; a reader moving back up has already declined that action
+     and is looking for something else. The cta-near class from the observer above is
+     reused rather than observed again, so hero and #contact suppress both controls
+     together and there is one definition of "a CTA is already on screen". */
+  var toTop = document.getElementById("toTop");
+  var topShown = false;
+  var topWanted = false;
+  var lastTopY = window.pageYOffset || document.documentElement.scrollTop;
+
+  function syncTop() {
+    if (!toTop) { return; }
+    var on = topWanted && !document.body.classList.contains("cta-near");
+    if (on === topShown) { return; }
+    topShown = on;
+    document.body.classList.toggle("show-top", on);
+    /* Out of the tab order when hidden, not merely invisible. A fixed control a keyboard
+       user can reach but cannot see is worse than no control at all. */
+    if (on) { toTop.removeAttribute("inert"); } else { toTop.setAttribute("inert", ""); }
+  }
+
+  if (toTop) {
+    /* Direction is read on the raw scroll event rather than in the rAF-throttled handler
+       above: coalescing frames would merge a reversal into a single net delta and the
+       turn would be missed. The work is two comparisons and a guarded class toggle. */
+    window.addEventListener("scroll", function () {
+      var y = window.pageYOffset || document.documentElement.scrollTop;
+      if (y < window.innerHeight * 2) { topWanted = false; }
+      else if (y < lastTopY - 4) { topWanted = true; }
+      else if (y > lastTopY) { topWanted = false; }
+      lastTopY = y;
+      syncTop();
+    }, { passive: true });
+
+    toTop.addEventListener("click", function () {
+      /* Read the preference at click time, not at load: someone can turn it on mid-visit,
+         and the rest of the file already honours that. */
+      var instant = window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: instant ? "auto" : "smooth" });
+      topWanted = false;
+      syncTop();
+      /* The control leaves the screen at the top of the page, so focus cannot stay on it.
+         Hand it to the first thing at the destination, without letting focus() cancel the
+         smooth scroll by jumping the page itself. */
+      var brand = document.querySelector(".site-header .brand");
+      if (brand) { brand.focus({ preventScroll: true }); }
+    });
   }
 
   /* ---- current year, if a placeholder is present ---- */

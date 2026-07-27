@@ -872,3 +872,33 @@ address.foot-contact { font-style: normal; }
   .modules .m-price { text-align: left; white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) { .mobile-cta { transition: none; } }
+
+/* ---------- back to top (phones and tablets) ---------- */
+/* The page runs to roughly 22,000px at 375px wide and the sticky bar is the only fixed
+   control, so a reader deep in the page has no way back. main.js reveals this one only on
+   an upward scroll past two viewports, which is what keeps it from competing with the bar:
+   a reader travelling down toward the CTA never sees a second control arrive beside it.
+   The page has exactly one filled gold control, so this is a hairline-bordered dark disc
+   with a champagne glyph, not a second button shape. Gated at 899.98px: above that the
+   sticky bar is the only mobile affordance left and the viewport is short enough to
+   scroll back by hand. Same display: none base as .mobile-cta, so JS-off never shows it. */
+.to-top { display: none; }
+@media (max-width: 899.98px) {
+  html.js .to-top {
+    display: grid; place-items: center;
+    position: fixed; right: var(--gutter); bottom: 64px; z-index: 94;   /* 52px bar + 12px */
+    width: var(--tap); height: var(--tap); border-radius: 50%;
+    background: var(--green-950); color: var(--champagne);
+    border: 1px solid var(--line-strong); box-shadow: var(--shadow-pop);
+    /* Hidden means hidden: visibility keeps it out of the tab order too, so the inert
+       attribute main.js manages is the belt and this is the braces. */
+    opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(6px);
+    transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), visibility 0s linear var(--dur-fast);
+  }
+  html.js body.show-top:not(.cta-near):not(.nav-open) .to-top {
+    opacity: 1; visibility: visible; pointer-events: auto; transform: none;
+    transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), visibility 0s linear 0s;
+  }
+  html.js .to-top:hover { border-color: var(--line-gold); }
+}
+@media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }

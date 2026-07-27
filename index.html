@@ -143,6 +143,13 @@
   <!-- After the header so the sticky bar is not the second focusable element on the page. -->
   <a class="mobile-cta" href="#contact">Book a Strategy Call <span aria-hidden="true">→</span></a>
 
+  <!-- Back to top. Sits here, next to the sticky bar, so a keyboard user meets it right
+       after the header rather than 22,000px down. inert by default: it is revealed only
+       on an upward scroll past two viewports, and main.js owns that state. -->
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top" inert>
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+  </button>
+
   <main id="main" tabindex="-1">
 
     <!-- ===================== HERO ===================== -->
