@@ -219,7 +219,11 @@ em { font-style: italic; color: var(--champagne); }
 /* 20ch sets the headline in three lines, keeping the lead and CTAs above the desktop fold. */
 .hero h1 { margin-top: var(--sp-5); max-width: 20ch; }
 .hero .hero-lead { margin-top: var(--sp-5); font-size: var(--fs-lead); color: var(--text-dim); max-width: 44ch; line-height: var(--lh-prose); }
-.hero-actions { margin-top: var(--sp-7); display: flex; flex-wrap: wrap; gap: var(--sp-4); }
+/* Situation line. Sage and one step below body size so it reads as a quiet aside under the
+   lead, not a second label: the hero already has an eyebrow. The CTA row gives back the air
+   this costs (sp-7 -> sp-5) so the primary CTA stays above the 900px fold. */
+.hero-trigger { margin-top: var(--sp-4); font-size: var(--fs-body-sm); color: var(--sage); line-height: var(--lh-prose); max-width: 70ch; }
+.hero-actions { margin-top: var(--sp-5); display: flex; flex-wrap: wrap; gap: var(--sp-4); }
 .hero-proof {
   margin-top: var(--sp-8); padding-top: var(--sp-5); border-top: 1px solid var(--line);
   display: flex; align-items: baseline; gap: var(--sp-4); flex-wrap: wrap; max-width: 60ch;
