@@ -189,16 +189,21 @@ em { font-style: italic; color: var(--champagne); }
 /* ---------- hero ---------- */
 .hero { position: relative; isolation: isolate; padding-block: clamp(6rem, 4.5rem + 9vw, 11rem); overflow: hidden; }
 .hero-media { position: absolute; inset: 0; z-index: -2; }
-/* The hero source is the full sofa trio with wall above. 58% from the top lands the visible
-   band on all three faces plus the sofa at desktop aspect ratios; below 900px the window
-   turns portrait and rides a touch higher so the faces stay inside it. */
-.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; }
-@media (max-width: 900px) { .hero-media img { object-position: 50% 55%; } }
+/* The hero source is the wide team frame (all three, dark slat room). It is close to the
+   desktop box ratio, so very little is cropped; the horizontal bias sits left of centre so
+   the group sits right of the headline rather than behind it. Below 900px the window turns
+   portrait and centres on the group instead. */
+.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 32% 50%; }
+@media (max-width: 900px) { .hero-media img { object-position: 70% 45%; } }
 .hero-media::after {
   content: ""; position: absolute; inset: 0;
+  /* Two stacked washes: the vertical one seats the photo into the page top and bottom, the
+     horizontal one carries text contrast on the left. Rebalanced for the darker slat-room
+     frame, so the right third stays readable as a photograph instead of going to flat green
+     while the headline column keeps ~0.95 combined opacity behind the type. */
   background:
-    linear-gradient(180deg, rgba(12,33,23,0.72) 0%, rgba(12,33,23,0.80) 42%, var(--green-900) 100%),
-    linear-gradient(90deg, rgba(12,33,23,0.92) 0%, rgba(12,33,23,0.45) 60%, rgba(12,33,23,0.25) 100%);
+    linear-gradient(180deg, rgba(12,33,23,0.50) 0%, rgba(12,33,23,0.38) 45%, var(--green-900) 100%),
+    linear-gradient(90deg, rgba(12,33,23,0.93) 0%, rgba(12,33,23,0.55) 55%, rgba(12,33,23,0.12) 100%);
 }
 .hero-grain { position: absolute; inset: 0; z-index: -1; opacity: 0.5;
   background: radial-gradient(120% 90% at 12% 0%, rgba(184,150,62,0.10), transparent 55%); }

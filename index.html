@@ -35,8 +35,8 @@
   <!-- Preload the LCP hero image. AVIF-typed so browsers that would pick the AVIF
        source preload exactly what the <picture> resolves to; the rare non-AVIF browser
        skips the preload and still gets the JPEG fallback from the markup. -->
-  <link rel="preload" as="image" type="image/avif" href="assets/img/hero-1280.avif?v=7"
-        imagesrcset="assets/img/hero-768.avif?v=7 768w, assets/img/hero-1280.avif?v=7 1280w, assets/img/hero.avif?v=7 2000w, assets/img/hero-2600.avif?v=7 2600w, assets/img/hero-3200.avif?v=7 3200w"
+  <link rel="preload" as="image" type="image/avif" href="assets/img/hero-1280.avif?v=9"
+        imagesrcset="assets/img/hero-768.avif?v=9 768w, assets/img/hero-1280.avif?v=9 1280w, assets/img/hero.avif?v=9 2000w, assets/img/hero-2600.avif?v=9 2600w, assets/img/hero-3000.avif?v=9 3000w"
         imagesizes="100vw" fetchpriority="high">
   <!-- Only the display font is preloaded. Raleway's preload was deleted (master 1.6.2):
        its metric-matched fallback makes the swap invisible, and the 43KB fetch was
@@ -144,11 +144,11 @@
       <div class="hero-media" aria-hidden="true">
         <picture>
           <source type="image/avif"
-                  srcset="assets/img/hero-768.avif?v=7 768w, assets/img/hero-1280.avif?v=7 1280w, assets/img/hero.avif?v=7 2000w, assets/img/hero-2600.avif?v=7 2600w, assets/img/hero-3200.avif?v=7 3200w"
+                  srcset="assets/img/hero-768.avif?v=9 768w, assets/img/hero-1280.avif?v=9 1280w, assets/img/hero.avif?v=9 2000w, assets/img/hero-2600.avif?v=9 2600w, assets/img/hero-3000.avif?v=9 3000w"
                   sizes="100vw">
-          <img src="assets/img/hero-1280.jpg?v=7"
-               srcset="assets/img/hero-768.jpg?v=7 768w, assets/img/hero-1280.jpg?v=7 1280w, assets/img/hero.jpg?v=7 2000w, assets/img/hero-2600.jpg?v=7 2600w"
-               sizes="100vw" alt="" width="1280" height="880" fetchpriority="high" decoding="async">
+          <img src="assets/img/hero-1280.jpg?v=9"
+               srcset="assets/img/hero-768.jpg?v=9 768w, assets/img/hero-1280.jpg?v=9 1280w, assets/img/hero.jpg?v=9 2000w, assets/img/hero-2600.jpg?v=9 2600w"
+               sizes="100vw" alt="" width="1280" height="709" fetchpriority="high" decoding="async">
         </picture>
       </div>
       <div class="hero-grain" aria-hidden="true"></div>
