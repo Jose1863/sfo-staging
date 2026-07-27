@@ -179,8 +179,9 @@
       });
     }
 
-    /* The 75/80/50 statistics do not animate. A rolling number reads as a sales
-       device on figures about regret and unpreparedness; sober data sits still. */
+    /* Figures never animate: a rolling number reads as a sales tactic on a page whose
+       thesis is restraint. (The stat band died in the editorial cut; the rule outlives it
+       for the one relocated figure and any future one.) */
 
     /* Framework phase dots pop in sequence, the one motion on the page that carries
        meaning: four phases of one continuous plan. Dots are 9px decoration, and the

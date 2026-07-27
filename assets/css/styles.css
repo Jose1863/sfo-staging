@@ -222,7 +222,9 @@ em { font-style: italic; color: var(--champagne); }
 /* Situation line. Sage and one step below body size so it reads as a quiet aside under the
    lead, not a second label: the hero already has an eyebrow. The CTA row gives back the air
    this costs (sp-7 -> sp-5) so the primary CTA stays above the 900px fold. */
-.hero-trigger { margin-top: var(--sp-4); font-size: var(--fs-body-sm); color: var(--sage); line-height: var(--lh-prose); max-width: 70ch; }
+/* 44ch: at 70ch this ran 98 characters on a single 651px line, run 7's one genuine
+   line-length finding. Two short lines read; one long one gets skipped. */
+.hero-trigger { max-width: 44ch; margin-top: var(--sp-4); font-size: var(--fs-body-sm); color: var(--sage); line-height: var(--lh-prose); }
 .hero-actions { margin-top: var(--sp-5); display: flex; flex-wrap: wrap; gap: var(--sp-4); }
 /* Below ~540px the two hero buttons stop sharing a row and stack, which is what pushed
    "See How It Works" off a 812px-tall phone once the trigger line landed. Measured: at
@@ -234,7 +236,7 @@ em { font-style: italic; color: var(--champagne); }
    44px --tap floor rather than the 53px the 0.9rem padding was setting. The h1, the
    lead, and the hero's own padding are untouched. */
 @media (max-width: 560px) {
-  .hero-trigger { margin-top: var(--sp-2); }
+  .hero-trigger { max-width: 44ch; margin-top: var(--sp-2); }
   .hero-actions { margin-top: var(--sp-3); gap: var(--sp-3); }
   .hero-actions .btn { padding-block: var(--sp-2); }
 }
@@ -352,14 +354,11 @@ em { font-style: italic; color: var(--champagne); }
     font-variant-numeric: lining-nums tabular-nums;
   }
 }
-.phase h4 { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 600; margin: 0.4rem 0 0.6rem; overflow-wrap: break-word; hyphens: auto; }
+.phase h4 { font-family: var(--font-display); font-size: var(--fs-h3-sm); font-weight: 600; margin: 0.4rem 0 0.6rem; overflow-wrap: break-word; hyphens: auto; }
 /* In the 720-900px band the equal tracks leave ~116-158px of content width and
    'Diversification' at 1.55rem measures wider, which forced an unhyphenated mid-word
    break. A fluid step-down (20px at 720 scaling back toward full size, never under the
    18px Cormorant floor) keeps every phase name on one line; full size returns at 900px. */
-@media (min-width: 720px) and (max-width: 899.98px) {
-  .phase h4 { font-size: clamp(1.125rem, -0.1375rem + 3vw, 1.55rem); }
-}
 .phase p { color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
 .phase .p-arrow { display: none; }
 @media (min-width: 720px) {
@@ -502,6 +501,10 @@ em { font-style: italic; color: var(--champagne); }
 @media (max-width: 899.98px) {
   .cta-copy { display: contents; }
   .cta-copy > h2 { order: -3; margin-bottom: var(--sp-5); }
+  /* The lead paragraph (what to bring) computed order:0 and landed below the submit
+     button, so the phone met the form with no explanation of the call. It ties the h2
+     at -3 and DOM order resolves the tie: h2, lead, steps, form. */
+  .cta-copy > p:first-of-type { order: -3; margin-bottom: var(--sp-5); }
   /* margin-top zeroed: the grid gap plus the h2's own margin already separate them. */
   .cta-copy .cta-after { order: -2; margin-top: 0; }
   .cta-grid .form { order: -1; }
@@ -720,13 +723,16 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
   .triggers-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--sp-6); align-items: start; }
   /* Explicit placement: auto-flow put the link under the disqualifier, separating the
      ask from the sentence that earns it. */
-  .triggers-foot .triggers-notfit { grid-column: 1; grid-row: 1 / span 3; margin-top: var(--sp-5); max-width: none; }
-  .triggers-foot .stat { grid-column: 2; grid-row: 1; margin-top: var(--sp-5); }
-  .triggers-foot .triggers-close { grid-column: 2; grid-row: 2; margin-top: var(--sp-5); }
-  .triggers-foot .triggers-cta { grid-column: 2; grid-row: 3; }
+  /* Left column: disqualifier over the evidence. Right column: conviction over the ask.
+     Balances the two tracks (the bare disqualifier left 286px of dead field) and keeps
+     close -> CTA paired at the reading terminus. */
+  .triggers-foot .triggers-notfit { grid-column: 1; grid-row: 1; margin-top: var(--sp-5); max-width: none; }
+  .triggers-foot .stat { grid-column: 1; grid-row: 2; }
+  .triggers-foot .triggers-close { grid-column: 2; grid-row: 1; margin-top: var(--sp-5); }
+  .triggers-foot .triggers-cta { grid-column: 2; grid-row: 2; align-self: start; }
 }
-/* The conviction-peak exit ramp (C1): a quiet text link on the champagne underline idiom,
-   its own element after the italic close line. Padding reaches the 44px tap floor. */
+/* The conviction-peak exit ramp: a quiet text link on the champagne underline idiom.
+   Padding reaches the 44px tap floor. */
 .triggers-cta { margin-top: var(--sp-2); }
 .triggers-cta a { display: inline-block; padding-block: 0.8rem; color: var(--champagne); font-weight: 600; font-size: var(--fs-body-sm); text-decoration: underline; text-underline-offset: 3px; }
 .triggers-cta a:hover { color: var(--text); }
