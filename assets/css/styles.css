@@ -883,7 +883,11 @@ address.foot-contact { font-style: normal; }
    sticky bar is the only mobile affordance left and the viewport is short enough to
    scroll back by hand. Same display: none base as .mobile-cta, so JS-off never shows it. */
 .to-top { display: none; }
-@media (max-width: 899.98px) {
+/* Bound matches .mobile-cta's 1100px, not 900px. The sticky bar and this control are
+   a pair: wherever the bar exists the reader is on a long thumb-driven scroll and has
+   no way back up, so gating them differently left a 900-1100px band with one and not
+   the other. */
+@media (max-width: 1100px) {
   html.js .to-top {
     display: grid; place-items: center;
     position: fixed; right: var(--gutter); bottom: 64px; z-index: 94;   /* 52px bar + 12px */
