@@ -658,6 +658,14 @@ main > section { scroll-margin-top: calc(var(--header-h) + var(--sp-3)); }
 
 /* ---------- fee model strip ---------- */
 .fee-model { border: 1px solid var(--line-gold); border-radius: var(--radius-lg); background: var(--card); padding: var(--sp-6); margin-bottom: var(--sp-7); max-width: var(--maxw-text); }
+/* Same device at component scale: the heading stands beside its paragraph and the
+   strip takes the full measure, so the fee statement reads as a band rather than a
+   narrow card with 415px of empty field to its right. */
+@media (min-width: 1000px) {
+  .fee-model { max-width: none; display: grid; grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: start; padding: var(--sp-7) var(--sp-6); }
+  .fee-model p { margin-top: 0; }
+}
 .fee-model h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.55rem); }
 .fee-model p { margin-top: var(--sp-3); color: var(--text-dim); line-height: 1.65; }
 
@@ -667,6 +675,27 @@ main > section { scroll-margin-top: calc(var(--header-h) + var(--sp-3)); }
 .rm-band { border-top: 1px solid var(--line-gold); padding-top: var(--sp-4); }
 .rm-band h3 { font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; }
 .rm-band p { margin-top: var(--sp-3); color: var(--sage); font-size: 0.95rem; line-height: 1.6; }
+
+/* ---------- head-aside: the one pattern break ----------
+   Twelve sections run the same bar: head on top, grid underneath. In three of them
+   the content also stops around two thirds of the measure and leaves the right
+   field empty (measured at 1440: #faq 458px, #definition 456px, .fee-model 415px;
+   #problem, #serve and #beliefs already fill their measure, so they are left alone).
+   One device, applied to exactly those three: the head steps out of the stack and
+   stands beside its content. Proportions, gap and breakpoint intent are lifted from
+   .story-grid, where this idiom is already settled, so it reads as the page's own
+   move rather than a fourth new grammar. No section moves, none is cut, no copy
+   changes. Below 1000px everything stacks exactly as before. */
+@media (min-width: 1000px) {
+  .head-aside > .wrap {
+    display: grid; grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: start;
+  }
+  .head-aside .section-head { margin-bottom: 0; }
+  /* The FAQ's answer column is far taller than its head, so the head holds its place
+     while the reader works down the accordions instead of scrolling away at row two. */
+  #faq .section-head { position: sticky; top: calc(var(--header-h) + var(--sp-6)); }
+}
 
 /* ---------- definition block ---------- */
 .definition { max-width: var(--maxw-text); }
