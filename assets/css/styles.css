@@ -426,7 +426,12 @@ em { font-style: italic; color: var(--champagne); }
 @media (max-width: 599px) { .member-photo { max-width: 320px; margin-inline: auto; } }
 /* min-width: 0 so a missing portrait degrades to a broken icon instead of blowing
    the grid track out past the container and clipping a card. */
-.member { border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card); padding: var(--sp-6) var(--sp-5); min-width: 0; }
+/* Column so the credential rows can be pushed to the foot of the card. Equal-height
+   grid tracks left 181px of void under Tinja's last credential against 33px under
+   Evan's, which on a two-person firm makes the second founder look like she has
+   less to say. The slack now falls between the bio and the credentials, where it
+   reads as air, and both cards close on the same hairline. */
+.member { border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card); padding: var(--sp-6) var(--sp-5); min-width: 0; display: flex; flex-direction: column; }
 .member-photo {
   width: 100%; aspect-ratio: 4 / 5; height: auto;
   border-radius: var(--radius); object-fit: cover; object-position: center top;
@@ -437,7 +442,7 @@ em { font-style: italic; color: var(--champagne); }
 .member .role { color: var(--champagne); font-size: 0.84rem; letter-spacing: var(--tracking-label); text-transform: uppercase; font-weight: 700; margin-top: var(--sp-1); font-family: var(--font-sans); }
 .member p { color: var(--sage); font-size: 0.95rem; line-height: 1.55; margin-top: var(--sp-4); }
 /* Credentials as scannable labeled rows, not chips (Callan-grade credential density). */
-.member .creds { margin-top: var(--sp-4); }
+.member .creds { margin-top: auto; padding-top: var(--sp-4); }
 .member .creds li { font-size: var(--fs-label); letter-spacing: var(--tracking-tight); text-transform: uppercase; color: var(--champagne); border-top: 1px solid var(--line); padding: var(--sp-2) 0; }
 .member .s-src { margin-top: var(--sp-2); }
 
@@ -474,10 +479,35 @@ em { font-style: italic; color: var(--champagne); }
 .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23B8963E' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.4rem; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gilt); box-shadow: 0 0 0 3px rgba(204, 170, 85, 0.45); }
 .field input::placeholder, .field textarea::placeholder { color: var(--sage-dim); }
+
+/* Invalid state. main.js has set aria-invalid since launch with nothing consuming
+   it, so the field that was wrong looked exactly like the fields that were right. */
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] { border-color: var(--error); }
+.field input[aria-invalid="true"]:focus,
+.field select[aria-invalid="true"]:focus,
+.field textarea[aria-invalid="true"]:focus { border-color: var(--error); box-shadow: 0 0 0 3px var(--error-ring); }
+/* The message carries the fix, not just the fact. Never colour alone: the text
+   itself is the indicator, the tone only sharpens it. */
+.field-error { margin-top: var(--sp-2); font-size: 0.84rem; line-height: 1.45; color: var(--error); display: none; }
+.field-error.is-shown { display: block; }
+.field-hint { margin-top: var(--sp-2); font-size: 0.8rem; line-height: 1.4; color: var(--sage-dim); }
+
 .form .btn-primary { width: 100%; }
+.form .btn-primary[disabled] { opacity: 0.62; cursor: progress; box-shadow: none; }
 .form-note { margin-top: var(--sp-4); font-size: 0.82rem; color: var(--sage-dim); line-height: 1.5; }
 .form-note a { color: var(--champagne); text-decoration: underline; text-underline-offset: 2px; }
-.form-status { margin-top: var(--sp-4); font-size: 0.9rem; color: var(--champagne); min-height: 1.2em; }
+/* Status is a block, not a tinted sentence: the rule gives it presence whatever the
+   state, so the meaning never rides on hue alone. */
+.form-status { font-size: 0.9rem; line-height: 1.5; color: var(--text-dim); }
+.form-status:not(:empty) { margin-bottom: var(--sp-4); padding-left: var(--sp-4); border-left: 2px solid currentColor; }
+.form-status.is-error { color: var(--error); }
+.form-status.is-ok { color: var(--champagne); }
+.form-status.is-busy { color: var(--sage); }
+
+/* Spam trap: off-screen, untabbable, out of the accessibility tree. */
+.hp { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ---------- footer ---------- */
 .site-footer { background: var(--green-950); border-top: 1px solid var(--line); padding-block: clamp(3rem, 2rem + 3vw, 4rem); }
@@ -546,8 +576,10 @@ html.gsap .phase::before { transform: scale(var(--dot-scale, 1)); }
   /* with JS present: links collapse into a toggled dropdown */
   html.js .nav-links {
     position: fixed; inset: var(--header-h) 0 auto 0; flex-direction: column; align-items: stretch; gap: 0;
-    background: color-mix(in srgb, var(--green-950) 97%, transparent);
-    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    /* Fully opaque: at 97% the body copy behind the panel read straight through it,
+       which looks like a rendering bug on the device where the buyer first arrives.
+       backdrop-filter goes with it — nothing translucent is left for it to blur. */
+    background: var(--green-950);
     border-bottom: 1px solid var(--line); padding: 0.5rem var(--gutter) 1.5rem;
     max-height: calc(100dvh - var(--header-h)); overflow-y: auto;
     transform: translateY(-8px); opacity: 0; visibility: hidden; pointer-events: none;
@@ -638,7 +670,9 @@ main > section { scroll-margin-top: calc(var(--header-h) + var(--sp-3)); }
 
 /* ---------- definition block ---------- */
 .definition { max-width: var(--maxw-text); }
-.definition p { margin-top: var(--sp-4); color: var(--text-dim); font-size: 1.05rem; line-height: 1.7; }
+/* The block is capped at --maxw-text (760px), which at 1.05rem runs ~90ch: past the
+   measure every other lead and subtitle on the page is held to. Copy untouched. */
+.definition p { margin-top: var(--sp-4); color: var(--text-dim); font-size: 1.05rem; line-height: 1.7; max-width: var(--maxw-read); }
 
 /* ---------- founder story ---------- */
 .story-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-6); }
@@ -647,11 +681,20 @@ main > section { scroll-margin-top: calc(var(--header-h) + var(--sp-3)); }
 /* The story's title column ran ~377px empty beside the letter. The photograph fills it on
    the same 4:5 crop and hairline treatment as the team portraits, so the page gains a
    human moment without a new component idiom. */
-.story-photo { display: block; margin-top: var(--sp-6); }
+.story-photo { display: block; margin-top: var(--sp-6); position: relative; }
 .story-photo img {
   width: 100%; aspect-ratio: 4 / 5; height: auto; object-fit: cover; object-position: center top;
   border-radius: var(--radius);
   box-shadow: 0 0 0 1px var(--line-gold), 0 14px 30px -16px rgba(0,0,0,0.8);
+}
+/* Joins the green world. The hero and CTA grounds carry --overlay-green at .78;
+   this is the same wash pulled back to .34, because those two are backdrops for
+   text and this one is the subject. Environments take the wash, faces are the
+   exception, which is why the team portraits stay unwashed. */
+.story-photo::after {
+  content: ""; position: absolute; inset: 0; border-radius: var(--radius);
+  background: rgba(12, 33, 23, 0.34);
+  pointer-events: none;
 }
 @media (max-width: 879.98px) { .story-photo { max-width: 360px; } }
 .story-body p { color: var(--text-dim); font-size: var(--fs-lead); line-height: 1.6; max-width: 62ch; }

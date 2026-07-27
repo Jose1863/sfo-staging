@@ -631,11 +631,14 @@
         <form class="form reveal" data-d="2" id="callForm" action="mailto:info@eg-capital.co" method="post" enctype="text/plain" data-endpoint="https://formspree.io/f/REPLACE_WITH_FORM_ID" data-mailto="info@eg-capital.co" novalidate>
           <div class="field">
             <label for="f-name">Name <span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
-            <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Your name" aria-describedby="formStatus">
+            <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Your name" aria-describedby="err-name">
+            <p class="field-error" id="err-name"></p>
           </div>
           <div class="field">
             <label for="f-email">Email <span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
-            <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" aria-describedby="formStatus">
+            <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" aria-describedby="err-email f-email-hint">
+            <p class="field-hint" id="f-email-hint">Where we send the reply. Format: you@company.com</p>
+            <p class="field-error" id="err-email"></p>
           </div>
           <div class="field">
             <label for="f-rev">Annual revenue</label>
@@ -651,9 +654,18 @@
             <label for="f-msg">What is prompting the conversation</label>
             <textarea id="f-msg" name="message" placeholder="A tax bill, an offer to buy the business, a new entity, or something else."></textarea>
           </div>
+          <!-- Spam trap. Off-screen and out of the accessibility tree, so only a bot
+               fills it. A caught submission is dropped client-side, which is what
+               protects the monthly send cap. -->
+          <div class="hp" aria-hidden="true">
+            <label for="f-gotcha">Leave this field empty</label>
+            <input id="f-gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <!-- Status sits ABOVE the button: at 1440x900 it rendered ~82px below the
+               fold, so the response to a click landed off-screen. -->
+          <p class="form-status" id="formStatus" role="alert"></p>
           <button class="btn btn-primary" type="submit">Book a Strategy Call <span class="arrow" aria-hidden="true">→</span></button>
           <p class="form-note">Your details stay private. Submitting does not create an advisory relationship, and the modeled savings discussed are estimates, not guarantees. See our <a href="privacy.html">privacy notice</a>.</p>
-          <p class="form-status" id="formStatus" role="alert"></p>
         </form>
       </div>
     </section>

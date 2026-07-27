@@ -363,34 +363,128 @@
         "&body=" + encodeURIComponent(lines.join("\n"));
     }
 
+    /* ---- validation. novalidate turns off the browser's own constraint UI, so
+            everything it used to do has to be replaced deliberately: a message per
+            field that says what to do, a visible invalid state, checking on blur so
+            the reader learns before the button, and clearing the moment it is fixed. */
+    var nameEl = form.querySelector("#f-name");
+    var emailEl = form.querySelector("#f-email");
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var submitLabel = submitBtn ? submitBtn.innerHTML : "";
+    var gotcha = form.querySelector('[name="_gotcha"]');
+
+    function setStatus(text, state) {
+      status.textContent = text || "";
+      status.className = "form-status" + (text && state ? " " + state : "");
+    }
+
+    /* The old status was the last node in the form and rendered ~82px below the fold
+       at 1440x900, so the answer to a click arrived off-screen. It sits above the
+       button now; this covers the phone case, where the button can still be the last
+       thing on screen when the send resolves. */
+    function revealStatus() {
+      var r = status.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > (window.innerHeight || 0)) {
+        status.scrollIntoView({ block: "center" });
+      }
+    }
+
+    var CHECKS = {
+      "f-name": function (v) {
+        if (!v.trim()) { return "Add your name so we know who we are replying to."; }
+        return "";
+      },
+      "f-email": function (v) {
+        if (!v.trim()) { return "Add an email address so we can send the reply."; }
+        if (!emailEl.checkValidity()) { return "That email is missing something. Check for a typo in the address, for example you@company.com."; }
+        return "";
+      }
+    };
+
+    function errNode(el) { return document.getElementById("err-" + el.id.replace(/^f-/, "")); }
+
+    function showError(el, msg) {
+      el.setAttribute("aria-invalid", "true");
+      var n = errNode(el);
+      if (n) { n.textContent = msg; n.classList.add("is-shown"); }
+    }
+
+    function clearError(el) {
+      el.setAttribute("aria-invalid", "false");
+      var n = errNode(el);
+      if (n) { n.textContent = ""; n.classList.remove("is-shown"); }
+    }
+
+    function validate(el, quiet) {
+      var check = CHECKS[el.id];
+      if (!check) { return true; }
+      var msg = check(el.value);
+      if (msg) {
+        if (!quiet) { showError(el, msg); }
+        return false;
+      }
+      clearError(el);
+      return true;
+    }
+
+    [nameEl, emailEl].forEach(function (el) {
+      if (!el) { return; }
+      /* blur teaches before the button; input forgives the moment it is corrected,
+         so a reader is never scolded while still typing. */
+      el.addEventListener("blur", function () { if (el.value.trim()) { validate(el); } });
+      el.addEventListener("input", function () {
+        if (el.getAttribute("aria-invalid") === "true" && validate(el, true)) {
+          clearError(el);
+          if (status.classList.contains("is-error")) { setStatus("", ""); }
+        }
+      });
+    });
+
+    function busy(on) {
+      if (!submitBtn) { return; }
+      submitBtn.disabled = on;
+      submitBtn.innerHTML = on ? "Sending" : submitLabel;
+    }
+
     form.addEventListener("submit", function (e) {
-      var name = form.querySelector("#f-name");
-      var email = form.querySelector("#f-email");
-      var bad = !name.value.trim() ? name : (!email.checkValidity() ? email : null);
-      name.setAttribute("aria-invalid", name.value.trim() ? "false" : "true");
-      email.setAttribute("aria-invalid", email.checkValidity() ? "false" : "true");
-      if (bad) {
+      var fields = [nameEl, emailEl].filter(Boolean);
+      var bad = fields.filter(function (el) { return !validate(el); });
+      if (bad.length) {
         e.preventDefault();
-        status.textContent = "Please add your name and a valid email so we can reach you.";
-        bad.focus();
+        setStatus(bad.length === 1
+          ? "One field needs a correction before we can send this. It is marked with the reason."
+          : "Two fields need a correction before we can send this. Each is marked with the reason.", "is-error");
+        /* Take the reader to the field and its message, not to the summary: the fix is
+           what they need on screen. role="alert" carries the summary to AT regardless. */
+        bad[0].scrollIntoView({ block: "center" });
+        bad[0].focus();
         return;
       }
+      /* a bot filled the trap: stop here rather than spend one of the month's sends. */
+      if (gotcha && gotcha.value) { e.preventDefault(); return; }
+
       var url = endpoint();
       if (!url) {
         // no endpoint configured yet: let the native mailto action run
-        status.textContent = "Opening your email app. If nothing opens, write to " + mailTo + ".";
+        setStatus("Opening your email app. If nothing opens, write to " + mailTo + ".", "is-busy");
         return;
       }
       e.preventDefault();
-      status.textContent = "Sending your request.";
+      setStatus("Sending your request.", "is-busy");
+      busy(true);
       fetch(url, { method: "POST", body: new FormData(form), headers: { "Accept": "application/json" } })
         .then(function (r) {
           if (!r.ok) { throw new Error("bad status"); }
           form.reset();
-          status.textContent = "Thank you. We will reply within one business day.";
+          fields.forEach(clearError);
+          busy(false);
+          setStatus("Thank you. We will reply within one business day.", "is-ok");
+          revealStatus();
         })
         .catch(function () {
-          status.textContent = "We could not send that just now. Opening your email app as a fallback.";
+          busy(false);
+          setStatus("We could not send that just now. Opening your email app as a fallback.", "is-error");
+          revealStatus();
           openMailto();
         });
     });

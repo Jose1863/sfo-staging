@@ -37,6 +37,18 @@
   --bullion:          #8E7330;
   --ink:              #0C2117; /* dark text for use on gold fills */
 
+  /* ---- Functional state: "wrong". Not a brand-palette addition — the kit has no
+          error tone, and champagne cannot carry it because champagne already means
+          "important and good" across card titles, credentials and the price sub.
+          A desaturated brick that stays inside the green world: hue 12.9deg against
+          champagne's 41.8deg, so the two never read as the same signal.
+          Measured against the rendered page, text hidden, lightest pixel sampled:
+          6.23:1 on the composited form panel (20,52,38) and 7.11:1 on the
+          composited field background (16,41,30). Both clear 4.5:1 for text and
+          3:1 for the invalid border. Used ONLY for error text and invalid borders. */
+  --error:            #E2A08E;
+  --error-ring:       rgba(226, 160, 142, 0.38);
+
   /* ---- Hairlines and accents ---- */
   --line:             rgba(232, 212, 166, 0.14);
   --line-strong:      rgba(232, 212, 166, 0.26);
