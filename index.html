@@ -530,6 +530,12 @@
       <div class="wrap story-grid">
         <div class="section-head">
           <h2 class="title reveal" id="story-h" data-d="1">The pattern we kept watching.</h2>
+          <!-- Decorative, like the other photography on the page: the letter beside it
+               carries the meaning, so the image takes an empty alt rather than repeating it. -->
+          <picture class="story-photo reveal" data-d="2">
+            <source type="image/avif" srcset="assets/img/story-a-480.avif?v=2 480w, assets/img/story-a.avif?v=2 960w, assets/img/story-a-1400.avif?v=2 1400w" sizes="(min-width: 880px) 33vw, 90vw">
+            <img src="assets/img/story-a.jpg?v=2" srcset="assets/img/story-a-480.jpg?v=2 480w, assets/img/story-a.jpg?v=2 960w, assets/img/story-a-1400.jpg?v=2 1400w" sizes="(min-width: 880px) 33vw, 90vw" alt="" width="960" height="1200" loading="lazy" decoding="async">
+          </picture>
         </div>
         <div class="story-body reveal" data-d="1">
           <p>The owners who needed sophisticated financial architecture the most were the least likely to have it. The work got done, but it was never optimized, and value was lost in the gaps between advisors.</p>
