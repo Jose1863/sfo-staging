@@ -618,8 +618,8 @@
   }
 
   /* ---- back to top ----
-     One fixed control on phones and tablets, for a page that runs to roughly 22,000px at
-     375px wide. Two conditions gate it, and both matter: past two viewports, and only
+     One fixed control at every width, for a page that runs to roughly 22,000px at 375px
+     wide and 13,982px at 1440. Two conditions gate it, and both matter: past two viewports, and only
      while the reader is moving UP. Direction is the whole mitigation. A control that
      appeared on the way down would arrive beside the sticky gold CTA and split the one
      action the page asks for; a reader moving back up has already declined that action
@@ -669,6 +669,46 @@
       var brand = document.querySelector(".site-header .brand");
       if (brand) { brand.focus({ preventScroll: true }); }
     });
+  }
+
+  /* ---- FAQ: open every answer at once ----
+     Eight questions, and the only way to read them was eight taps. This is the page's one
+     accelerator, and it is deliberately a text control on the .status-action idiom, not a
+     button shape: there is exactly one filled gold control on the page and nothing may
+     read as a second. Built in JS rather than shipped in the markup, so a reader without
+     JS is never offered a control that cannot work. The native <details> are untouched and
+     keep opening on their own either way; this only sets and clears their open attribute.
+     The label is the state, and it re-syncs when an individual answer is toggled, so the
+     control can never claim "Close all" over a list the reader has partly closed. */
+  var faqList = document.getElementById("faqList");
+  var faqItems = faqList ? faqList.querySelectorAll("details.faq-item") : [];
+  if (faqList && faqItems.length > 1) {
+    var faqBar = document.createElement("div");
+    faqBar.className = "faq-bar";
+    var faqAll = document.createElement("button");
+    faqAll.type = "button";
+    faqAll.className = "status-action";
+    faqAll.setAttribute("aria-controls", "faqList");
+    faqBar.appendChild(faqAll);
+    faqList.insertBefore(faqBar, faqList.firstChild);
+
+    var syncFaqAll = function () {
+      var open = 0;
+      Array.prototype.forEach.call(faqItems, function (d) { if (d.open) { open++; } });
+      var allOpen = open === faqItems.length;
+      faqAll.textContent = allOpen ? "Close all" : "Open all";
+      faqAll.setAttribute("aria-expanded", allOpen ? "true" : "false");
+    };
+
+    faqAll.addEventListener("click", function () {
+      var wantOpen = faqAll.getAttribute("aria-expanded") !== "true";
+      Array.prototype.forEach.call(faqItems, function (d) { d.open = wantOpen; });
+      syncFaqAll();
+    });
+    Array.prototype.forEach.call(faqItems, function (d) {
+      d.addEventListener("toggle", syncFaqAll);
+    });
+    syncFaqAll();
   }
 
   /* ---- current year, if a placeholder is present ---- */

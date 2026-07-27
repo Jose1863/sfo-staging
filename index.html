@@ -66,7 +66,7 @@
     "parentOrganization": { "@type": "Organization", "name": "EG Capital Holdings LLC" },
     "founder": [
       { "@type": "Person", "name": "Evan Gruchot", "jobTitle": "Co-Founder & Chief Architect", "image": "https://www.eg-capital.co/assets/img/team-evan.jpg" },
-      { "@type": "Person", "name": "Tinja Anderson", "jobTitle": "Co-Founder, CRO & CEPA", "image": "https://www.eg-capital.co/assets/img/team-tinja.jpg" }
+      { "@type": "Person", "name": "Tinja Anderson", "jobTitle": "Co-Founder, CRO & Certified Exit Planning Advisor", "image": "https://www.eg-capital.co/assets/img/team-tinja.jpg" }
     ]
   }
   </script>
@@ -90,9 +90,9 @@
     "@type": "FAQPage",
     "mainEntity": [
       { "@type": "Question", "name": "What is a fractional family office?", "acceptedAnswer": { "@type": "Answer", "text": "A family office is a private team that runs every part of a family's financial life: tax, entity structure, capital, and succession. Staffing one is its own payroll, which is why the model has stayed reserved for households above $100M. A fractional family office delivers the same coordination without the standing payroll. One team, across all four disciplines at once, scoped to a founder still running the business." } },
-      { "@type": "Question", "name": "What does the retainer cover?", "acceptedAnswer": { "@type": "Answer", "text": "Tax planning and filing across federal, state, business, and personal returns for up to three entities, tax strategy across all four pillars, growth and business planning, a risk and insurance review, basic estate planning, cost segregation studies, entity and document setup, M&A advisory, and quarterly strategic reviews. One flat retainer, with no hourly billing." } },
+      { "@type": "Question", "name": "What does the retainer cover?", "acceptedAnswer": { "@type": "Answer", "text": "Tax planning and filing for up to three entities, tax strategy across all four pillars, growth and business planning, risk, estate, and entity work, and quarterly strategic reviews. One flat retainer, no hourly billing." } },
       { "@type": "Question", "name": "How is this different from my CPA?", "acceptedAnswer": { "@type": "Answer", "text": "A CPA files your returns. We work year round across tax, entity structure, capital, and exit planning as one coordinated team, so every decision is made with all four in view, not once a year at filing." } },
-      { "@type": "Question", "name": "How do you get paid?", "acceptedAnswer": { "@type": "Answer", "text": "One flat monthly retainer. We do not bill by the hour, earn commissions on products, or charge a percentage of your assets. We earn on the relationship." } },
+      { "@type": "Question", "name": "How do you get paid?", "acceptedAnswer": { "@type": "Answer", "text": "One flat monthly retainer. We earn on the relationship, not on commissions or a percentage of your assets." } },
       { "@type": "Question", "name": "What does the retainer cost?", "acceptedAnswer": { "@type": "Answer", "text": "The retainer is a flat monthly fee, and the amount is set per engagement. We scope it to your entities, your situation, and the modules you need. You get the number after the strategy call, with the modeled plan that carries your Year-1 tax position, so you see the scope it is priced against before you see the price." } },
       { "@type": "Question", "name": "You handle tax and investments together. Is that a conflict?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Coordinating tax planning and investment management under a single retainer creates conflicts of interest. We describe how we identify and address them in Solyco Wealth's Form ADV." } },
       { "@type": "Question", "name": "What if I am not planning to sell?", "acceptedAnswer": { "@type": "Answer", "text": "Most founders are not, yet. Exit positioning takes years, so we begin it at the start of the engagement. If an offer comes, or the plan changes, the structure is already in place." } },
@@ -404,7 +404,9 @@
 
         <div class="fee-model reveal" data-d="1">
           <h3>How we get paid, and how we do not.</h3>
-          <p>One flat monthly retainer. That is the whole model. No commissions on products, no percentage of your assets, and no charge for picking up the phone. We earn on the relationship. The conflicts that remain are described in Solyco Wealth's Form ADV.</p>
+          <!-- The gloss is a new sentence appended after the Form ADV sentence, which is
+               left byte-identical along with every other Form ADV sentence on the page. -->
+          <p>One flat monthly retainer. That is the whole model. No commissions on products, no percentage of your assets, and no charge for picking up the phone. We earn on the relationship. The conflicts that remain are described in Solyco Wealth's Form ADV. Form ADV is the disclosure document every SEC-registered adviser files.</p>
         </div>
 
         <!-- Three grid children in source order savings -> price-card -> modules: on phones the
@@ -532,7 +534,9 @@
               <img class="member-photo" src="assets/img/team-tinja.jpg?v=1" alt="" width="640" height="800" loading="lazy" decoding="async">
             </picture>
             <h3>Tinja Anderson</h3>
-            <p class="role">Co-Founder, CRO &amp; CEPA</p>
+            <!-- Expanded in place: the acronym now appears only in the credentials row
+                 below, which is the one place it is spelled out. -->
+            <p class="role">Co-Founder, CRO &amp; Certified Exit Planning Advisor</p>
             <p>Eighteen years as a strategic sales and business optimization consultant. She sets the client experience standard across the firm.</p>
             <ul class="creds">
               <li>CEPA, Certified Exit Planning Advisor</li>
@@ -573,7 +577,10 @@
         <div class="section-head">
           <h2 class="title reveal" id="faq-h" data-d="1">Straight answers before you book.</h2>
         </div>
-        <div class="faq reveal" data-d="1">
+        <!-- id is the aria-controls target for the open-all control main.js inserts as
+             this list's first child. The control is built in JS so a reader without it is
+             never shown an affordance that cannot work; the native details still open. -->
+        <div class="faq reveal" data-d="1" id="faqList">
           <!-- Was its own section after #story, ending on the same "we built this firm" beat,
                so the page concluded twice. Demoted here: same words, no second ending. -->
           <details class="faq-item">
@@ -582,7 +589,10 @@
           </details>
           <details class="faq-item">
             <summary>What does the retainer cover?</summary>
-            <p>Tax planning and filing across federal, state, business, and personal returns for up to three entities, tax strategy across all four pillars, growth and business planning, a risk and insurance review, basic estate planning, cost segregation studies, entity and document setup, M&amp;A advisory, and quarterly strategic reviews. One flat retainer, with no hourly billing.</p>
+            <!-- Trimmed to what the engagement card does not already carry. The card holds
+                 the itemized list; this answers the question standalone for a reader who
+                 arrives here from search, without reciting it. -->
+            <p>Tax planning and filing for up to three entities, tax strategy across all four pillars, growth and business planning, risk, estate, and entity work, and quarterly strategic reviews. One flat retainer, no hourly billing.</p>
           </details>
           <details class="faq-item">
             <summary>How is this different from my CPA?</summary>
@@ -590,7 +600,10 @@
           </details>
           <details class="faq-item">
             <summary>How do you get paid?</summary>
-            <p>One flat monthly retainer. We do not bill by the hour, earn commissions on products, or charge a percentage of your assets. We earn on the relationship.</p>
+            <!-- The three negations run twice already, in .hero-proof and the fee model.
+                 A third recital added nothing, so the answer keeps only the part that
+                 stands alone. -->
+            <p>One flat monthly retainer. We earn on the relationship, not on commissions or a percentage of your assets.</p>
           </details>
           <details class="faq-item">
             <summary>What does the retainer cost?</summary>

@@ -224,6 +224,20 @@ em { font-style: italic; color: var(--champagne); }
    this costs (sp-7 -> sp-5) so the primary CTA stays above the 900px fold. */
 .hero-trigger { margin-top: var(--sp-4); font-size: var(--fs-body-sm); color: var(--sage); line-height: var(--lh-prose); max-width: 70ch; }
 .hero-actions { margin-top: var(--sp-5); display: flex; flex-wrap: wrap; gap: var(--sp-4); }
+/* Below ~540px the two hero buttons stop sharing a row and stack, which is what pushed
+   "See How It Works" off a 812px-tall phone once the trigger line landed. Measured: at
+   375x812 the ghost button ran 804-857. One row is not recoverable at this width (the
+   two labels measure 380px of content against a 333px container, so no padding or gap
+   change fits them side by side), so the space comes back from the vertical rhythm
+   instead: the trigger line's own top margin, the gap down to the CTA row, the gap
+   between the stacked buttons, and the buttons' block padding, which falls back on the
+   44px --tap floor rather than the 53px the 0.9rem padding was setting. The h1, the
+   lead, and the hero's own padding are untouched. */
+@media (max-width: 560px) {
+  .hero-trigger { margin-top: var(--sp-2); }
+  .hero-actions { margin-top: var(--sp-3); gap: var(--sp-3); }
+  .hero-actions .btn { padding-block: var(--sp-2); }
+}
 .hero-proof {
   margin-top: var(--sp-8); padding-top: var(--sp-5); border-top: 1px solid var(--line);
   display: flex; align-items: baseline; gap: var(--sp-4); flex-wrap: wrap; max-width: 60ch;
@@ -490,10 +504,16 @@ em { font-style: italic; color: var(--champagne); }
    first fixed that and broke something else: the field arrived with its framing headline
    819px BELOW it, so the highest-trust moment had no context above it.
    display:contents lets the copy column's own children be ordered individually, so the
-   headline leads, the form follows immediately, and the supporting prose sits under it. */
+   headline leads, the form follows immediately, and the supporting prose sits under it.
+   That overshot: it left the reassurance about 950px BELOW the form, so the ask came
+   before the reason. "After you book" is the reassurance that belongs beside the ask (it
+   is three short rows, not a paragraph), so it moves up between the headline and the
+   form. The longer explanatory prose and the email fallback stay below. */
 @media (max-width: 899.98px) {
   .cta-copy { display: contents; }
-  .cta-copy > h2 { order: -2; margin-bottom: var(--sp-5); }
+  .cta-copy > h2 { order: -3; margin-bottom: var(--sp-5); }
+  /* margin-top zeroed: the grid gap plus the h2's own margin already separate them. */
+  .cta-copy .cta-after { order: -2; margin-top: 0; }
   .cta-grid .form { order: -1; }
 }
 .cta h2 { font-size: var(--fs-h1); line-height: 1.1; }
@@ -814,6 +834,11 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 /* Left-aligned to the gutter so the questions sit under the section heading. */
 .faq { max-width: 820px; border-top: 1px solid var(--line); }
 /* Inert above 1000px (the head-aside column is narrower); governs the stacked layout. */
+/* Sits between the list's top rule and the first question, right-aligned so it lands on
+   the same axis as the summaries' plus marks. Inserted by main.js, so it costs nothing
+   JS-off. Kept on the .status-action text idiom: no second button shape on the page. */
+.faq-bar { display: flex; justify-content: flex-end; padding-top: var(--sp-3); }
+.faq-bar .status-action { min-height: var(--tap); display: inline-flex; align-items: center; font-size: var(--fs-body-sm); }
 .faq-item { border-bottom: 1px solid var(--line); }
 .faq-item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--sp-5); padding: var(--sp-5) 0; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3-sm); color: var(--text); }
 .faq-item summary::-webkit-details-marker { display: none; }
@@ -877,36 +902,39 @@ address.foot-contact { font-style: normal; }
 }
 @media (prefers-reduced-motion: reduce) { .mobile-cta { transition: none; } }
 
-/* ---------- back to top (phones and tablets) ---------- */
-/* The page runs to roughly 22,000px at 375px wide and the sticky bar is the only fixed
-   control, so a reader deep in the page has no way back. main.js reveals this one only on
-   an upward scroll past two viewports, which is what keeps it from competing with the bar:
-   a reader travelling down toward the CTA never sees a second control arrive beside it.
-   The page has exactly one filled gold control, so this is a hairline-bordered dark disc
-   with a champagne glyph, not a second button shape. Gated at 899.98px: above that the
-   sticky bar is the only mobile affordance left and the viewport is short enough to
-   scroll back by hand. Same display: none base as .mobile-cta, so JS-off never shows it. */
+/* ---------- back to top (every width) ---------- */
+/* The page runs to roughly 22,000px at 375px wide and 13,982px at 1440, and nothing else
+   is fixed, so a reader deep in the page has no way back. main.js reveals this one only on
+   an upward scroll past two viewports, which is what keeps it from competing with the
+   sticky bar on phones: a reader travelling down toward the CTA never sees a second
+   control arrive beside it. The page has exactly one filled gold control, so this is a
+   hairline-bordered dark disc with a champagne glyph, not a second button shape. The glyph
+   is an inline SVG, not a font character: the fonts are subset and an arrow would ship as
+   tofu. Same display: none base as .mobile-cta, so JS-off never shows it. */
 .to-top { display: none; }
-/* Bound matches .mobile-cta's 1100px, not 900px. The sticky bar and this control are
-   a pair: wherever the bar exists the reader is on a long thumb-driven scroll and has
-   no way back up, so gating them differently left a 900-1100px band with one and not
-   the other. */
-@media (max-width: 1100px) {
-  html.js .to-top {
-    display: grid; place-items: center;
-    position: fixed; right: var(--gutter); bottom: 64px; z-index: 94;   /* 52px bar + 12px */
-    width: var(--tap); height: var(--tap); border-radius: 50%;
-    background: var(--green-950); color: var(--champagne);
-    border: 1px solid var(--line-strong); box-shadow: var(--shadow-pop);
-    /* Hidden means hidden: visibility keeps it out of the tab order too, so the inert
-       attribute main.js manages is the belt and this is the braces. */
-    opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(6px);
-    transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), visibility 0s linear var(--dur-fast);
-  }
-  html.js body.show-top:not(.cta-near):not(.nav-open) .to-top {
-    opacity: 1; visibility: visible; pointer-events: auto; transform: none;
-    transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), visibility 0s linear 0s;
-  }
-  html.js .to-top:hover { border-color: var(--line-gold); }
+/* Ungated as of the run-6 fixes. It was bounded at 1100px to pair with the sticky bar, but
+   the desktop page is 13,982px tall with no bar and no other way up, which is the same
+   problem the control exists to solve. */
+html.js .to-top {
+  display: grid; place-items: center;
+  /* Clear of both viewport edges by one gutter. Where the sticky bar exists the bottom
+     offset is re-derived below; on desktop there is no bar to sit above. */
+  position: fixed; right: var(--gutter); bottom: var(--gutter); z-index: 94;
+  width: var(--tap); height: var(--tap); border-radius: 50%;
+  background: var(--green-950); color: var(--champagne);
+  border: 1px solid var(--line-strong); box-shadow: var(--shadow-pop);
+  /* Hidden means hidden: visibility keeps it out of the tab order too, so the inert
+     attribute main.js manages is the belt and this is the braces. */
+  opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(6px);
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), visibility 0s linear var(--dur-fast);
 }
+/* Wherever .mobile-cta is on screen, sit 12px above its 52px bar instead. */
+@media (max-width: 1100px) {
+  html.js .to-top { bottom: 64px; }   /* 52px bar + 12px */
+}
+html.js body.show-top:not(.cta-near):not(.nav-open) .to-top {
+  opacity: 1; visibility: visible; pointer-events: auto; transform: none;
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), visibility 0s linear 0s;
+}
+html.js .to-top:hover { border-color: var(--line-gold); }
 @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
