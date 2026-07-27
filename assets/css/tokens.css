@@ -37,15 +37,11 @@
   --bullion:          #8E7330;
   --ink:              #0C2117; /* dark text for use on gold fills */
 
-  /* ---- Functional state: "wrong". Not a brand-palette addition — the kit has no
-          error tone, and champagne cannot carry it because champagne already means
-          "important and good" across card titles, credentials and the price sub.
-          A desaturated brick that stays inside the green world: hue 12.9deg against
-          champagne's 41.8deg, so the two never read as the same signal.
-          Measured against the rendered page, text hidden, lightest pixel sampled:
-          6.23:1 on the composited form panel (20,52,38) and 7.11:1 on the
-          composited field background (16,41,30). Both clear 4.5:1 for text and
-          3:1 for the invalid border. Used ONLY for error text and invalid borders. */
+  /* Functional state "wrong". The kit has no error tone and champagne cannot carry one
+     (it already means "important and good"). Desaturated brick inside the green world,
+     hue 12.9deg vs champagne's 41.8deg. Measured on the rendered page, text hidden,
+     lightest pixel: 6.23:1 on the composited form panel (20,52,38), 7.11:1 on the
+     field background (16,41,30). Error text and invalid borders only. */
   --error:            #E2A08E;
 
   /* ---- Hairlines and accents ---- */
@@ -89,10 +85,9 @@
   --sp-10: 4rem;   --sp-12: 5rem;
 
   /* ---- Section rhythm and widths ---- */
-  /* Default band pulled in from 9rem: at 9rem every boundary measured 291-336px
-     glyph-to-glyph and a quarter of the page was inter-section air, with the
-     deliberate act break only 13% larger than an ordinary gap. The tiers in
-     styles.css (--continues / --act) now read against a tighter default. */
+  /* Pulled in from 9rem: every boundary measured 291-336px glyph-to-glyph, a quarter of
+     the page was inter-section air, and the act break was only 13% larger than a normal
+     gap. The --continues / --act tiers now read against a tighter default. */
   --section-y: clamp(4.25rem, 3.0rem + 5.4vw, 7rem);
   --header-h:  76px;        /* sticky header height; single source of truth */
   --maxw:        1200px;

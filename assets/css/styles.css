@@ -49,19 +49,15 @@ ul, ol { list-style: none; padding: 0; }
 /* ---------- layout primitives ---------- */
 .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: var(--section-y); position: relative; }
-/* DESIGN.md: "Vary spacing for rhythm; do not apply uniformly." --section-y was one
-   clamp across all 15 sections, so the ten largest content-free bands measured
-   293-353px and the top eight sat inside a 10% spread: the reader learned nothing
-   from a gap, and the compare panel that carries the argument got the same framing
-   as the definition block 10,000px later. Two tiers on top of the default.
-   Applied ONLY where the transition is pure air. Where a sunk band meets the ground
-   the colour change already carries the separation, so those boundaries keep the
-   default and the bands stay symmetric. */
+/* DESIGN.md: "Vary spacing for rhythm; do not apply uniformly." One clamp across all
+   15 sections put every boundary inside a 10% spread, so a gap meant nothing. Two
+   tiers, applied ONLY to pure-air transitions: where a sunk band meets the ground the
+   colour change already separates, so those keep the default and stay symmetric.
+   Measured at 1440: continuations 175/173, default median 260, act break 389 = 1.50x. */
 .section--continues { padding-top: calc(var(--section-y) * 0.52); }  /* one argument running on */
 .section--act       { padding-top: calc(var(--section-y) * 2.05); }  /* a real act break */
-/* Only #engagement takes --act. The other act break, into #contact, already has the
-   hardest boundary on the page — the only full-bleed photographic ground — so paying
-   46px of scroll to restate it would work against the heuristic this tier serves. */
+/* Only #engagement takes --act: #contact already has the hardest boundary on the page,
+   the only full-bleed photographic ground. */
 .section--sunk { background: var(--green-950); box-shadow: inset 0 1px 0 var(--line), inset 0 -1px 0 var(--line); }
 
 .eyebrow {
@@ -79,8 +75,7 @@ ul, ol { list-style: none; padding: 0; }
 }
 .section--center .eyebrow { justify-content: center; }
 
-/* balance evens the rag on display type: the h1 was setting 24 / 26 / 9 characters,
-   a nine-character widow at 84px. pretty pulls orphans off long prose. */
+/* balance evens the display rag: the h1 was setting 24/26/9 chars, a widow at 84px. */
 h1, h2, h3, .display { font-family: var(--font-display); font-weight: 600; text-wrap: balance; }
 p, li { text-wrap: pretty; }
 .s-guarantee { text-wrap: balance; }
@@ -363,22 +358,15 @@ em { font-style: italic; color: var(--champagne); }
   .stat { border-bottom: none; border-right: 1px solid var(--line); }
   .stat:last-child { border-right: none; }
 }
-/* The 75/80/50 figures were the only numerals on the page set in the body sans with
-   default figures, against DESIGN.md's rule that every figure carries
-   lining-nums tabular-nums. Brought into the same idiom as .col-foot .price,
-   .savings .s-amt, .step .st-num and .hero-proof .pf-figure. */
+/* Were the only numerals set in the body sans with default figures, against DESIGN.md's
+   rule that every figure carries lining-nums tabular-nums. */
 .stat .s-fig { font-family: var(--font-display); font-weight: 600; color: var(--champagne); font-size: clamp(1.8rem, 1.5rem + 1vw, 2.1rem); display: inline-block; padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-gold); margin-bottom: var(--sp-1); }
 .stat .s-text { margin-top: var(--sp-3); color: var(--text-dim); font-size: 1rem; line-height: 1.5; max-width: 26ch; margin-inline: auto; }
 /* Generic dated-source line, usable under any figure on the page. */
-/* ---------- label ranks ----------
-   One micro-label treatment was doing nine different jobs: field label, section
-   kicker, phase heading, job title, card head, step-list head and footer column
-   all rendered at the same 12.48px / champagne / 0.18em, so rank could not be read
-   from form. PRODUCT.md names exactly this as an anti-reference. Two ranks now:
-   rank 1 stays champagne at --tracking-label with the gold rule (section kickers,
-   the fractional-layer eyebrow, job titles, the promise tag); rank 2 is sage at
-   --tracking-sub with no rule, for labels that name a block rather than open a
-   section. */
+/* Label ranks. One treatment was doing nine jobs at the same 12.48px/champagne/0.18em,
+   so rank could not be read from form (PRODUCT.md names this an anti-reference).
+   Rank 1: champagne, --tracking-label, gold rule, for section kickers. Rank 2: sage,
+   --tracking-sub, no rule, for labels naming a block rather than opening a section. */
 .s-src { display: block; font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); }
 .stat .s-src { margin-top: auto; padding-top: var(--sp-4); }
 .col-foot .s-src { margin-top: var(--sp-1); }
@@ -455,20 +443,16 @@ em { font-style: italic; color: var(--champagne); }
    the pair, so the row reads as composed rather than as a grid missing a card. */
 @media (min-width: 920px) {
   .team { grid-template-columns: repeat(2, 1fr); max-width: 800px; margin-inline: auto; }
-  /* The clamp is a settled composed-pair decision, but it left the section heading
-     starting at x=168 while its own cards started at x=320 — the only place on the
-     page where a head and its content do not share a left edge. The head now rides
-     the same measure. */
+  /* The clamp is settled, but it left the heading at x=168 while its cards started at
+     x=320: the only place a head and its content did not share a left edge. */
   #team .section-head { max-width: 800px; margin-inline: auto; }
 }
 @media (max-width: 599px) { .member-photo { max-width: 320px; margin-inline: auto; } }
 /* min-width: 0 so a missing portrait degrades to a broken icon instead of blowing
    the grid track out past the container and clipping a card. */
-/* Column so the credential rows can be pushed to the foot of the card. Equal-height
-   grid tracks left 181px of void under Tinja's last credential against 33px under
-   Evan's, which on a two-person firm makes the second founder look like she has
-   less to say. The slack now falls between the bio and the credentials, where it
-   reads as air, and both cards close on the same hairline. */
+/* Column so credentials can be pushed to the card foot. Equal-height tracks left 181px
+   of void under one founder's last credential against 33px under the other's. The slack
+   now falls between bio and credentials and both cards close on the same hairline. */
 .member { border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card); padding: var(--sp-6) var(--sp-5); min-width: 0; display: flex; flex-direction: column; }
 .member-photo {
   width: 100%; aspect-ratio: 4 / 5; height: auto;
@@ -481,11 +465,9 @@ em { font-style: italic; color: var(--champagne); }
 .member p { color: var(--sage); font-size: 0.95rem; line-height: 1.55; margin-top: var(--sp-4); }
 /* Credentials as scannable labeled rows, not chips (Callan-grade credential density). */
 .member .creds { margin-top: auto; padding-top: var(--sp-4); }
-/* The tracked-caps micro-label system is built for short labels. These rows run 33-54
-   characters ("Outsourced CIO to seven registered investment advisers"), which stretches
-   a label scale across sentence-length content and was flagged independently by both
-   critique assessments. Same champagne, same hairline rows, same component — set as
-   credential lines rather than labels so they can actually be read. */
+/* These rows run 33-54 characters, stretching a micro-label scale across sentence-length
+   content (flagged independently by both critique assessments). Same champagne, same
+   hairline rows: set as credential lines rather than labels so they can be read. */
 .member .creds li { font-size: 0.86rem; letter-spacing: 0.01em; color: var(--champagne); border-top: 1px solid var(--line); padding: var(--sp-3) 0; }
 .member .s-src { margin-top: var(--sp-2); }
 
@@ -520,24 +502,21 @@ em { font-style: italic; color: var(--champagne); }
 }
 .field textarea { min-height: 110px; resize: vertical; }
 .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23B8963E' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.4rem; }
-/* Every other control on the page shows focus as a 2px champagne outline at 3px
-   offset. The fields substituted a 1px border plus a soft halo, which cleared 1.4.11
-   on its own but was visibly the weakest indicator on the page. One treatment now. */
+/* Fields substituted a 1px border plus a halo for the page's 2px champagne outline:
+   1.4.11-clean but visibly the weakest indicator on the page. One treatment now. */
 .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible {
   outline: 2px solid var(--champagne); outline-offset: 3px; border-color: var(--gilt);
 }
 .field input::placeholder, .field textarea::placeholder { color: var(--sage-dim); }
 
-/* Invalid state. main.js has set aria-invalid since launch with nothing consuming
-   it, so the field that was wrong looked exactly like the fields that were right. */
+/* Invalid state. aria-invalid had been set since launch with no rule consuming it. */
 .field input[aria-invalid="true"],
 .field select[aria-invalid="true"],
 .field textarea[aria-invalid="true"] { border-color: var(--error); }
 .field input[aria-invalid="true"]:focus-visible,
 .field select[aria-invalid="true"]:focus-visible,
 .field textarea[aria-invalid="true"]:focus-visible { border-color: var(--error); outline-color: var(--error); }
-/* The message carries the fix, not just the fact. Never colour alone: the text
-   itself is the indicator, the tone only sharpens it. */
+/* The message carries the fix, not just the fact. Never colour alone. */
 .field-error { margin-top: var(--sp-2); font-size: 0.84rem; line-height: 1.45; color: var(--error); display: none; }
 .field-error.is-shown { display: block; }
 .field-hint { margin-top: var(--sp-2); font-size: 0.8rem; line-height: 1.4; color: var(--sage-dim); }
@@ -546,15 +525,14 @@ em { font-style: italic; color: var(--champagne); }
 .form .btn-primary[disabled] { opacity: 0.62; cursor: progress; box-shadow: none; }
 .form-note { margin-top: var(--sp-4); font-size: 0.82rem; color: var(--sage-dim); line-height: 1.5; }
 .form-note a { color: var(--champagne); text-decoration: underline; text-underline-offset: 2px; }
-/* Status is a block, not a tinted sentence: the rule gives it presence whatever the
-   state, so the meaning never rides on hue alone. */
+/* The rule gives the status presence in any state, so meaning never rides on hue. */
 .form-status { font-size: 0.9rem; line-height: 1.5; color: var(--text-dim); }
 .form-status:not(:empty) { margin-bottom: var(--sp-4); padding-left: var(--sp-4); border-left: 2px solid currentColor; }
 .form-status.is-error { color: var(--error); }
 .form-status.is-ok { color: var(--champagne); }
 .form-status.is-busy { color: var(--sage); }
 
-/* Spam trap: off-screen, untabbable, out of the accessibility tree. */
+/* Spam trap: off-screen, untabbable, aria-hidden. */
 .hp { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ---------- footer ---------- */
@@ -565,17 +543,15 @@ em { font-style: italic; color: var(--champagne); }
 .foot-brand .tagline { font-family: var(--font-display); font-style: italic; color: var(--champagne); font-size: 1.2rem; }
 .foot-brand .foot-contact { margin-top: var(--sp-4); color: var(--sage); font-size: 0.95rem; }
 .foot-brand .foot-contact a { color: var(--text-dim); }
-/* font-family was missing, so this was the page's only serif micro-label: Cormorant
-   at 12.48px, against DESIGN.md's "Cormorant display, never below 18px". Every
-   sibling label component sets the sans stack explicitly; this one did not. */
+/* font-family was missing, making this the only serif micro-label on the page:
+   Cormorant at 12.48px, against DESIGN.md's "never below 18px". */
 .foot-col h3 { font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage-dim); font-weight: 700; margin-bottom: var(--sp-4); }
 .foot-col li { margin-bottom: var(--sp-3); }
 .foot-col a { color: var(--text-dim); font-size: 0.95rem; display: inline-block; padding-block: 0.8rem; }
 .foot-col a:hover { color: var(--text); }
 .disclosure { padding-top: var(--sp-6); }
-/* 84ch rendered as 86/106/104 actual characters per line, because ch is the width of
-   "0" and Raleway draws it wide against average lowercase. The copy is verbatim-locked
-   legal text and is untouched; only the container it flows into is author-controlled. */
+/* 84ch rendered 86/106/104 actual chars per line (ch is the width of "0", which Raleway
+   draws wide). 52ch renders 69/72/68. Locked legal copy untouched; only the container. */
 .disclosure p { color: var(--sage-dim); font-size: 0.8rem; line-height: 1.65; max-width: 52ch; margin-bottom: 0.9rem; }
 .disclosure a { color: var(--sage); text-decoration: underline; text-underline-offset: 2px; }
 .disclosure .legal-name { color: var(--sage); }
@@ -633,9 +609,8 @@ html.gsap .phase::before { transform: scale(var(--dot-scale, 1)); }
   /* with JS present: links collapse into a toggled dropdown */
   html.js .nav-links {
     position: fixed; inset: var(--header-h) 0 auto 0; flex-direction: column; align-items: stretch; gap: 0;
-    /* Fully opaque: at 97% the body copy behind the panel read straight through it,
-       which looks like a rendering bug on the device where the buyer first arrives.
-       backdrop-filter goes with it — nothing translucent is left for it to blur. */
+    /* Fully opaque: at 97% body copy read straight through the panel. backdrop-filter
+       goes with it, since nothing translucent is left to blur. */
     background: var(--green-950);
     border-bottom: 1px solid var(--line); padding: 0.5rem var(--gutter) 1.5rem;
     max-height: calc(100dvh - var(--header-h)); overflow-y: auto;
@@ -669,14 +644,11 @@ html.gsap .phase::before { transform: scale(var(--dot-scale, 1)); }
 
 /* ============================ ULTIMATE-PASS ADDITIONS ============================ */
 
-/* Anchored scroll offset. html already carries scroll-padding-top of
-   --header-h + --sp-3; this element previously repeated the SAME value as
-   scroll-margin-top, and the two add, so every anchor landed 176px past its
-   section against a header measured at 77px. The heading then arrived 340-360px
-   down a 900px viewport, which is the failure mode of the primary navigation.
-   html owns the header compensation. This value only has to cancel enough of the
-   section's own top padding that the heading lands just under the header instead
-   of a third of the way down the screen. */
+/* html carries scroll-padding-top of --header-h + --sp-3. This element used to repeat
+   the SAME value as scroll-margin-top; the two add, so every anchor landed 176px past
+   its section against a 77px header and the heading arrived 340-360px down. html owns
+   the header compensation; this only cancels enough of the section's own top padding
+   to bring the heading up under the header. After: h2 at 131-196px across viewports. */
 main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62); }
 
 /* ---------- five beliefs ---------- */
@@ -690,9 +662,8 @@ main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62);
 .belief p { color: var(--sage); font-size: 1rem; line-height: 1.55; max-width: 64ch; }
 .belief .accent { color: var(--champagne); }
 @media (min-width: 820px) {
-  /* 3.5rem track plus a 2rem gap put ~75px between the 9px diamond and the heading it
-     marks, so it read as a stray dot rather than a marker. Track tightened to the
-     mark's own optical need. */
+  /* A 3.5rem track plus 2rem gap put ~75px between the diamond and its heading, so it
+     read as a stray dot. Tightened to the mark's optical need. */
   .belief { grid-template-columns: 1.25rem minmax(0, 1fr) minmax(0, 1.15fr); align-items: baseline; gap: var(--sp-6); }
   .belief .b-mark { grid-row: auto; }
 }
@@ -716,17 +687,13 @@ main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62);
 .trigger-list li { display: grid; grid-template-columns: 1.2rem 1fr; gap: var(--sp-3); align-items: baseline; color: var(--text-dim); font-size: 1.02rem; line-height: 1.45; padding: var(--sp-3) 0; border-top: 1px solid var(--line); }
 .trigger-list .tg-mark { color: var(--gilt); }
 .triggers-close { margin-top: var(--sp-5); font-family: var(--font-display); font-style: italic; font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem); color: var(--champagne); }
-/* The close stopped at x=756 against a 1,320px content edge, 564px of empty right
-   field directly under a full-width two-column list. It now sits on the same two
-   tracks the list above it uses: the disqualifier takes the left column and the
-   conviction line plus its link close the right, so the section ends on its own
-   measure instead of trailing off. */
+/* The close stopped at x=756 against a 1,320px edge: 564px of empty right field under
+   a full-width two-column list. It now sits on the same two tracks. */
 .triggers-notfit { margin-top: var(--sp-5); color: var(--sage); font-size: 0.95rem; line-height: 1.6; max-width: 66ch; }
 @media (min-width: 720px) {
   .triggers-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--sp-6); align-items: start; }
-  /* Explicit placement: the disqualifier holds the left column, and the conviction
-     line keeps its own CTA directly beneath it. Auto-flow put the link under the
-     disqualifier, which separated the ask from the sentence that earns it. */
+  /* Explicit placement: auto-flow put the link under the disqualifier, separating the
+     ask from the sentence that earns it. */
   .triggers-foot .triggers-notfit { grid-column: 1; grid-row: 1 / span 2; margin-top: var(--sp-5); max-width: none; }
   .triggers-foot .triggers-close { grid-column: 2; grid-row: 1; margin-top: var(--sp-5); }
   .triggers-foot .triggers-cta { grid-column: 2; grid-row: 2; }
@@ -739,9 +706,8 @@ main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62);
 
 /* ---------- fee model strip ---------- */
 .fee-model { border: 1px solid var(--line-gold); border-radius: var(--radius-lg); background: var(--card); padding: var(--sp-6); margin-bottom: var(--sp-7); max-width: var(--maxw-text); }
-/* Same device at component scale: the heading stands beside its paragraph and the
-   strip takes the full measure, so the fee statement reads as a band rather than a
-   narrow card with 415px of empty field to its right. */
+/* Same device at component scale: the fee statement reads as a band, not a narrow
+   card with 415px of empty field beside it. */
 @media (min-width: 1000px) {
   .fee-model { max-width: none; display: grid; grid-template-columns: 0.8fr 1.2fr;
     gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: start; padding: var(--sp-7) var(--sp-6); }
@@ -757,31 +723,24 @@ main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62);
 .rm-band h3 { font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
 .rm-band p { margin-top: var(--sp-3); color: var(--sage); font-size: 0.95rem; line-height: 1.6; }
 
-/* ---------- head-aside: the one pattern break ----------
-   Twelve sections run the same bar: head on top, grid underneath. In three of them
-   the content also stops around two thirds of the measure and leaves the right
-   field empty (measured at 1440: #faq 458px, #definition 456px, .fee-model 415px;
-   #problem, #serve and #beliefs already fill their measure, so they are left alone).
-   One device, applied to exactly those three: the head steps out of the stack and
-   stands beside its content. Proportions, gap and breakpoint intent are lifted from
-   .story-grid, where this idiom is already settled, so it reads as the page's own
-   move rather than a fourth new grammar. No section moves, none is cut, no copy
-   changes. Below 1000px everything stacks exactly as before. */
+/* head-aside: the one pattern break. Measured dead right field at 1440 was #faq 458px,
+   #definition 456px, .fee-model 415px; #problem/#serve/#beliefs already fill their
+   measure and are left alone. The head steps out of the stack and stands beside its
+   content, reusing .story-grid's settled proportions so it is the page's own idiom.
+   No section cut or moved, no copy changed. Below 1000px everything stacks as before. */
 @media (min-width: 1000px) {
   .head-aside > .wrap {
     display: grid; grid-template-columns: 0.8fr 1.2fr;
     gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: start;
   }
   .head-aside .section-head { margin-bottom: 0; }
-  /* The FAQ's answer column is far taller than its head, so the head holds its place
-     while the reader works down the accordions instead of scrolling away at row two. */
+  /* The answer column is far taller than its head, so the head holds its place. */
   #faq .section-head { position: sticky; top: calc(var(--header-h) + var(--sp-6)); }
 }
 
 /* ---------- definition block ---------- */
 .definition { max-width: var(--maxw-text); }
-/* The block is capped at --maxw-text (760px), which at 1.05rem runs ~90ch: past the
-   measure every other lead and subtitle on the page is held to. Copy untouched. */
+/* Was running past the measure every other lead is held to. Copy untouched. */
 .definition p { margin-top: var(--sp-4); color: var(--text-dim); font-size: 1.05rem; line-height: 1.7; max-width: var(--maxw-read); }
 
 /* ---------- founder story ---------- */
@@ -797,10 +756,9 @@ main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62);
   border-radius: var(--radius);
   box-shadow: 0 0 0 1px var(--line-gold), 0 14px 30px -16px rgba(0,0,0,0.8);
 }
-/* Joins the green world. The hero and CTA grounds carry --overlay-green at .78;
-   this is the same wash pulled back to .34, because those two are backdrops for
-   text and this one is the subject. Environments take the wash, faces are the
-   exception, which is why the team portraits stay unwashed. */
+/* Joins the green world: --overlay-green at .78 pulled back to .34, because the hero
+   and CTA grounds are backdrops for text and this one is the subject. Environments take
+   the wash; faces are the exception, so team portraits stay unwashed. */
 .story-photo::after {
   content: ""; position: absolute; inset: 0; border-radius: var(--radius);
   background: rgba(12, 33, 23, 0.34);
@@ -826,8 +784,7 @@ main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62);
 /* ---------- FAQ (native disclosure, no JS) ---------- */
 /* Left-aligned to the gutter so the questions sit under the section heading. */
 .faq { max-width: 820px; border-top: 1px solid var(--line); }
-/* Above 1000px .faq sits in a head-aside grid column narrower than 820px, so the cap
-   above is inert there; it still governs the stacked layout below the breakpoint. */
+/* Inert above 1000px (the head-aside column is narrower); governs the stacked layout. */
 .faq-item { border-bottom: 1px solid var(--line); }
 .faq-item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--sp-5); padding: var(--sp-5) 0; font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; color: var(--text); }
 .faq-item summary::-webkit-details-marker { display: none; }
