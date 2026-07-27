@@ -301,7 +301,7 @@ em { font-style: italic; color: var(--champagne); }
 
 /* ---------- pillars, de-carded ----------
    The four disciplines as editorial rows on hairlines: the row grammar that proved
-   itself in the beliefs section, now carrying content that earns it. This retires
+   itself in the cut beliefs section, now carrying content that earns it. This retires
    the page's one icon-card grid, which PRODUCT.md's anti-references name. */
 .pillar-list { margin-top: var(--sp-2); }
 .pillar-row { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-3) var(--sp-5);
@@ -498,7 +498,6 @@ em { font-style: italic; color: var(--champagne); }
      at -3 and DOM order resolves the tie: h2, lead, steps, form. */
   .cta-copy > p:first-of-type { order: -3; margin-bottom: var(--sp-5); }
   /* margin-top zeroed: the grid gap plus the h2's own margin already separate them. */
-  .cta-copy .cta-after { order: -2; margin-top: 0; }
   .cta-grid .form { order: -1; }
 }
 .cta h2 { font-size: var(--fs-h1); line-height: 1.1; }
@@ -506,11 +505,6 @@ em { font-style: italic; color: var(--champagne); }
 .cta-alt { margin-top: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-2); color: var(--sage); font-size: var(--fs-body-sm); }
 .cta-alt a { color: var(--champagne); text-decoration: underline; text-underline-offset: 3px; }
 /* Compact post-book sequence beside the form (C16): triggers-lead label idiom + hairline rows. */
-.cta-after { margin-top: var(--sp-6); max-width: 30ch; }
-.cta-copy .cta-after-lead { margin-top: 0; font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
-.cta-after ol { counter-reset: booked; margin-top: var(--sp-3); }
-.cta-after li { counter-increment: booked; display: grid; grid-template-columns: 1.6rem 1fr; gap: var(--sp-3); align-items: baseline; padding: var(--sp-3) 0; border-top: 1px solid var(--line); color: var(--text-dim); font-size: var(--fs-body-sm); }
-.cta-after li::before { content: counter(booked, decimal-leading-zero); font-size: var(--fs-label); letter-spacing: var(--tracking-tight); color: var(--gilt); font-weight: 700; font-variant-numeric: lining-nums tabular-nums; }
 
 .form { border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--green-850) 86%, transparent); padding: clamp(1.5rem, 1rem + 2vw, 2.2rem); }
 .field { margin-bottom: var(--sp-4); }
@@ -692,13 +686,8 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 /* ---------- fractional executive layer (inside engagement) ---------- */
 .fx { margin-top: var(--sp-8); border-top: 1px solid var(--line); padding-top: var(--sp-7); }
 .fx-eyebrow { font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; }
+.fx-roles { margin-top: var(--sp-4); color: var(--text-dim); font-size: var(--fs-body-sm); line-height: var(--lh-prose); max-width: 52ch; }
 .fx-head { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h2-sm); margin-top: var(--sp-2); line-height: var(--lh-heading); }
-.fx-grid { margin-top: var(--sp-5); display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-@media (min-width: 560px) { .fx-grid { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 900px) { .fx-grid { grid-template-columns: repeat(3, 1fr); } }
-.fx-grid li { background: var(--green-900); padding: var(--sp-5); }
-.fx-role { display: block; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3-sm); color: var(--text); }
-.fx-grid p { color: var(--sage); font-size: var(--fs-body-sm); margin-top: var(--sp-1); line-height: var(--lh-prose); }
 
 /* ---------- decision triggers (inside who we serve) ---------- */
 .triggers { margin-top: var(--sp-7); }
@@ -747,7 +736,7 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 .rm-band p { margin-top: var(--sp-3); color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
 
 /* head-aside: the one pattern break. Measured dead right field at 1440 was #faq 458px
-   and .fee-model 415px; #problem/#serve/#beliefs already fill their measure and are
+   and .fee-model 415px; the others already filled their measure and are
    left alone. The head steps out of the stack and stands beside its content, reusing
    .story-grid's settled proportions so it is the page's own idiom. Below 1000px
    everything stacks as before. (#definition also used this pattern until it was folded
