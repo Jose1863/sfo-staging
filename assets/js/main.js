@@ -4,8 +4,11 @@
 (function () {
   "use strict";
 
-  var reduceMotion = window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* One media-query object for the whole file. The cached boolean drives the tier
+     choice at load; live checks and the mid-session listener read the same object,
+     so no path can disagree about what the reader asked for. */
+  var rmQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+  var reduceMotion = !!(rmQuery && rmQuery.matches);
 
   /* ---- scroll reveals ----
      Three tiers, in order of preference:
@@ -18,6 +21,18 @@
   var hasGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
 
   function showAll() { revealEls.forEach(function (el) { el.classList.add("in"); }); }
+
+  /* Mid-session switch, non-GSAP tiers: the IntersectionObserver path had no listener,
+     so a reader who enabled reduced motion after load kept getting animated reveals.
+     showAll() is idempotent and safe on every tier; the GSAP path keeps its own richer
+     teardown below. */
+  if (rmQuery) {
+    var onReduceFlip = function () {
+      if (rmQuery.matches && !document.documentElement.classList.contains("gsap")) { showAll(); }
+    };
+    if (rmQuery.addEventListener) { rmQuery.addEventListener("change", onReduceFlip); }
+    else if (rmQuery.addListener) { rmQuery.addListener(onReduceFlip); }
+  }
 
   if (reduceMotion || !("IntersectionObserver" in window)) {
     showAll();
@@ -230,7 +245,7 @@
     /* If the user switches to reduced motion mid-session, stop everything and settle
        every managed element into its final state, then hand the page back to the
        non-animated code paths. */
-    var rmq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var rmq = rmQuery;
     function onMotionChange() {
       if (!rmq.matches) { return; }
       ScrollTrigger.getAll().forEach(function (t) { t.kill(); });
@@ -501,10 +516,27 @@
     function offerDiscard() {
       setStatus("We kept what you had already typed.", "is-busy");
       statusAction("Start with a blank form", function () {
+        /* Discard is instant but not final: the cleared values are held for one
+           undo, because destroying four fields of someone's own words on a single
+           click with no way back is the opposite of the form's forgiveness ethos. */
+        var held = {};
+        draftFields.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) { held[id] = el.value; }
+        });
         form.reset();
         clearDraft();
         [nameEl, emailEl].filter(Boolean).forEach(clearError);
-        setStatus("", "");
+        setStatus("Cleared.", "is-busy");
+        statusAction("Undo", function () {
+          draftFields.forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el && held[id]) { el.value = held[id]; }
+          });
+          saveDraft();
+          setStatus("", "");
+          if (nameEl) { nameEl.focus(); }
+        });
         if (nameEl) { nameEl.focus(); }
       });
     }
@@ -662,8 +694,7 @@
     toTop.addEventListener("click", function () {
       /* Read the preference at click time, not at load: someone can turn it on mid-visit,
          and the rest of the file already honours that. */
-      var instant = window.matchMedia &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var instant = !!(rmQuery && rmQuery.matches);
       window.scrollTo({ top: 0, behavior: instant ? "auto" : "smooth" });
       topWanted = false;
       syncTop();

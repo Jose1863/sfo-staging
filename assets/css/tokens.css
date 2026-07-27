@@ -96,6 +96,7 @@
      gap. The --continues / --act tiers now read against a tighter default. */
   --section-y: clamp(4.25rem, 3.0rem + 5.4vw, 7rem);
   --header-h:  76px;        /* sticky header height; single source of truth */
+  --cta-bar-h: 52px;        /* fixed mobile CTA bar; the other piece of fixed chrome */
   --maxw:        1200px;
   --maxw-text:   760px;
   --maxw-read:   50ch;        /* Raleway's "0" is 1.279x its average character, so ch under-counts
