@@ -476,9 +476,29 @@
         });
         /* Say so. Finding your own half-written text in a form with no explanation is
            unsettling, not helpful. */
-        if (restored) { setStatus("We kept what you had already typed.", "is-busy"); }
+        if (restored) { offerDiscard(); }
       } catch (err) {}
     })();
+
+    /* Restoring someone's text without offering a way out is a trap, not a courtesy:
+       the reader who wants a clean form would otherwise have to empty four fields by
+       hand. The control only exists when there is actually something to discard. */
+    function offerDiscard() {
+      setStatus("We kept what you had already typed.", "is-busy");
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "status-action";
+      btn.textContent = "Start with a blank form";
+      btn.addEventListener("click", function () {
+        form.reset();
+        clearDraft();
+        [nameEl, emailEl].filter(Boolean).forEach(clearError);
+        setStatus("", "");
+        if (nameEl) { nameEl.focus(); }
+      });
+      status.appendChild(document.createTextNode(" "));
+      status.appendChild(btn);
+    }
 
     draftFields.forEach(function (id) {
       var el = document.getElementById(id);
