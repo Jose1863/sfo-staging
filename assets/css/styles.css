@@ -49,6 +49,19 @@ ul, ol { list-style: none; padding: 0; }
 /* ---------- layout primitives ---------- */
 .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: var(--section-y); position: relative; }
+/* DESIGN.md: "Vary spacing for rhythm; do not apply uniformly." --section-y was one
+   clamp across all 15 sections, so the ten largest content-free bands measured
+   293-353px and the top eight sat inside a 10% spread: the reader learned nothing
+   from a gap, and the compare panel that carries the argument got the same framing
+   as the definition block 10,000px later. Two tiers on top of the default.
+   Applied ONLY where the transition is pure air. Where a sunk band meets the ground
+   the colour change already carries the separation, so those boundaries keep the
+   default and the bands stay symmetric. */
+.section--continues { padding-top: calc(var(--section-y) * 0.58); }  /* one argument running on */
+.section--act       { padding-top: calc(var(--section-y) * 1.32); }  /* a real act break */
+/* Only #engagement takes --act. The other act break, into #contact, already has the
+   hardest boundary on the page — the only full-bleed photographic ground — so paying
+   46px of scroll to restate it would work against the heuristic this tier serves. */
 .section--sunk { background: var(--green-950); box-shadow: inset 0 1px 0 var(--line), inset 0 -1px 0 var(--line); }
 
 .eyebrow {
@@ -89,7 +102,8 @@ em { font-style: italic; color: var(--champagne); }
 }
 /* lining + tabular numerals: ledger-grade figures, not Cormorant's bobbing old-style digits */
 .display, h1, h2, h3, .figure-gold, .col-foot .price,
-.savings .s-amt, .hero-proof .pf-figure, .price-sub, .modules .m-price {
+.savings .s-amt, .hero-proof .pf-figure, .price-sub, .modules .m-price,
+.stat .s-fig {
   font-variant-numeric: lining-nums tabular-nums;
 }
 
@@ -345,7 +359,11 @@ em { font-style: italic; color: var(--champagne); }
   .stat { border-bottom: none; border-right: 1px solid var(--line); }
   .stat:last-child { border-right: none; }
 }
-.stat .s-fig { color: var(--champagne); font-size: clamp(1.8rem, 1.5rem + 1vw, 2.1rem); display: inline-block; padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-gold); margin-bottom: var(--sp-1); }
+/* The 75/80/50 figures were the only numerals on the page set in the body sans with
+   default figures, against DESIGN.md's rule that every figure carries
+   lining-nums tabular-nums. Brought into the same idiom as .col-foot .price,
+   .savings .s-amt, .step .st-num and .hero-proof .pf-figure. */
+.stat .s-fig { font-family: var(--font-display); font-weight: 600; color: var(--champagne); font-size: clamp(1.8rem, 1.5rem + 1vw, 2.1rem); display: inline-block; padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-gold); margin-bottom: var(--sp-1); }
 .stat .s-text { margin-top: var(--sp-3); color: var(--text-dim); font-size: 1rem; line-height: 1.5; max-width: 26ch; margin-inline: auto; }
 /* Generic dated-source line, usable under any figure on the page. */
 .s-src { display: block; font-size: var(--fs-label); letter-spacing: var(--tracking-tight); text-transform: uppercase; color: var(--sage); }
@@ -422,7 +440,14 @@ em { font-style: italic; color: var(--champagne); }
 @media (min-width: 600px) { .team { grid-template-columns: 1fr 1fr; } }
 /* Two principals: hold the card width the three-up grid had (≈384px) and centre
    the pair, so the row reads as composed rather than as a grid missing a card. */
-@media (min-width: 920px) { .team { grid-template-columns: repeat(2, 1fr); max-width: 800px; margin-inline: auto; } }
+@media (min-width: 920px) {
+  .team { grid-template-columns: repeat(2, 1fr); max-width: 800px; margin-inline: auto; }
+  /* The clamp is a settled composed-pair decision, but it left the section heading
+     starting at x=168 while its own cards started at x=320 — the only place on the
+     page where a head and its content do not share a left edge. The head now rides
+     the same measure. */
+  #team .section-head { max-width: 800px; margin-inline: auto; }
+}
 @media (max-width: 599px) { .member-photo { max-width: 320px; margin-inline: auto; } }
 /* min-width: 0 so a missing portrait degrades to a broken icon instead of blowing
    the grid track out past the container and clipping a card. */
@@ -443,7 +468,12 @@ em { font-style: italic; color: var(--champagne); }
 .member p { color: var(--sage); font-size: 0.95rem; line-height: 1.55; margin-top: var(--sp-4); }
 /* Credentials as scannable labeled rows, not chips (Callan-grade credential density). */
 .member .creds { margin-top: auto; padding-top: var(--sp-4); }
-.member .creds li { font-size: var(--fs-label); letter-spacing: var(--tracking-tight); text-transform: uppercase; color: var(--champagne); border-top: 1px solid var(--line); padding: var(--sp-2) 0; }
+/* The tracked-caps micro-label system is built for short labels. These rows run 33-54
+   characters ("Outsourced CIO to seven registered investment advisers"), which stretches
+   a label scale across sentence-length content and was flagged independently by both
+   critique assessments. Same champagne, same hairline rows, same component — set as
+   credential lines rather than labels so they can actually be read. */
+.member .creds li { font-size: 0.86rem; letter-spacing: 0.01em; color: var(--champagne); border-top: 1px solid var(--line); padding: var(--sp-3) 0; }
 .member .s-src { margin-top: var(--sp-2); }
 
 /* ---------- CTA + form ---------- */
@@ -477,7 +507,12 @@ em { font-style: italic; color: var(--champagne); }
 }
 .field textarea { min-height: 110px; resize: vertical; }
 .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23B8963E' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.4rem; }
-.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gilt); box-shadow: 0 0 0 3px rgba(204, 170, 85, 0.45); }
+/* Every other control on the page shows focus as a 2px champagne outline at 3px
+   offset. The fields substituted a 1px border plus a soft halo, which cleared 1.4.11
+   on its own but was visibly the weakest indicator on the page. One treatment now. */
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible {
+  outline: 2px solid var(--champagne); outline-offset: 3px; border-color: var(--gilt);
+}
 .field input::placeholder, .field textarea::placeholder { color: var(--sage-dim); }
 
 /* Invalid state. main.js has set aria-invalid since launch with nothing consuming
@@ -485,9 +520,9 @@ em { font-style: italic; color: var(--champagne); }
 .field input[aria-invalid="true"],
 .field select[aria-invalid="true"],
 .field textarea[aria-invalid="true"] { border-color: var(--error); }
-.field input[aria-invalid="true"]:focus,
-.field select[aria-invalid="true"]:focus,
-.field textarea[aria-invalid="true"]:focus { border-color: var(--error); box-shadow: 0 0 0 3px var(--error-ring); }
+.field input[aria-invalid="true"]:focus-visible,
+.field select[aria-invalid="true"]:focus-visible,
+.field textarea[aria-invalid="true"]:focus-visible { border-color: var(--error); outline-color: var(--error); }
 /* The message carries the fix, not just the fact. Never colour alone: the text
    itself is the indicator, the tone only sharpens it. */
 .field-error { margin-top: var(--sp-2); font-size: 0.84rem; line-height: 1.45; color: var(--error); display: none; }
@@ -522,7 +557,10 @@ em { font-style: italic; color: var(--champagne); }
 .foot-col a { color: var(--text-dim); font-size: 0.95rem; display: inline-block; padding-block: 0.8rem; }
 .foot-col a:hover { color: var(--text); }
 .disclosure { padding-top: var(--sp-6); }
-.disclosure p { color: var(--sage-dim); font-size: 0.8rem; line-height: 1.65; max-width: 84ch; margin-bottom: 0.9rem; }
+/* 84ch rendered as 86/106/104 actual characters per line, because ch is the width of
+   "0" and Raleway draws it wide against average lowercase. The copy is verbatim-locked
+   legal text and is untouched; only the container it flows into is author-controlled. */
+.disclosure p { color: var(--sage-dim); font-size: 0.8rem; line-height: 1.65; max-width: 52ch; margin-bottom: 0.9rem; }
 .disclosure a { color: var(--sage); text-decoration: underline; text-underline-offset: 2px; }
 .disclosure .legal-name { color: var(--sage); }
 .foot-base { margin-top: var(--sp-5); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-4); color: var(--sage-dim); font-size: 0.8rem; }
@@ -612,8 +650,15 @@ html.gsap .phase::before { transform: scale(var(--dot-scale, 1)); }
 
 /* ============================ ULTIMATE-PASS ADDITIONS ============================ */
 
-/* anchored scroll offset so the sticky header never hides a section heading */
-main > section { scroll-margin-top: calc(var(--header-h) + var(--sp-3)); }
+/* Anchored scroll offset. html already carries scroll-padding-top of
+   --header-h + --sp-3; this element previously repeated the SAME value as
+   scroll-margin-top, and the two add, so every anchor landed 176px past its
+   section against a header measured at 77px. The heading then arrived 340-360px
+   down a 900px viewport, which is the failure mode of the primary navigation.
+   html owns the header compensation. This value only has to cancel enough of the
+   section's own top padding that the heading lands just under the header instead
+   of a third of the way down the screen. */
+main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62); }
 
 /* ---------- five beliefs ---------- */
 .beliefs { margin-top: var(--sp-2); }
@@ -626,7 +671,10 @@ main > section { scroll-margin-top: calc(var(--header-h) + var(--sp-3)); }
 .belief p { color: var(--sage); font-size: 1rem; line-height: 1.55; max-width: 64ch; }
 .belief .accent { color: var(--champagne); }
 @media (min-width: 820px) {
-  .belief { grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 1.15fr); align-items: baseline; gap: var(--sp-6); }
+  /* 3.5rem track plus a 2rem gap put ~75px between the 9px diamond and the heading it
+     marks, so it read as a stray dot rather than a marker. Track tightened to the
+     mark's own optical need. */
+  .belief { grid-template-columns: 1.25rem minmax(0, 1fr) minmax(0, 1.15fr); align-items: baseline; gap: var(--sp-6); }
   .belief .b-mark { grid-row: auto; }
 }
 
@@ -745,6 +793,8 @@ main > section { scroll-margin-top: calc(var(--header-h) + var(--sp-3)); }
 /* ---------- FAQ (native disclosure, no JS) ---------- */
 /* Left-aligned to the gutter so the questions sit under the section heading. */
 .faq { max-width: 820px; border-top: 1px solid var(--line); }
+/* Above 1000px .faq sits in a head-aside grid column narrower than 820px, so the cap
+   above is inert there; it still governs the stacked layout below the breakpoint. */
 .faq-item { border-bottom: 1px solid var(--line); }
 .faq-item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--sp-5); padding: var(--sp-5) 0; font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; color: var(--text); }
 .faq-item summary::-webkit-details-marker { display: none; }

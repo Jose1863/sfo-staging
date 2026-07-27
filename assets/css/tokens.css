@@ -47,7 +47,6 @@
           composited field background (16,41,30). Both clear 4.5:1 for text and
           3:1 for the invalid border. Used ONLY for error text and invalid borders. */
   --error:            #E2A08E;
-  --error-ring:       rgba(226, 160, 142, 0.38);
 
   /* ---- Hairlines and accents ---- */
   --line:             rgba(232, 212, 166, 0.14);
