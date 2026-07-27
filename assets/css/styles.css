@@ -683,7 +683,7 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 /* ---------- five beliefs ---------- */
 .beliefs { margin-top: var(--sp-2); }
 .belief { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-3) var(--sp-5);
-  padding: var(--sp-6) 0; border-top: 1px solid var(--line); }
+  padding: var(--sp-5) 0; border-top: 1px solid var(--line); }
 .belief:last-child { border-bottom: 1px solid var(--line); }
 .belief .b-mark { grid-row: span 2; align-self: start; width: 9px; height: 9px; margin-top: 0.55em;
   background: var(--gold); transform: rotate(45deg); }
@@ -752,11 +752,12 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 .rm-band h3 { font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
 .rm-band p { margin-top: var(--sp-3); color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
 
-/* head-aside: the one pattern break. Measured dead right field at 1440 was #faq 458px,
-   #definition 456px, .fee-model 415px; #problem/#serve/#beliefs already fill their
-   measure and are left alone. The head steps out of the stack and stands beside its
-   content, reusing .story-grid's settled proportions so it is the page's own idiom.
-   No section cut or moved, no copy changed. Below 1000px everything stacks as before. */
+/* head-aside: the one pattern break. Measured dead right field at 1440 was #faq 458px
+   and .fee-model 415px; #problem/#serve/#beliefs already fill their measure and are
+   left alone. The head steps out of the stack and stands beside its content, reusing
+   .story-grid's settled proportions so it is the page's own idiom. Below 1000px
+   everything stacks as before. (#definition also used this pattern until it was folded
+   into the FAQ as its first answer; #faq is now the only user.) */
 @media (min-width: 1000px) {
   .head-aside > .wrap {
     display: grid; grid-template-columns: 0.8fr 1.2fr;
@@ -766,11 +767,6 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
   /* The answer column is far taller than its head, so the head holds its place. */
   #faq .section-head { position: sticky; top: calc(var(--header-h) + var(--sp-6)); }
 }
-
-/* ---------- definition block ---------- */
-.definition { max-width: var(--maxw-text); }
-/* Was running past the measure every other lead is held to. Copy untouched. */
-.definition p { margin-top: var(--sp-4); color: var(--text-dim); font-size: var(--fs-body); line-height: 1.7; max-width: var(--maxw-read); }
 
 /* ---------- founder story ---------- */
 .story-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-6); }
@@ -802,9 +798,9 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 .story-by .mono span { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--green-950); border: 1px solid var(--line-gold); color: var(--champagne); font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h3-sm); }
 
 /* ---------- how it works steps ---------- */
+/* Intake triad: .roadmap's breakpoint and track count, so #how reads as one grid. */
 .steps { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); margin-top: var(--sp-2); }
-@media (min-width: 680px) { .steps { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1000px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 880px) { .steps { grid-template-columns: repeat(3, 1fr); } }
 .step { border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card); padding: var(--sp-6) var(--sp-5); }
 .step .st-num { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h3); color: var(--gilt); font-variant-numeric: lining-nums tabular-nums; line-height: 1; }
 .step h3 { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3); margin: var(--sp-3) 0 var(--sp-2); }

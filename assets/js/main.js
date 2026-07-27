@@ -480,24 +480,32 @@
       } catch (err) {}
     })();
 
+    /* One inline control idiom for the status line, shared by the discard escape hatch
+       and the cancel-a-send control. Underlined text, never a button shape: the page
+       has exactly one filled CTA and neither of these may read as a second. */
+    function statusAction(label, onClick) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "status-action";
+      btn.textContent = label;
+      btn.addEventListener("click", onClick);
+      status.appendChild(document.createTextNode(" "));
+      status.appendChild(btn);
+      return btn;
+    }
+
     /* Restoring someone's text without offering a way out is a trap, not a courtesy:
        the reader who wants a clean form would otherwise have to empty four fields by
        hand. The control only exists when there is actually something to discard. */
     function offerDiscard() {
       setStatus("We kept what you had already typed.", "is-busy");
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "status-action";
-      btn.textContent = "Start with a blank form";
-      btn.addEventListener("click", function () {
+      statusAction("Start with a blank form", function () {
         form.reset();
         clearDraft();
         [nameEl, emailEl].filter(Boolean).forEach(clearError);
         setStatus("", "");
         if (nameEl) { nameEl.focus(); }
       });
-      status.appendChild(document.createTextNode(" "));
-      status.appendChild(btn);
     }
 
     draftFields.forEach(function (id) {
@@ -536,14 +544,42 @@
 
       var url = endpoint();
       if (!url) {
-        // no endpoint configured yet: let the native mailto action run
-        setStatus("Opening your email app. If nothing opens, write to " + mailTo + ".", "is-busy");
+        /* No endpoint configured, so the native mailto action runs and the page stays
+           where it is. Nothing is in flight and nothing will ever resolve, so this must
+           not be a busy state: a spinner that never ends is a lie. Neutral state, a
+           report of what just happened, and an address that works when the handoff to
+           the mail client does not. */
+        setStatus("Your email app should be opening with this request. If it does not, write to ", "");
+        var link = document.createElement("a");
+        link.className = "status-action";
+        link.href = "mailto:" + mailTo;
+        link.textContent = mailTo;
+        status.appendChild(link);
+        status.appendChild(document.createTextNode(" directly."));
+        revealStatus();
         return;
       }
       e.preventDefault();
+      /* A send the reader cannot stop is a send they have to sit through. The request
+         gets an AbortController and the status line gets a way to use it. */
+      var controller = window.AbortController ? new window.AbortController() : null;
+      var aborted = false;
       setStatus("Sending your request.", "is-busy");
+      if (controller) {
+        statusAction("Cancel", function () {
+          aborted = true;
+          controller.abort();
+          busy(false);
+          setStatus("", "");
+          /* The clicked control leaves the DOM with the status text, so hand focus back
+             to the button rather than dropping it on the body. */
+          if (submitBtn) { submitBtn.focus(); }
+        });
+      }
       busy(true);
-      fetch(url, { method: "POST", body: new FormData(form), headers: { "Accept": "application/json" } })
+      var opts = { method: "POST", body: new FormData(form), headers: { "Accept": "application/json" } };
+      if (controller) { opts.signal = controller.signal; }
+      fetch(url, opts)
         .then(function (r) {
           if (!r.ok) { throw new Error("bad status"); }
           form.reset();
@@ -553,7 +589,10 @@
           setStatus("Thank you. We will reply within one business day.", "is-ok");
           revealStatus();
         })
-        .catch(function () {
+        .catch(function (err) {
+          /* An abort is a decision, not a failure. It gets no error state and no mailto
+             fallback: the reader asked for the send to stop, not for another one. */
+          if (aborted || (err && err.name === "AbortError")) { return; }
           busy(false);
           setStatus("We could not send that just now. Opening your email app as a fallback.", "is-error");
           revealStatus();
