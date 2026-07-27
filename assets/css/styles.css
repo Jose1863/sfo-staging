@@ -372,7 +372,7 @@ em { font-style: italic; color: var(--champagne); }
 .s-src { display: block; font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
 .stat .s-src { margin-top: auto; padding-top: var(--sp-4); }
 .col-foot .s-src { margin-top: var(--sp-1); }
-.stats-note { text-align: center; margin-top: var(--sp-7); color: var(--sage); max-width: 64ch; margin-inline: auto; font-size: var(--fs-body); }
+.stats-note { text-align: center; margin-top: var(--sp-7); color: var(--sage); max-width: 50ch; margin-inline: auto; font-size: var(--fs-body); }
 
 /* ---------- engagement / pricing ---------- */
 /* Source order is savings -> price-card -> modules so the single-column stack reads
@@ -439,7 +439,7 @@ em { font-style: italic; color: var(--champagne); }
 .profile .row .val { margin-top: var(--sp-2); color: var(--text); font-size: var(--fs-body); line-height: var(--lh-prose); }
 
 /* ---------- team ---------- */
-.team { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); }
+.team { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); align-items: start; }
 @media (min-width: 600px) { .team { grid-template-columns: 1fr 1fr; } }
 /* Two principals: hold the card width the three-up grid had (≈384px) and centre
    the pair, so the row reads as composed rather than as a grid missing a card. */
@@ -466,7 +466,7 @@ em { font-style: italic; color: var(--champagne); }
 .member .role { color: var(--champagne); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; font-weight: 700; margin-top: var(--sp-1); font-family: var(--font-sans); }
 .member p { color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); margin-top: var(--sp-4); }
 /* Credentials as scannable labeled rows, not chips (Callan-grade credential density). */
-.member .creds { margin-top: auto; padding-top: var(--sp-4); }
+.member .creds { margin-top: var(--sp-6); padding-top: var(--sp-4); }
 /* These rows run 33-54 characters, stretching a micro-label scale across sentence-length
    content (flagged independently by both critique assessments). Same champagne, same
    hairline rows: set as credential lines rather than labels so they can be read. */
@@ -564,10 +564,17 @@ em { font-style: italic; color: var(--champagne); }
 /* font-family was missing, making this the only serif micro-label on the page:
    Cormorant at 12.48px, against DESIGN.md's "never below 18px". */
 .foot-col h3 { font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage-dim); font-weight: 700; margin-bottom: var(--sp-4); }
-.foot-col li { margin-bottom: var(--sp-3); }
+.foot-col li { margin-bottom: var(--sp-1); }
 .foot-col a { color: var(--text-dim); font-size: var(--fs-body-sm); display: inline-block; padding-block: 0.8rem; }
 .foot-col a:hover { color: var(--text); }
+/* A 397px text column left-aligned in a 1104px row left 707x473px dead, the largest
+   empty field on the page, and abandoned the three-column grid the footer had just
+   established one row above. Same words, same measure per column, the row now used. */
 .disclosure { padding-top: var(--sp-6); }
+@media (min-width: 920px) {
+  .disclosure { display: grid; grid-template-columns: 1fr 1.15fr 1.25fr; gap: var(--sp-6); }
+  .disclosure p { max-width: none; margin-bottom: 0; }
+}
 /* 84ch rendered 86/106/104 actual chars per line (ch is the width of "0", which Raleway
    draws wide). 52ch renders 69/72/68. Locked legal copy untouched; only the container. */
 .disclosure p { color: var(--sage-dim); font-size: var(--fs-label); line-height: 1.65; max-width: 52ch; margin-bottom: 0.9rem; }
@@ -732,7 +739,7 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
    card with 415px of empty field beside it. */
 @media (min-width: 1000px) {
   .fee-model { max-width: none; display: grid; grid-template-columns: 0.8fr 1.2fr;
-    gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: start; padding: var(--sp-7) var(--sp-6); }
+    gap: var(--gap-editorial); align-items: start; padding: var(--sp-7) var(--sp-6); }
   .fee-model p { margin-top: 0; }
 }
 .fee-model h3 { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2-sm); }
@@ -753,7 +760,7 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 @media (min-width: 1000px) {
   .head-aside > .wrap {
     display: grid; grid-template-columns: 0.8fr 1.2fr;
-    gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: start;
+    gap: var(--gap-editorial); align-items: start;
   }
   .head-aside .section-head { margin-bottom: 0; }
   /* The answer column is far taller than its head, so the head holds its place. */
@@ -767,7 +774,7 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 
 /* ---------- founder story ---------- */
 .story-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-6); }
-@media (min-width: 880px) { .story-grid { grid-template-columns: 0.8fr 1.2fr; gap: clamp(2rem, 1rem + 4vw, 5rem); } }
+@media (min-width: 880px) { .story-grid { grid-template-columns: 0.8fr 1.2fr; gap: var(--gap-editorial); } }
 .story-grid .section-head { margin-bottom: 0; }
 /* The story's title column ran ~377px empty beside the letter. The photograph fills it on
    the same 4:5 crop and hairline treatment as the team portraits, so the page gains a

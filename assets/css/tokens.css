@@ -101,6 +101,7 @@
   --maxw-read:   50ch;        /* Raleway's "0" is 1.279x its average character, so ch under-counts
                                  by ~28%: 64ch rendered 82-90 real characters. 50ch lands 60-70. */
   --gutter:      clamp(1.25rem, 0.6rem + 3vw, 3rem);
+  --gap-editorial: clamp(2rem, 1rem + 4vw, 5rem);  /* the two-column editorial split */
 
   /* ---- Form ---- */
   --radius-sm: 4px;
