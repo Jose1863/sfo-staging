@@ -101,8 +101,7 @@ em { font-style: italic; color: var(--champagne); }
 }
 /* lining + tabular numerals: ledger-grade figures, not Cormorant's bobbing old-style digits */
 .display, h1, h2, h3, .figure-gold, .col-foot .price,
-.savings .s-amt, .hero-proof .pf-figure, .price-sub, .modules .m-price,
-.stat .s-fig {
+.savings .s-amt, .hero-proof .pf-figure, .price-sub, .modules .m-price {
   font-variant-numeric: lining-nums tabular-nums;
 }
 
@@ -366,19 +365,12 @@ em { font-style: italic; color: var(--champagne); }
   .phase:last-child .p-arrow { display: none; }
 }
 
-/* ---------- the relocated proof figure (in #serve) ----------
-   The 75% figure survives the proof-section cut as a single pull-figure with its
-   source, placed directly above the conviction line it argues for. */
-.stat { display: block; margin-top: var(--sp-5); }
-.stat .s-fig { font-family: var(--font-display); font-weight: 600; color: var(--champagne); font-size: clamp(1.8rem, 1.5rem + 1vw, 2.1rem); display: inline-block; padding-bottom: var(--sp-2); border-bottom: 1px solid var(--line-gold); }
-.stat .s-text { margin-top: var(--sp-2); color: var(--text-dim); font-size: var(--fs-body); line-height: var(--lh-prose); max-width: 30ch; }
 /* Generic dated-source line, usable under any figure on the page. */
 /* Label ranks. One treatment was doing nine jobs at the same 12.48px/champagne/0.18em,
    so rank could not be read from form (PRODUCT.md names this an anti-reference).
    Rank 1: champagne, --tracking-label, gold rule, for section kickers. Rank 2: sage,
    --tracking-sub, no rule, for labels naming a block rather than opening a section. */
 .s-src { display: block; font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
-.stat .s-src { margin-top: var(--sp-2); }
 .col-foot .s-src { margin-top: var(--sp-1); }
 
 /* ---------- engagement / pricing ---------- */
@@ -723,13 +715,11 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
   .triggers-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--sp-6); align-items: start; }
   /* Explicit placement: auto-flow put the link under the disqualifier, separating the
      ask from the sentence that earns it. */
-  /* Left column: disqualifier over the evidence. Right column: conviction over the ask.
-     Balances the two tracks (the bare disqualifier left 286px of dead field) and keeps
-     close -> CTA paired at the reading terminus. */
-  .triggers-foot .triggers-notfit { grid-column: 1; grid-row: 1; margin-top: var(--sp-5); max-width: none; }
-  .triggers-foot .stat { grid-column: 1; grid-row: 2; }
+  /* Explicit placement: the disqualifier holds the left column; the conviction line
+     keeps its own CTA directly beneath it. */
+  .triggers-foot .triggers-notfit { grid-column: 1; grid-row: 1 / span 2; margin-top: var(--sp-5); max-width: none; }
   .triggers-foot .triggers-close { grid-column: 2; grid-row: 1; margin-top: var(--sp-5); }
-  .triggers-foot .triggers-cta { grid-column: 2; grid-row: 2; align-self: start; }
+  .triggers-foot .triggers-cta { grid-column: 2; grid-row: 2; }
 }
 /* The conviction-peak exit ramp: a quiet text link on the champagne underline idiom.
    Padding reaches the 44px tap floor. */
