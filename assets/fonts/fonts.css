@@ -2,14 +2,18 @@
    Two families only (kit rule). These are VARIABLE fonts: one file per family
    carries the whole weight axis, so every declared weight (500/600/700 etc.)
    renders as a real interpolated cut, not a browser-synthesized faux-bold.
-   Served from /assets/fonts so the site has no third-party requests. */
+   Served from /assets/fonts so the site has no third-party requests.
+
+   Cut below Google's latin subset by ops/subset-fonts.py (worth ~33KB in the
+   LCP window); unicode-range below is exactly what survived. New copy characters
+   must be added there -- `ops/subset-fonts.py --check` is the gate. */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
   font-weight: 300 700;
   font-display: swap;
   src: url(cormorant-garamond-var.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00AD-00AE, U+00B0, U+00B7, U+00D7, U+2002, U+2009, U+200B, U+2013-2014, U+2018-2019, U+201C-201D, U+2022, U+2026, U+2032-2033, U+2122, U+2191, U+2193, U+2212, U+FEFF;
 }
 @font-face {
   font-family: 'Cormorant Garamond';
@@ -17,7 +21,7 @@
   font-weight: 300 700;
   font-display: swap;
   src: url(cormorant-garamond-italic-var.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00AD-00AE, U+00B0, U+00B7, U+00D7, U+2002, U+2009, U+200B, U+2013-2014, U+2018-2019, U+201C-201D, U+2022, U+2026, U+2032-2033, U+2122, U+2191, U+2193, U+2212, U+FEFF;
 }
 @font-face {
   font-family: 'Raleway';
@@ -25,7 +29,7 @@
   font-weight: 100 900;
   font-display: swap;
   src: url(raleway-var.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00AD-00AE, U+00B0, U+00B7, U+00D7, U+2002, U+2009, U+200B, U+2013-2014, U+2018-2019, U+201C-201D, U+2022, U+2026, U+2032-2033, U+2122, U+2191, U+2193, U+2212, U+FEFF;
 }
 
 /* Metric-matched fallbacks: with font-display: swap, a slow font fetch would
