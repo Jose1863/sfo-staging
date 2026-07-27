@@ -696,6 +696,14 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 
 /* ---------- fractional executive layer (inside engagement) ---------- */
 .fx { margin-top: var(--sp-8); border-top: 1px solid var(--line); padding-top: var(--sp-7); }
+/* Same editorial split the fee-model strip above it uses: eyebrow + head hold the left
+   track, the roles sentence answers from the right, and the band uses its measure
+   instead of running a full-width headline over two quiet lines. Words unchanged. */
+@media (min-width: 1000px) {
+  .fx { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 0 var(--gap-editorial); align-items: start; }
+  .fx-eyebrow, .fx-head { grid-column: 1; }
+  .fx-roles { grid-column: 2; grid-row: 1 / span 2; margin-top: var(--sp-2); max-width: none; }
+}
 .fx-eyebrow { font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; }
 .fx-roles { margin-top: var(--sp-4); color: var(--text-dim); font-size: var(--fs-body-sm); line-height: var(--lh-prose); max-width: 52ch; }
 .fx-head { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h2-sm); margin-top: var(--sp-2); line-height: var(--lh-heading); }
