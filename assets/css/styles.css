@@ -236,7 +236,9 @@ em { font-style: italic; color: var(--champagne); }
   display: flex; flex-direction: column;
 }
 .compare-col h3 {
-  font-family: var(--font-sans); text-transform: uppercase; letter-spacing: var(--tracking-sub);
+  /* Card title, same rank as .modules h3 / .savings h3. The gold rule is what marks a
+     section kicker, not the tracking, so card titles keep --tracking-label. */
+  font-family: var(--font-sans); text-transform: uppercase; letter-spacing: var(--tracking-label);
   font-size: var(--fs-label); font-weight: 700; margin-bottom: var(--sp-5);
 }
 .compare-before { border-color: var(--card-border); }
@@ -479,6 +481,10 @@ em { font-style: italic; color: var(--champagne); }
   background: linear-gradient(180deg, var(--green-900) 0%, rgba(12,33,23,0.9) 50%, var(--green-950) 100%); }
 .cta-grid { display: grid; grid-template-columns: 1fr; gap: clamp(2rem, 1.4rem + 3vw, 4rem); align-items: start; }
 @media (min-width: 900px) { .cta-grid { grid-template-columns: 1fr 1fr; } }
+/* Below 900px the copy column pushed the first field 750px below the anchor, so the tap
+   that means "I want to talk" delivered 620px of prose before an input. Form first; the
+   copy still follows it, it just stops standing in front of it. */
+@media (max-width: 899.98px) { .cta-grid .form { order: -1; } }
 .cta h2 { font-size: var(--fs-h1); line-height: 1.1; }
 .cta-copy p { margin-top: var(--sp-4); color: var(--text-dim); font-size: var(--fs-lead); line-height: 1.55; max-width: 44ch; }
 .cta-alt { margin-top: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-2); color: var(--sage); font-size: 0.95rem; }
@@ -533,7 +539,7 @@ em { font-style: italic; color: var(--champagne); }
 .form-status.is-busy { color: var(--sage); }
 
 /* Spam trap: off-screen, untabbable, aria-hidden. */
-.hp { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.hp { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
 /* ---------- footer ---------- */
 .site-footer { background: var(--green-950); border-top: 1px solid var(--line); padding-block: clamp(3rem, 2rem + 3vw, 4rem); }
@@ -650,6 +656,10 @@ html.gsap .phase::before { transform: scale(var(--dot-scale, 1)); }
    the header compensation; this only cancels enough of the section's own top padding
    to bring the heading up under the header. After: h2 at 131-196px across viewports. */
 main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62); }
+/* The offset has to know which padding tier it is cancelling. One formula against three
+   tiers landed #pillars 21px under the header and #engagement 192px: a 171px spread. */
+main > section.section--continues { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.14); }
+main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 1.62); }
 
 /* ---------- five beliefs ---------- */
 .beliefs { margin-top: var(--sp-2); }

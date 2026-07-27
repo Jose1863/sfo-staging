@@ -371,7 +371,6 @@
     var emailEl = form.querySelector("#f-email");
     var submitBtn = form.querySelector('button[type="submit"]');
     var submitLabel = submitBtn ? submitBtn.innerHTML : "";
-    var gotcha = form.querySelector('[name="_gotcha"]');
 
     function setStatus(text, state) {
       status.textContent = text || "";
@@ -470,10 +469,14 @@
         var raw = window.sessionStorage.getItem(DRAFT);
         if (!raw) { return; }
         var d = JSON.parse(raw);
+        var restored = false;
         draftFields.forEach(function (id) {
           var el = document.getElementById(id);
-          if (el && !el.value && d[id]) { el.value = d[id]; }
+          if (el && !el.value && d[id]) { el.value = d[id]; restored = true; }
         });
+        /* Say so. Finding your own half-written text in a form with no explanation is
+           unsettling, not helpful. */
+        if (restored) { setStatus("We kept what you had already typed.", "is-busy"); }
       } catch (err) {}
     })();
 
@@ -502,8 +505,14 @@
         bad[0].focus();
         return;
       }
-      /* a bot filled the trap: stop here rather than spend one of the month's sends. */
-      if (gotcha && gotcha.value) { e.preventDefault(); return; }
+      /* NOTE: there is deliberately no client-side drop on the honeypot. Dropping the
+         submit here saved a send against the monthly cap, but it did it by doing
+         nothing at all: no status, no error, no navigation. A real prospect whose
+         password manager or form-filler ignored autocomplete="off" and populated the
+         trap would tap the primary CTA and watch the page die in silence, then leave
+         without reporting it. A silently lost lead costs more than a wasted send.
+         The field stays in the markup because Formspree consumes _gotcha server-side,
+         which is where a spam check belongs. */
 
       var url = endpoint();
       if (!url) {
