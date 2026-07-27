@@ -83,7 +83,7 @@ p, li { text-wrap: pretty; }
 h2.title { font-size: var(--fs-h2); line-height: var(--lh-snug); letter-spacing: -0.008em; font-weight: 500; }
 .subtitle {
   font-family: var(--font-sans); font-weight: 400; color: var(--text-dim);
-  font-size: var(--fs-lead); line-height: 1.5; max-width: var(--maxw-read);
+  font-size: var(--fs-lead); line-height: var(--lh-prose); max-width: var(--maxw-read);
 }
 .section-head { margin-bottom: clamp(2.5rem, 1.75rem + 3vw, 4rem); }
 .section-head .title { margin-top: var(--sp-3); }
@@ -110,8 +110,8 @@ em { font-style: italic; color: var(--champagne); }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
   min-height: var(--tap); padding: 0.9rem 1.7rem;
-  font-family: var(--font-sans); font-weight: 700; font-size: 0.86rem;
-  letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;
+  font-family: var(--font-sans); font-weight: 700; font-size: var(--fs-ui);
+  letter-spacing: var(--tracking-cta); text-transform: uppercase; white-space: nowrap;
   border-radius: 3px; border: 1px solid transparent;
   transition: transform var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease),
               border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
@@ -162,7 +162,7 @@ em { font-style: italic; color: var(--champagne); }
 .nav-links { display: flex; align-items: center; gap: 0.4rem; }
 .nav-links a:not(.btn) {
   display: inline-flex; align-items: center; min-height: var(--tap);
-  font-size: 0.86rem; font-weight: 500; color: var(--sage);
+  font-size: var(--fs-ui); font-weight: 600; color: var(--sage);
   padding: 0.4rem 0.7rem; border-radius: var(--radius-sm);
   white-space: nowrap;
   transition: color var(--dur-fast) var(--ease);
@@ -218,14 +218,14 @@ em { font-style: italic; color: var(--champagne); }
 .hero-inner { max-width: 52rem; }
 /* 20ch sets the headline in three lines, keeping the lead and CTAs above the desktop fold. */
 .hero h1 { margin-top: var(--sp-5); max-width: 20ch; }
-.hero .hero-lead { margin-top: var(--sp-5); font-size: var(--fs-lead); color: var(--text-dim); max-width: 56ch; line-height: 1.55; }
+.hero .hero-lead { margin-top: var(--sp-5); font-size: var(--fs-lead); color: var(--text-dim); max-width: 44ch; line-height: var(--lh-prose); }
 .hero-actions { margin-top: var(--sp-7); display: flex; flex-wrap: wrap; gap: var(--sp-4); }
 .hero-proof {
   margin-top: var(--sp-8); padding-top: var(--sp-5); border-top: 1px solid var(--line);
   display: flex; align-items: baseline; gap: var(--sp-4); flex-wrap: wrap; max-width: 60ch;
 }
 .hero-proof .pf-figure { font-family: var(--font-display); font-weight: 600; color: var(--champagne); font-size: var(--fs-figure-sm); line-height: 1; }
-.hero-proof .pf-text { color: var(--sage); font-size: 0.98rem; line-height: 1.5; }
+.hero-proof .pf-text { color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
 
 /* ---------- problem / fragmentation ---------- */
 .compare { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); }
@@ -269,7 +269,7 @@ em { font-style: italic; color: var(--champagne); }
 }
 .stack-list li:first-child, .gain-list li:first-child { border-top: none; }
 .stack-list .k { font-weight: 600; color: var(--text); }
-.stack-list .v, .gain-list .v { color: var(--sage); font-size: 0.95rem; }
+.stack-list .v, .gain-list .v { color: var(--sage); font-size: var(--fs-body-sm); }
 .stack-list .mark { color: var(--sage-dim); }
 .gain-list .mark { color: var(--gilt); }
 .gain-list .k { color: var(--text); font-weight: 600; }
@@ -277,7 +277,7 @@ em { font-style: italic; color: var(--champagne); }
 .col-foot .price { font-family: var(--font-display); font-size: var(--fs-figure-sm); font-weight: 600; }
 .compare-before .col-foot .price { color: var(--text-dim); }
 .compare-after .col-foot .price { color: var(--champagne); }
-.col-foot .meta { display: block; color: var(--sage-dim); font-size: 0.86rem; margin-top: var(--sp-1); }
+.col-foot .meta { display: block; color: var(--sage-dim); font-size: var(--fs-ui); margin-top: var(--sp-1); }
 
 
 /* ---------- pillars ---------- */
@@ -300,8 +300,8 @@ em { font-style: italic; color: var(--champagne); }
 .pillar:hover { border-color: var(--line-gold); }
 .pillar:hover::before { opacity: 1; }
 .pillar .p-icon { width: 38px; height: 38px; margin: 0 0 var(--sp-4); color: var(--gold); }
-.pillar h3 { font-size: var(--fs-h3); font-weight: 600; line-height: 1.18; margin-bottom: var(--sp-3); min-height: 2.36em; }
-.pillar p { color: var(--sage); font-size: 0.95rem; line-height: 1.55; }
+.pillar h3 { font-size: var(--fs-h3); font-weight: 600; line-height: var(--lh-heading); margin-bottom: var(--sp-3); min-height: 2.36em; }
+.pillar p { color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
 
 /* ---------- framework flow ---------- */
 .framework { position: relative; }
@@ -337,7 +337,7 @@ em { font-style: italic; color: var(--champagne); }
     font-variant-numeric: lining-nums tabular-nums;
   }
 }
-.phase h3 { font-family: var(--font-display); font-size: 1.55rem; font-weight: 600; margin: 0.4rem 0 0.6rem; overflow-wrap: break-word; hyphens: auto; }
+.phase h3 { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 600; margin: 0.4rem 0 0.6rem; overflow-wrap: break-word; hyphens: auto; }
 /* In the 720-900px band the equal tracks leave ~116-158px of content width and
    'Diversification' at 1.55rem measures wider, which forced an unhyphenated mid-word
    break. A fluid step-down (20px at 720 scaling back toward full size, never under the
@@ -345,7 +345,7 @@ em { font-style: italic; color: var(--champagne); }
 @media (min-width: 720px) and (max-width: 899.98px) {
   .phase h3 { font-size: clamp(1.125rem, -0.1375rem + 3vw, 1.55rem); }
 }
-.phase p { color: var(--sage); font-size: 0.95rem; line-height: 1.55; }
+.phase p { color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
 .phase .p-arrow { display: none; }
 @media (min-width: 720px) {
   .phase .p-arrow { display: block; position: absolute; top: -14px; right: -7px; color: var(--gilt); }
@@ -363,16 +363,16 @@ em { font-style: italic; color: var(--champagne); }
 /* Were the only numerals set in the body sans with default figures, against DESIGN.md's
    rule that every figure carries lining-nums tabular-nums. */
 .stat .s-fig { font-family: var(--font-display); font-weight: 600; color: var(--champagne); font-size: clamp(1.8rem, 1.5rem + 1vw, 2.1rem); display: inline-block; padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-gold); margin-bottom: var(--sp-1); }
-.stat .s-text { margin-top: var(--sp-3); color: var(--text-dim); font-size: 1rem; line-height: 1.5; max-width: 26ch; margin-inline: auto; }
+.stat .s-text { margin-top: var(--sp-3); color: var(--text-dim); font-size: var(--fs-body); line-height: var(--lh-prose); max-width: 26ch; margin-inline: auto; }
 /* Generic dated-source line, usable under any figure on the page. */
 /* Label ranks. One treatment was doing nine jobs at the same 12.48px/champagne/0.18em,
    so rank could not be read from form (PRODUCT.md names this an anti-reference).
    Rank 1: champagne, --tracking-label, gold rule, for section kickers. Rank 2: sage,
    --tracking-sub, no rule, for labels naming a block rather than opening a section. */
-.s-src { display: block; font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); }
+.s-src { display: block; font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
 .stat .s-src { margin-top: auto; padding-top: var(--sp-4); }
 .col-foot .s-src { margin-top: var(--sp-1); }
-.stats-note { text-align: center; margin-top: var(--sp-7); color: var(--sage); max-width: 64ch; margin-inline: auto; font-size: 1rem; }
+.stats-note { text-align: center; margin-top: var(--sp-7); color: var(--sage); max-width: 64ch; margin-inline: auto; font-size: var(--fs-body); }
 
 /* ---------- engagement / pricing ---------- */
 /* Source order is savings -> price-card -> modules so the single-column stack reads
@@ -396,10 +396,10 @@ em { font-style: italic; color: var(--champagne); }
   padding: clamp(var(--sp-6), 1.25rem + 2.4vw, var(--sp-8)); box-shadow: var(--shadow-card);
 }
 .price-title { font-family: var(--font-display); font-weight: 600; color: var(--text); font-size: clamp(1.7rem, 1.35rem + 1.5vw, 2.3rem); line-height: 1.08; letter-spacing: -0.008em; }
-.price-sub { color: var(--champagne); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.02em; margin-top: var(--sp-2); }
+.price-sub { color: var(--champagne); font-weight: 600; font-size: var(--fs-body-sm); letter-spacing: 0.02em; margin-top: var(--sp-2); }
 .includes { margin-top: var(--sp-5); display: grid; grid-template-columns: 1fr; gap: var(--sp-2) var(--sp-5); }
 @media (min-width: 560px) { .includes { grid-template-columns: 1fr 1fr; } }
-.includes li { display: grid; grid-template-columns: 1.1rem 1fr; gap: 0.6rem; align-items: baseline; color: var(--text-dim); font-size: 0.95rem; line-height: 1.45; }
+.includes li { display: grid; grid-template-columns: 1.1rem 1fr; gap: 0.6rem; align-items: baseline; color: var(--text-dim); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
 .includes .tick { color: var(--gilt); }
 .price-cta { margin-top: var(--sp-6); display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
 
@@ -408,24 +408,24 @@ em { font-style: italic; color: var(--champagne); }
   font-family: var(--font-sans); text-transform: uppercase; letter-spacing: var(--tracking-label);
   font-size: var(--fs-label); font-weight: 700; color: var(--champagne); margin-bottom: var(--sp-4);
 }
-.modules li { display: flex; justify-content: space-between; gap: var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--line); font-size: 0.95rem; }
+.modules li { display: flex; justify-content: space-between; gap: var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--line); font-size: var(--fs-body-sm); }
 .modules li:first-child { border-top: none; }
 .modules .m-name { color: var(--text); }
 .modules .m-price { color: var(--sage); text-align: right; white-space: nowrap; }
 
 /* sanctioned savings figure + equal-weight non-guarantee */
 .savings { border: 1px solid var(--line-gold); border-radius: var(--radius-lg); background: var(--card-raised); padding: var(--sp-6) var(--sp-5); }
-.savings .s-amt { font-family: var(--font-display); font-weight: 600; color: var(--gold); font-size: clamp(1.55rem, 1.2rem + 1.6vw, 2.1rem); line-height: 1.12; }
-.savings .s-cap { color: var(--text-dim); font-size: 0.95rem; margin-top: var(--sp-2); line-height: 1.5; }
+.savings .s-amt { font-family: var(--font-display); font-weight: 600; color: var(--gold); font-size: clamp(1.55rem, 1.2rem + 1.6vw, 2.1rem); line-height: var(--lh-heading); }
+.savings .s-cap { color: var(--text-dim); font-size: var(--fs-body-sm); margin-top: var(--sp-2); line-height: var(--lh-prose); }
 .savings .s-guarantee {
   margin-top: var(--sp-4); padding-top: var(--sp-4); border-top: 1px solid var(--line-gold);
   font-family: var(--font-display); font-weight: 600; color: var(--champagne);
-  font-size: clamp(1.45rem, 1.15rem + 1.4vw, 1.95rem); line-height: 1.15;
+  font-size: clamp(1.45rem, 1.15rem + 1.4vw, 1.95rem); line-height: var(--lh-heading);
 }
-.savings .s-guarantee small { display: block; font-family: var(--font-sans); font-weight: 400; font-size: 0.95rem; color: var(--text-dim); margin-top: var(--sp-2); line-height: 1.5; }
+.savings .s-guarantee small { display: block; font-family: var(--font-sans); font-weight: 400; font-size: var(--fs-body-sm); color: var(--text-dim); margin-top: var(--sp-2); line-height: var(--lh-prose); }
 
 .coi { margin-top: var(--sp-5); display: grid; grid-template-columns: 1.1rem 1fr; gap: var(--sp-3);
-  font-size: 0.88rem; color: var(--sage); line-height: 1.55; }
+  font-size: var(--fs-ui); color: var(--sage); line-height: var(--lh-prose); }
 .coi .coi-mark { color: var(--gilt); }
 .coi a { color: var(--champagne); text-decoration: underline; text-underline-offset: 3px; }
 
@@ -436,7 +436,7 @@ em { font-style: italic; color: var(--champagne); }
 @media (min-width: 680px) { .profile { grid-template-columns: 1fr 1fr; } }
 .profile .row { background: var(--green-900); padding: var(--sp-5); }
 .profile .row .lab { font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
-.profile .row .val { margin-top: var(--sp-2); color: var(--text); font-size: 1.05rem; line-height: 1.5; }
+.profile .row .val { margin-top: var(--sp-2); color: var(--text); font-size: var(--fs-body); line-height: var(--lh-prose); }
 
 /* ---------- team ---------- */
 .team { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); }
@@ -463,14 +463,14 @@ em { font-style: italic; color: var(--champagne); }
   box-shadow: 0 0 0 1px var(--line-gold), 0 14px 30px -16px rgba(0,0,0,0.8);
 }
 .member h3 { font-size: var(--fs-h3); font-weight: 600; }
-.member .role { color: var(--champagne); font-size: var(--fs-label); letter-spacing: var(--tracking-tight); text-transform: uppercase; font-weight: 700; margin-top: var(--sp-1); font-family: var(--font-sans); }
-.member p { color: var(--sage); font-size: 0.95rem; line-height: 1.55; margin-top: var(--sp-4); }
+.member .role { color: var(--champagne); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; font-weight: 700; margin-top: var(--sp-1); font-family: var(--font-sans); }
+.member p { color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); margin-top: var(--sp-4); }
 /* Credentials as scannable labeled rows, not chips (Callan-grade credential density). */
 .member .creds { margin-top: auto; padding-top: var(--sp-4); }
 /* These rows run 33-54 characters, stretching a micro-label scale across sentence-length
    content (flagged independently by both critique assessments). Same champagne, same
    hairline rows: set as credential lines rather than labels so they can be read. */
-.member .creds li { font-size: 0.86rem; letter-spacing: 0.01em; color: var(--champagne); border-top: 1px solid var(--line); padding: var(--sp-3) 0; }
+.member .creds li { font-size: var(--fs-ui); letter-spacing: 0.01em; color: var(--champagne); border-top: 1px solid var(--line); padding: var(--sp-3) 0; }
 .member .s-src { margin-top: var(--sp-2); }
 
 /* ---------- CTA + form ---------- */
@@ -493,19 +493,19 @@ em { font-style: italic; color: var(--champagne); }
   .cta-grid .form { order: -1; }
 }
 .cta h2 { font-size: var(--fs-h1); line-height: 1.1; }
-.cta-copy p { margin-top: var(--sp-4); color: var(--text-dim); font-size: var(--fs-lead); line-height: 1.55; max-width: 44ch; }
-.cta-alt { margin-top: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-2); color: var(--sage); font-size: 0.95rem; }
+.cta-copy p { margin-top: var(--sp-4); color: var(--text-dim); font-size: var(--fs-lead); line-height: var(--lh-prose); max-width: 44ch; }
+.cta-alt { margin-top: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-2); color: var(--sage); font-size: var(--fs-body-sm); }
 .cta-alt a { color: var(--champagne); text-decoration: underline; text-underline-offset: 3px; }
 /* Compact post-book sequence beside the form (C16): triggers-lead label idiom + hairline rows. */
 .cta-after { margin-top: var(--sp-6); max-width: 30ch; }
 .cta-copy .cta-after-lead { margin-top: 0; font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
 .cta-after ol { counter-reset: booked; margin-top: var(--sp-3); }
-.cta-after li { counter-increment: booked; display: grid; grid-template-columns: 1.6rem 1fr; gap: var(--sp-3); align-items: baseline; padding: var(--sp-3) 0; border-top: 1px solid var(--line); color: var(--text-dim); font-size: 0.95rem; }
+.cta-after li { counter-increment: booked; display: grid; grid-template-columns: 1.6rem 1fr; gap: var(--sp-3); align-items: baseline; padding: var(--sp-3) 0; border-top: 1px solid var(--line); color: var(--text-dim); font-size: var(--fs-body-sm); }
 .cta-after li::before { content: counter(booked, decimal-leading-zero); font-size: var(--fs-label); letter-spacing: var(--tracking-tight); color: var(--gilt); font-weight: 700; font-variant-numeric: lining-nums tabular-nums; }
 
 .form { border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--green-850) 86%, transparent); padding: clamp(1.5rem, 1rem + 2vw, 2.2rem); }
 .field { margin-bottom: var(--sp-4); }
-.field label { display: block; font-size: 0.82rem; letter-spacing: var(--tracking-tight); text-transform: uppercase; color: var(--text-dim); font-weight: 600; margin-bottom: var(--sp-2); }
+.field label { display: block; font-size: var(--fs-ui); letter-spacing: var(--tracking-tight); text-transform: uppercase; color: var(--text-dim); font-weight: 700; margin-bottom: var(--sp-2); }
 .field label .req { color: var(--gilt); }
 .field input, .field select, .field textarea {
   width: 100%; min-height: var(--tap); padding: 0.7rem 0.9rem; font: inherit; font-size: 1rem;
@@ -530,16 +530,16 @@ em { font-style: italic; color: var(--champagne); }
 .field select[aria-invalid="true"]:focus-visible,
 .field textarea[aria-invalid="true"]:focus-visible { border-color: var(--error); outline-color: var(--error); }
 /* The message carries the fix, not just the fact. Never colour alone. */
-.field-error { margin-top: var(--sp-2); font-size: 0.84rem; line-height: 1.45; color: var(--error); display: none; }
+.field-error { margin-top: var(--sp-2); font-size: var(--fs-ui); line-height: var(--lh-prose); color: var(--error); display: none; }
 .field-error.is-shown { display: block; }
-.field-hint { margin-top: var(--sp-2); font-size: 0.8rem; line-height: 1.4; color: var(--sage-dim); }
+.field-hint { margin-top: var(--sp-2); font-size: var(--fs-label); line-height: 1.4; color: var(--sage-dim); }
 
 .form .btn-primary { width: 100%; }
 .form .btn-primary[disabled] { opacity: 0.62; cursor: progress; box-shadow: none; }
-.form-note { margin-top: var(--sp-4); font-size: 0.82rem; color: var(--sage-dim); line-height: 1.5; }
+.form-note { margin-top: var(--sp-4); font-size: var(--fs-ui); color: var(--sage-dim); line-height: var(--lh-prose); }
 .form-note a { color: var(--champagne); text-decoration: underline; text-underline-offset: 2px; }
 /* The rule gives the status presence in any state, so meaning never rides on hue. */
-.form-status { font-size: 0.9rem; line-height: 1.5; color: var(--text-dim); }
+.form-status { font-size: var(--fs-ui); line-height: var(--lh-prose); color: var(--text-dim); }
 .form-status:not(:empty) { margin-bottom: var(--sp-4); padding-left: var(--sp-4); border-left: 2px solid currentColor; }
 .form-status.is-error { color: var(--error); }
 .form-status.is-ok { color: var(--champagne); }
@@ -558,22 +558,22 @@ em { font-style: italic; color: var(--champagne); }
 .foot-top { display: grid; grid-template-columns: 1fr; gap: var(--sp-6); padding-bottom: var(--sp-6); border-bottom: 1px solid var(--line); }
 @media (min-width: 760px) { .foot-top { grid-template-columns: 1.3fr 1fr 1fr; } }
 .foot-brand .brand { margin-bottom: var(--sp-4); }
-.foot-brand .tagline { font-family: var(--font-display); font-style: italic; color: var(--champagne); font-size: 1.2rem; }
-.foot-brand .foot-contact { margin-top: var(--sp-4); color: var(--sage); font-size: 0.95rem; }
+.foot-brand .tagline { font-family: var(--font-display); font-style: italic; color: var(--champagne); font-size: var(--fs-h3-sm); }
+.foot-brand .foot-contact { margin-top: var(--sp-4); color: var(--sage); font-size: var(--fs-body-sm); }
 .foot-brand .foot-contact a { color: var(--text-dim); }
 /* font-family was missing, making this the only serif micro-label on the page:
    Cormorant at 12.48px, against DESIGN.md's "never below 18px". */
 .foot-col h3 { font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage-dim); font-weight: 700; margin-bottom: var(--sp-4); }
 .foot-col li { margin-bottom: var(--sp-3); }
-.foot-col a { color: var(--text-dim); font-size: 0.95rem; display: inline-block; padding-block: 0.8rem; }
+.foot-col a { color: var(--text-dim); font-size: var(--fs-body-sm); display: inline-block; padding-block: 0.8rem; }
 .foot-col a:hover { color: var(--text); }
 .disclosure { padding-top: var(--sp-6); }
 /* 84ch rendered 86/106/104 actual chars per line (ch is the width of "0", which Raleway
    draws wide). 52ch renders 69/72/68. Locked legal copy untouched; only the container. */
-.disclosure p { color: var(--sage-dim); font-size: 0.8rem; line-height: 1.65; max-width: 52ch; margin-bottom: 0.9rem; }
+.disclosure p { color: var(--sage-dim); font-size: var(--fs-label); line-height: 1.65; max-width: 52ch; margin-bottom: 0.9rem; }
 .disclosure a { color: var(--sage); text-decoration: underline; text-underline-offset: 2px; }
 .disclosure .legal-name { color: var(--sage); }
-.foot-base { margin-top: var(--sp-5); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-4); color: var(--sage-dim); font-size: 0.8rem; }
+.foot-base { margin-top: var(--sp-5); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-4); color: var(--sage-dim); font-size: var(--fs-label); }
 
 /* ---------- reveal animation ---------- */
 /* content is visible by default (works with JS off / before JS runs, and keeps the LCP heading instant);
@@ -680,8 +680,8 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 .belief:last-child { border-bottom: 1px solid var(--line); }
 .belief .b-mark { grid-row: span 2; align-self: start; width: 9px; height: 9px; margin-top: 0.55em;
   background: var(--gold); transform: rotate(45deg); }
-.belief h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.45rem; line-height: 1.18; }
-.belief p { color: var(--sage); font-size: 1rem; line-height: 1.55; max-width: 64ch; }
+.belief h3 { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3); line-height: var(--lh-heading); }
+.belief p { color: var(--sage); font-size: var(--fs-body); line-height: var(--lh-prose); max-width: 50ch; }
 .belief .accent { color: var(--champagne); }
 @media (min-width: 820px) {
   /* A 3.5rem track plus 2rem gap put ~75px between the diamond and its heading, so it
@@ -693,25 +693,25 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 /* ---------- fractional executive layer (inside engagement) ---------- */
 .fx { margin-top: var(--sp-8); border-top: 1px solid var(--line); padding-top: var(--sp-7); }
 .fx-eyebrow { font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; }
-.fx-head { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); margin-top: var(--sp-2); line-height: 1.2; }
+.fx-head { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h2-sm); margin-top: var(--sp-2); line-height: var(--lh-heading); }
 .fx-grid { margin-top: var(--sp-5); display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
 @media (min-width: 560px) { .fx-grid { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 900px) { .fx-grid { grid-template-columns: repeat(3, 1fr); } }
 .fx-grid li { background: var(--green-900); padding: var(--sp-5); }
-.fx-role { display: block; font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; color: var(--text); }
-.fx-grid p { color: var(--sage); font-size: 0.95rem; margin-top: var(--sp-1); line-height: 1.5; }
+.fx-role { display: block; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3-sm); color: var(--text); }
+.fx-grid p { color: var(--sage); font-size: var(--fs-body-sm); margin-top: var(--sp-1); line-height: var(--lh-prose); }
 
 /* ---------- decision triggers (inside who we serve) ---------- */
 .triggers { margin-top: var(--sp-7); }
 .triggers-lead { font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; margin-bottom: var(--sp-4); }
 .trigger-list { display: grid; grid-template-columns: 1fr; gap: 0 var(--sp-6); }
 @media (min-width: 720px) { .trigger-list { grid-template-columns: 1fr 1fr; } }
-.trigger-list li { display: grid; grid-template-columns: 1.2rem 1fr; gap: var(--sp-3); align-items: baseline; color: var(--text-dim); font-size: 1.02rem; line-height: 1.45; padding: var(--sp-3) 0; border-top: 1px solid var(--line); }
+.trigger-list li { display: grid; grid-template-columns: 1.2rem 1fr; gap: var(--sp-3); align-items: baseline; color: var(--text-dim); font-size: var(--fs-body); line-height: var(--lh-prose); padding: var(--sp-3) 0; border-top: 1px solid var(--line); }
 .trigger-list .tg-mark { color: var(--gilt); }
-.triggers-close { margin-top: var(--sp-5); font-family: var(--font-display); font-style: italic; font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem); color: var(--champagne); }
+.triggers-close { margin-top: var(--sp-5); font-family: var(--font-display); font-style: italic; font-size: var(--fs-h2-sm); color: var(--champagne); }
 /* The close stopped at x=756 against a 1,320px edge: 564px of empty right field under
    a full-width two-column list. It now sits on the same two tracks. */
-.triggers-notfit { margin-top: var(--sp-5); color: var(--sage); font-size: 0.95rem; line-height: 1.6; max-width: 66ch; }
+.triggers-notfit { margin-top: var(--sp-5); color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); max-width: 52ch; }
 @media (min-width: 720px) {
   .triggers-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--sp-6); align-items: start; }
   /* Explicit placement: auto-flow put the link under the disqualifier, separating the
@@ -723,7 +723,7 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 /* The conviction-peak exit ramp (C1): a quiet text link on the champagne underline idiom,
    its own element after the italic close line. Padding reaches the 44px tap floor. */
 .triggers-cta { margin-top: var(--sp-2); }
-.triggers-cta a { display: inline-block; padding-block: 0.8rem; color: var(--champagne); font-weight: 600; font-size: 0.95rem; text-decoration: underline; text-underline-offset: 3px; }
+.triggers-cta a { display: inline-block; padding-block: 0.8rem; color: var(--champagne); font-weight: 600; font-size: var(--fs-body-sm); text-decoration: underline; text-underline-offset: 3px; }
 .triggers-cta a:hover { color: var(--text); }
 
 /* ---------- fee model strip ---------- */
@@ -735,7 +735,7 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
     gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: start; padding: var(--sp-7) var(--sp-6); }
   .fee-model p { margin-top: 0; }
 }
-.fee-model h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.55rem); }
+.fee-model h3 { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2-sm); }
 .fee-model p { margin-top: var(--sp-3); color: var(--text-dim); line-height: 1.65; }
 
 /* ---------- first-year roadmap ---------- */
@@ -743,7 +743,7 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 @media (min-width: 880px) { .roadmap { grid-template-columns: repeat(3, 1fr); } }
 .rm-band { border-top: 1px solid var(--line-gold); padding-top: var(--sp-4); }
 .rm-band h3 { font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
-.rm-band p { margin-top: var(--sp-3); color: var(--sage); font-size: 0.95rem; line-height: 1.6; }
+.rm-band p { margin-top: var(--sp-3); color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
 
 /* head-aside: the one pattern break. Measured dead right field at 1440 was #faq 458px,
    #definition 456px, .fee-model 415px; #problem/#serve/#beliefs already fill their
@@ -763,7 +763,7 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
 /* ---------- definition block ---------- */
 .definition { max-width: var(--maxw-text); }
 /* Was running past the measure every other lead is held to. Copy untouched. */
-.definition p { margin-top: var(--sp-4); color: var(--text-dim); font-size: 1.05rem; line-height: 1.7; max-width: var(--maxw-read); }
+.definition p { margin-top: var(--sp-4); color: var(--text-dim); font-size: var(--fs-body); line-height: 1.7; max-width: var(--maxw-read); }
 
 /* ---------- founder story ---------- */
 .story-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-6); }
@@ -787,43 +787,43 @@ main > section.section--act { scroll-margin-top: calc(var(--sp-3) - var(--sectio
   pointer-events: none;
 }
 @media (max-width: 879.98px) { .story-photo { max-width: 360px; } }
-.story-body p { color: var(--text-dim); font-size: var(--fs-lead); line-height: 1.6; max-width: 62ch; }
+.story-body p { color: var(--text-dim); font-size: var(--fs-lead); line-height: var(--lh-prose); max-width: 62ch; }
 .story-body p + p { margin-top: var(--sp-4); }
-.story-pull { font-family: var(--font-display); font-style: italic; color: var(--champagne); font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem); line-height: 1.3; margin-top: var(--sp-5); }
-.story-by { margin-top: var(--sp-6); display: flex; align-items: center; gap: var(--sp-3); color: var(--sage); font-size: 0.92rem; }
+.story-body p.story-pull { font-family: var(--font-display); font-style: italic; color: var(--champagne); font-size: var(--fs-h2-sm); line-height: 1.3; margin-top: var(--sp-5); }
+.story-by { margin-top: var(--sp-6); display: flex; align-items: center; gap: var(--sp-3); color: var(--sage); font-size: var(--fs-body-sm); }
 .story-by .mono { display: inline-flex; gap: 0.4rem; }
-.story-by .mono span { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--green-950); border: 1px solid var(--line-gold); color: var(--champagne); font-family: var(--font-display); font-weight: 500; font-size: 1.125rem; }
+.story-by .mono span { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--green-950); border: 1px solid var(--line-gold); color: var(--champagne); font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h3-sm); }
 
 /* ---------- how it works steps ---------- */
 .steps { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); margin-top: var(--sp-2); }
 @media (min-width: 680px) { .steps { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 1000px) { .steps { grid-template-columns: repeat(4, 1fr); } }
 .step { border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card); padding: var(--sp-6) var(--sp-5); }
-.step .st-num { font-family: var(--font-display); font-weight: 500; font-size: 1.6rem; color: var(--gilt); font-variant-numeric: lining-nums tabular-nums; line-height: 1; }
+.step .st-num { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h3); color: var(--gilt); font-variant-numeric: lining-nums tabular-nums; line-height: 1; }
 .step h3 { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3); margin: var(--sp-3) 0 var(--sp-2); }
-.step p { color: var(--sage); font-size: 0.95rem; line-height: 1.55; }
+.step p { color: var(--sage); font-size: var(--fs-body-sm); line-height: var(--lh-prose); }
 
 /* ---------- FAQ (native disclosure, no JS) ---------- */
 /* Left-aligned to the gutter so the questions sit under the section heading. */
 .faq { max-width: 820px; border-top: 1px solid var(--line); }
 /* Inert above 1000px (the head-aside column is narrower); governs the stacked layout. */
 .faq-item { border-bottom: 1px solid var(--line); }
-.faq-item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--sp-5); padding: var(--sp-5) 0; font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; color: var(--text); }
+.faq-item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--sp-5); padding: var(--sp-5) 0; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3-sm); color: var(--text); }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item summary::after { content: ""; flex: none; width: 14px; height: 14px; background: no-repeat center / contain; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none' stroke='%23CCAA55' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M7 1.5v11M1.5 7h11'/%3E%3C/svg%3E"); transition: transform var(--dur-fast) var(--ease); }
 .faq-item[open] summary::after { transform: rotate(45deg); }
-.faq-item p { color: var(--sage); font-size: 1rem; line-height: 1.6; padding: 0 0 var(--sp-5); max-width: 66ch; }
+.faq-item p { color: var(--sage); font-size: var(--fs-body); line-height: var(--lh-prose); padding: 0 0 var(--sp-5); max-width: 52ch; }
 .faq-item summary:focus-visible { outline: 2px solid var(--champagne); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .faq-item summary::after { transition: none; } }
 
 /* ---------- closing promise band ---------- */
 .promise { padding-block: clamp(3.5rem, 2.5rem + 4vw, 6rem); background: var(--green-950); border-top: 1px solid var(--line); text-align: center; }
-.promise-lines { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.7rem, 1.2rem + 2vw, 2.6rem); line-height: 1.25; color: var(--text); }
+.promise-lines { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h2); line-height: var(--lh-heading); color: var(--text); }
 .promise-tag { margin-top: var(--sp-4); font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; }
 
 /* ---------- footer legal links ---------- */
 .foot-legal { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); }
-.foot-legal a { color: var(--sage-dim); font-size: 0.8rem; display: inline-block; padding-block: 0.8rem; }
+.foot-legal a { color: var(--sage-dim); font-size: var(--fs-label); display: inline-block; padding-block: 0.8rem; }
 .foot-legal a:hover { color: var(--text-dim); }
 address.foot-contact { font-style: normal; }
 
@@ -831,13 +831,13 @@ address.foot-contact { font-style: normal; }
 .legal-doc { padding-block: clamp(3rem, 2rem + 5vw, 6rem); }
 .legal-doc .wrap { max-width: 760px; }
 .legal-doc .display { font-size: clamp(2.2rem, 1.6rem + 2.5vw, 3.2rem); font-weight: 500; }
-.legal-back { display: inline-block; margin-bottom: var(--sp-6); font-size: 0.85rem; letter-spacing: var(--tracking-tight); text-transform: uppercase; color: var(--champagne); }
+.legal-back { display: inline-block; margin-bottom: var(--sp-6); font-size: var(--fs-ui); letter-spacing: var(--tracking-tight); text-transform: uppercase; color: var(--champagne); }
 .legal-back:hover { color: var(--text); }
-.legal-meta { color: var(--sage-dim); font-size: 0.85rem; margin-top: var(--sp-2); }
+.legal-meta { color: var(--sage-dim); font-size: var(--fs-ui); margin-top: var(--sp-2); }
 .legal-doc h2.title { font-size: clamp(1.3rem, 1.1rem + 1vw, 1.7rem); margin-top: var(--sp-8); margin-bottom: var(--sp-3); }
-.legal-doc p { color: var(--text-dim); max-width: 70ch; line-height: 1.7; margin-top: var(--sp-3); }
+.legal-doc p { color: var(--text-dim); max-width: 55ch; line-height: 1.7; margin-top: var(--sp-3); }
 .legal-doc a { color: var(--champagne); text-decoration: underline; text-underline-offset: 3px; }
-.legal-foot { margin-top: var(--sp-10); padding-top: var(--sp-5); border-top: 1px solid var(--line); color: var(--sage-dim); font-size: 0.85rem; }
+.legal-foot { margin-top: var(--sp-10); padding-top: var(--sp-5); border-top: 1px solid var(--line); color: var(--sage-dim); font-size: var(--fs-ui); }
 
 /* ---------- mobile sticky CTA (persistent conversion on phones) ---------- */
 .mobile-cta { display: none; }
@@ -848,8 +848,8 @@ address.foot-contact { font-style: normal; }
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 95; min-height: 52px;
     padding: 0.85rem 1rem; background: var(--gold); color: var(--ink);
-    font-family: var(--font-sans); font-weight: 700; font-size: 0.85rem;
-    letter-spacing: 0.12em; text-transform: uppercase; border-top: 1px solid var(--bullion);
+    font-family: var(--font-sans); font-weight: 700; font-size: var(--fs-ui);
+    letter-spacing: var(--tracking-cta); text-transform: uppercase; border-top: 1px solid var(--bullion);
     box-shadow: 0 -12px 30px -16px rgba(0,0,0,0.85);
     transition: transform var(--dur-fast) var(--ease), visibility 0s linear 0s;
   }
