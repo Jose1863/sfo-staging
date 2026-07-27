@@ -664,8 +664,9 @@
             <textarea id="f-msg" name="message" placeholder="A tax bill, an offer to buy the business, a new entity, or something else."></textarea>
           </div>
           <!-- Spam trap. Off-screen and out of the accessibility tree, so only a bot
-               fills it. A caught submission is dropped client-side, which is what
-               protects the monthly send cap. -->
+               fills it. Consumed by Formspree server-side; deliberately NOT dropped
+               client-side, because doing so killed valid submissions in silence when a
+               form-filler populated it. See the note in main.js. -->
           <div class="hp" aria-hidden="true">
             <label for="f-gotcha">Leave this field empty</label>
             <input id="f-gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
