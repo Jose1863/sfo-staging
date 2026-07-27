@@ -81,6 +81,7 @@
   --tracking-label: 0.18em;   /* hero / section labels */
   --tracking-tight: 0.12em;   /* micro labels: chips, sources, form */
   --tracking-cta:   0.12em;
+  --tracking-sub:   0.08em;   /* rank-2 labels: present but not competing with a kicker */
 
   /* ---- Spacing scale: 4px base for UI rhythm, generous steps for macro air ---- */
   --sp-1: 0.25rem; --sp-2: 0.5rem; --sp-3: 0.75rem; --sp-4: 1rem;
@@ -88,7 +89,11 @@
   --sp-10: 4rem;   --sp-12: 5rem;
 
   /* ---- Section rhythm and widths ---- */
-  --section-y: clamp(5rem, 3.5rem + 7vw, 9rem);
+  /* Default band pulled in from 9rem: at 9rem every boundary measured 291-336px
+     glyph-to-glyph and a quarter of the page was inter-section air, with the
+     deliberate act break only 13% larger than an ordinary gap. The tiers in
+     styles.css (--continues / --act) now read against a tighter default. */
+  --section-y: clamp(4.25rem, 3.0rem + 5.4vw, 7rem);
   --header-h:  76px;        /* sticky header height; single source of truth */
   --maxw:        1200px;
   --maxw-text:   760px;

@@ -57,8 +57,8 @@ ul, ol { list-style: none; padding: 0; }
    Applied ONLY where the transition is pure air. Where a sunk band meets the ground
    the colour change already carries the separation, so those boundaries keep the
    default and the bands stay symmetric. */
-.section--continues { padding-top: calc(var(--section-y) * 0.58); }  /* one argument running on */
-.section--act       { padding-top: calc(var(--section-y) * 1.32); }  /* a real act break */
+.section--continues { padding-top: calc(var(--section-y) * 0.52); }  /* one argument running on */
+.section--act       { padding-top: calc(var(--section-y) * 2.05); }  /* a real act break */
 /* Only #engagement takes --act. The other act break, into #contact, already has the
    hardest boundary on the page — the only full-bleed photographic ground — so paying
    46px of scroll to restate it would work against the heuristic this tier serves. */
@@ -79,7 +79,11 @@ ul, ol { list-style: none; padding: 0; }
 }
 .section--center .eyebrow { justify-content: center; }
 
-h1, h2, h3, .display { font-family: var(--font-display); font-weight: 600; }
+/* balance evens the rag on display type: the h1 was setting 24 / 26 / 9 characters,
+   a nine-character widow at 84px. pretty pulls orphans off long prose. */
+h1, h2, h3, .display { font-family: var(--font-display); font-weight: 600; text-wrap: balance; }
+p, li { text-wrap: pretty; }
+.s-guarantee { text-wrap: balance; }
 .display { font-size: var(--fs-display); font-weight: 500; line-height: var(--lh-tight); letter-spacing: -0.015em; }
 h2.title { font-size: var(--fs-h2); line-height: var(--lh-snug); letter-spacing: -0.008em; font-weight: 500; }
 .subtitle {
@@ -237,7 +241,7 @@ em { font-style: italic; color: var(--champagne); }
   display: flex; flex-direction: column;
 }
 .compare-col h3 {
-  font-family: var(--font-sans); text-transform: uppercase; letter-spacing: var(--tracking-label);
+  font-family: var(--font-sans); text-transform: uppercase; letter-spacing: var(--tracking-sub);
   font-size: var(--fs-label); font-weight: 700; margin-bottom: var(--sp-5);
 }
 .compare-before { border-color: var(--card-border); }
@@ -366,7 +370,16 @@ em { font-style: italic; color: var(--champagne); }
 .stat .s-fig { font-family: var(--font-display); font-weight: 600; color: var(--champagne); font-size: clamp(1.8rem, 1.5rem + 1vw, 2.1rem); display: inline-block; padding-bottom: var(--sp-3); border-bottom: 1px solid var(--line-gold); margin-bottom: var(--sp-1); }
 .stat .s-text { margin-top: var(--sp-3); color: var(--text-dim); font-size: 1rem; line-height: 1.5; max-width: 26ch; margin-inline: auto; }
 /* Generic dated-source line, usable under any figure on the page. */
-.s-src { display: block; font-size: var(--fs-label); letter-spacing: var(--tracking-tight); text-transform: uppercase; color: var(--sage); }
+/* ---------- label ranks ----------
+   One micro-label treatment was doing nine different jobs: field label, section
+   kicker, phase heading, job title, card head, step-list head and footer column
+   all rendered at the same 12.48px / champagne / 0.18em, so rank could not be read
+   from form. PRODUCT.md names exactly this as an anti-reference. Two ranks now:
+   rank 1 stays champagne at --tracking-label with the gold rule (section kickers,
+   the fractional-layer eyebrow, job titles, the promise tag); rank 2 is sage at
+   --tracking-sub with no rule, for labels that name a block rather than open a
+   section. */
+.s-src { display: block; font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); }
 .stat .s-src { margin-top: auto; padding-top: var(--sp-4); }
 .col-foot .s-src { margin-top: var(--sp-1); }
 .stats-note { text-align: center; margin-top: var(--sp-7); color: var(--sage); max-width: 64ch; margin-inline: auto; font-size: 1rem; }
@@ -432,7 +445,7 @@ em { font-style: italic; color: var(--champagne); }
 .profile { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
 @media (min-width: 680px) { .profile { grid-template-columns: 1fr 1fr; } }
 .profile .row { background: var(--green-900); padding: var(--sp-5); }
-.profile .row .lab { font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; }
+.profile .row .lab { font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
 .profile .row .val { margin-top: var(--sp-2); color: var(--text); font-size: 1.05rem; line-height: 1.5; }
 
 /* ---------- team ---------- */
@@ -464,7 +477,7 @@ em { font-style: italic; color: var(--champagne); }
   box-shadow: 0 0 0 1px var(--line-gold), 0 14px 30px -16px rgba(0,0,0,0.8);
 }
 .member h3 { font-size: var(--fs-h3); font-weight: 600; }
-.member .role { color: var(--champagne); font-size: 0.84rem; letter-spacing: var(--tracking-label); text-transform: uppercase; font-weight: 700; margin-top: var(--sp-1); font-family: var(--font-sans); }
+.member .role { color: var(--champagne); font-size: var(--fs-label); letter-spacing: var(--tracking-tight); text-transform: uppercase; font-weight: 700; margin-top: var(--sp-1); font-family: var(--font-sans); }
 .member p { color: var(--sage); font-size: 0.95rem; line-height: 1.55; margin-top: var(--sp-4); }
 /* Credentials as scannable labeled rows, not chips (Callan-grade credential density). */
 .member .creds { margin-top: auto; padding-top: var(--sp-4); }
@@ -490,7 +503,7 @@ em { font-style: italic; color: var(--champagne); }
 .cta-alt a { color: var(--champagne); text-decoration: underline; text-underline-offset: 3px; }
 /* Compact post-book sequence beside the form (C16): triggers-lead label idiom + hairline rows. */
 .cta-after { margin-top: var(--sp-6); max-width: 30ch; }
-.cta-copy .cta-after-lead { margin-top: 0; font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; }
+.cta-copy .cta-after-lead { margin-top: 0; font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
 .cta-after ol { counter-reset: booked; margin-top: var(--sp-3); }
 .cta-after li { counter-increment: booked; display: grid; grid-template-columns: 1.6rem 1fr; gap: var(--sp-3); align-items: baseline; padding: var(--sp-3) 0; border-top: 1px solid var(--line); color: var(--text-dim); font-size: 0.95rem; }
 .cta-after li::before { content: counter(booked, decimal-leading-zero); font-size: var(--fs-label); letter-spacing: var(--tracking-tight); color: var(--gilt); font-weight: 700; font-variant-numeric: lining-nums tabular-nums; }
@@ -552,7 +565,10 @@ em { font-style: italic; color: var(--champagne); }
 .foot-brand .tagline { font-family: var(--font-display); font-style: italic; color: var(--champagne); font-size: 1.2rem; }
 .foot-brand .foot-contact { margin-top: var(--sp-4); color: var(--sage); font-size: 0.95rem; }
 .foot-brand .foot-contact a { color: var(--text-dim); }
-.foot-col h3 { font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--sage-dim); font-weight: 700; margin-bottom: var(--sp-4); }
+/* font-family was missing, so this was the page's only serif micro-label: Cormorant
+   at 12.48px, against DESIGN.md's "Cormorant display, never below 18px". Every
+   sibling label component sets the sans stack explicitly; this one did not. */
+.foot-col h3 { font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage-dim); font-weight: 700; margin-bottom: var(--sp-4); }
 .foot-col li { margin-bottom: var(--sp-3); }
 .foot-col a { color: var(--text-dim); font-size: 0.95rem; display: inline-block; padding-block: 0.8rem; }
 .foot-col a:hover { color: var(--text); }
@@ -606,6 +622,9 @@ html.gsap .phase::before { transform: scale(var(--dot-scale, 1)); }
 
 /* ---------- mobile nav ---------- */
 @media (max-width: 1100px) {
+  .nav-toggle .ico-close { display: none; }
+  .nav-toggle[aria-expanded="true"] .ico-bars { display: none; }
+  .nav-toggle[aria-expanded="true"] .ico-close { display: block; }
   .nav-toggle {
     display: inline-flex; align-items: center; justify-content: center;
     width: var(--tap); height: var(--tap); border: 1px solid var(--line-strong);
@@ -697,7 +716,21 @@ main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62);
 .trigger-list li { display: grid; grid-template-columns: 1.2rem 1fr; gap: var(--sp-3); align-items: baseline; color: var(--text-dim); font-size: 1.02rem; line-height: 1.45; padding: var(--sp-3) 0; border-top: 1px solid var(--line); }
 .trigger-list .tg-mark { color: var(--gilt); }
 .triggers-close { margin-top: var(--sp-5); font-family: var(--font-display); font-style: italic; font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem); color: var(--champagne); }
+/* The close stopped at x=756 against a 1,320px content edge, 564px of empty right
+   field directly under a full-width two-column list. It now sits on the same two
+   tracks the list above it uses: the disqualifier takes the left column and the
+   conviction line plus its link close the right, so the section ends on its own
+   measure instead of trailing off. */
 .triggers-notfit { margin-top: var(--sp-5); color: var(--sage); font-size: 0.95rem; line-height: 1.6; max-width: 66ch; }
+@media (min-width: 720px) {
+  .triggers-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--sp-6); align-items: start; }
+  /* Explicit placement: the disqualifier holds the left column, and the conviction
+     line keeps its own CTA directly beneath it. Auto-flow put the link under the
+     disqualifier, which separated the ask from the sentence that earns it. */
+  .triggers-foot .triggers-notfit { grid-column: 1; grid-row: 1 / span 2; margin-top: var(--sp-5); max-width: none; }
+  .triggers-foot .triggers-close { grid-column: 2; grid-row: 1; margin-top: var(--sp-5); }
+  .triggers-foot .triggers-cta { grid-column: 2; grid-row: 2; }
+}
 /* The conviction-peak exit ramp (C1): a quiet text link on the champagne underline idiom,
    its own element after the italic close line. Padding reaches the 44px tap floor. */
 .triggers-cta { margin-top: var(--sp-2); }
@@ -721,7 +754,7 @@ main > section { scroll-margin-top: calc(var(--sp-3) - var(--section-y) * 0.62);
 .roadmap { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); margin-top: var(--sp-7); }
 @media (min-width: 880px) { .roadmap { grid-template-columns: repeat(3, 1fr); } }
 .rm-band { border-top: 1px solid var(--line-gold); padding-top: var(--sp-4); }
-.rm-band h3 { font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--champagne); font-weight: 700; }
+.rm-band h3 { font-family: var(--font-sans); font-size: var(--fs-label); letter-spacing: var(--tracking-sub); text-transform: uppercase; color: var(--sage); font-weight: 700; }
 .rm-band p { margin-top: var(--sp-3); color: var(--sage); font-size: 0.95rem; line-height: 1.6; }
 
 /* ---------- head-aside: the one pattern break ----------

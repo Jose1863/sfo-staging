@@ -396,7 +396,11 @@
       },
       "f-email": function (v) {
         if (!v.trim()) { return "Add an email address so we can send the reply."; }
-        if (!emailEl.checkValidity()) { return "That email is missing something. Check for a typo in the address, for example you@company.com."; }
+        /* checkValidity() accepts "a@b", which is valid per the HTML spec and useless
+           as a reply address. Require a dotted domain with a real TLD. */
+        if (!emailEl.checkValidity() || !/^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/.test(v.trim())) {
+          return "That email is missing something. Check for a typo in the address, for example you@company.com.";
+        }
         return "";
       }
     };
@@ -440,6 +444,44 @@
       });
     });
 
+    /* Draft persistence. An interrupted reader who comes back, or anyone bounced out
+       by the mailto fallback, previously found four empty fields and started again.
+       sessionStorage, so it dies with the tab and nothing personal outlives the visit. */
+    var DRAFT = "sfo-contact-draft";
+    var draftFields = ["f-name", "f-email", "f-rev", "f-msg"];
+
+    function saveDraft() {
+      try {
+        var d = {};
+        draftFields.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el && el.value) { d[id] = el.value; }
+        });
+        window.sessionStorage.setItem(DRAFT, JSON.stringify(d));
+      } catch (err) { /* private mode or a full quota: a lost draft is not worth throwing over */ }
+    }
+
+    function clearDraft() {
+      try { window.sessionStorage.removeItem(DRAFT); } catch (err) {}
+    }
+
+    (function restoreDraft() {
+      try {
+        var raw = window.sessionStorage.getItem(DRAFT);
+        if (!raw) { return; }
+        var d = JSON.parse(raw);
+        draftFields.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el && !el.value && d[id]) { el.value = d[id]; }
+        });
+      } catch (err) {}
+    })();
+
+    draftFields.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) { el.addEventListener("input", saveDraft); el.addEventListener("change", saveDraft); }
+    });
+
     function busy(on) {
       if (!submitBtn) { return; }
       submitBtn.disabled = on;
@@ -476,6 +518,7 @@
         .then(function (r) {
           if (!r.ok) { throw new Error("bad status"); }
           form.reset();
+          clearDraft();
           fields.forEach(clearError);
           busy(false);
           setStatus("Thank you. We will reply within one business day.", "is-ok");
