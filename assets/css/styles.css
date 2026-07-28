@@ -86,6 +86,20 @@ ul, ol { list-style: none; padding: 0; }
 h1, h2, h3, .display { font-family: var(--font-display); font-weight: 600; text-wrap: balance; }
 p, li { text-wrap: pretty; }
 .s-guarantee { text-wrap: balance; }
+/* Break control. pretty/balance cannot see sentence boundaries or keep units
+   together, so unbreakable units (names, figures, citations) and forced
+   thought-boundary breaks are marked in the markup. .nb glues a unit at 375px
+   and up and must be shorter than the narrowest column it sits in; below 375
+   the browser's default wrapping wins, so the 320px WCAG reflow pass is never
+   at risk from a glue. .nb-w glues only above 560px, for re-breaks whose
+   glued unit would overflow or triple-wrap a phone-width heading. Spans only:
+   no nbsp, the font subset does not cover U+00A0. */
+@media (min-width: 375px) { .nb { white-space: nowrap; } }
+@media (min-width: 560.02px) { .nb-w { white-space: nowrap; } }
+/* The phase rail captions run 2 lines at 1440 and up to 5 in the 768 rail;
+   balance picks the width-appropriate even break instead of stranding the
+   preposition at one width to fill the line at another. */
+.phase p { text-wrap: balance; }
 .display { font-size: var(--fs-display); font-weight: 500; line-height: var(--lh-tight); letter-spacing: -0.015em; }
 h2.title { font-size: var(--fs-h2); line-height: var(--lh-snug); letter-spacing: -0.008em; font-weight: 500; }
 .subtitle {
