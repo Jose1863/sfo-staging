@@ -468,7 +468,10 @@ body.cta-near .site-header .btn-primary:hover { background: var(--card-raised); 
 .profile .row .val { margin-top: var(--sp-2); color: var(--text); font-size: var(--fs-body); line-height: var(--lh-prose); }
 
 /* ---------- team ---------- */
-.team { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); align-items: start; }
+/* stretch, not start: with Tinja's strengthened bio the height stagger fell 140 -> 69px,
+   where it reads as misalignment instead of intent. Creds are NOT bottom-pinned (the
+   L1.4 mistake), so the slack lands at the card bottom and reads as padding. */
+.team { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); }
 @media (min-width: 600px) { .team { grid-template-columns: 1fr 1fr; } }
 /* Two principals: hold the card width the three-up grid had (≈384px) and centre
    the pair, so the row reads as composed rather than as a grid missing a card. */
