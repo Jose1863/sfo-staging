@@ -472,7 +472,7 @@ body.cta-near .site-header .btn-primary:hover { background: var(--card-raised); 
    where it reads as misalignment instead of intent. Creds are NOT bottom-pinned (the
    L1.4 mistake), so the slack lands at the card bottom and reads as padding. */
 .team { display: grid; grid-template-columns: 1fr; gap: var(--sp-5); }
-@media (min-width: 600px) { .team { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 600px) { .team { grid-template-columns: 1fr 1fr; row-gap: 0; } }
 /* Two principals: hold the card width the three-up grid had (≈384px) and centre
    the pair, so the row reads as composed rather than as a grid missing a card. */
 @media (min-width: 920px) {
@@ -488,6 +488,18 @@ body.cta-near .site-header .btn-primary:hover { background: var(--card-raised); 
    of void under one founder's last credential against 33px under the other's. The slack
    now falls between bio and credentials and both cards close on the same hairline. */
 .member { border: 1px solid var(--card-border); border-radius: var(--radius-lg); background: var(--card); padding: var(--sp-6) var(--sp-5); min-width: 0; display: flex; flex-direction: column; }
+/* Side-by-side symmetry (operator-directed): the two cards share row tracks
+   (photo / name / role / bio / creds), so the creds hairline opens on the same
+   line in both cards even when the bios differ by a line. Internal spacing is
+   carried by child margins (.team row-gap is 0 at 2-up); the subgrid spans the
+   member's 5 children today — a 6th child (the gate-0.8 date stamp) needs the
+   span bumped. Must sit AFTER the base .member rule or its flex wins the
+   cascade. Pre-subgrid browsers keep the flex-column card unchanged. */
+@media (min-width: 600px) {
+  @supports (grid-template-rows: subgrid) {
+    .member { display: grid; grid-template-rows: subgrid; grid-row: span 5; }
+  }
+}
 .member-photo {
   width: 100%; aspect-ratio: 4 / 5; height: auto;
   border-radius: var(--radius); object-fit: cover; object-position: center top;
